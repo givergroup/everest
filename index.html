@@ -741,7 +741,8 @@
                 }
             }
             function updatePriceElement(priceId, unitId, thbValue) {
-                const usdtVal = (thbValue / 29).toFixed(2);
+                // ปัดเศษ USDT ขึ้นเป็นจำนวนเต็มเสมอ เช่น 18.45 => 19
+                const usdtVal = Math.ceil(thbValue / 29).toLocaleString('en-US');
                 document.getElementById(priceId).textContent = usdtVal;
                 document.getElementById(unitId).textContent = "USDT + VAT";
             }
