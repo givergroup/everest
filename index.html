@@ -1,390 +1,1242 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Everest | ดิจิทัลแพลตฟอร์มสุดหรูเพื่อยุคใหม่</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --dark-bg: #013736;
-      --dark-bg-alt: #002820;
-      --gold: #b48600;
-      --gold-dark: #927000;
-      --accent: #065d4f;
-      --white: #f5f5f5;
-      --muted: #829e94;
-      --card-bg: rgba(1, 35, 34, 0.85);
-      --border: rgba(255, 255, 255, 0.08);
-      --radius: 22px;
-      --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Prompt", "Inter", sans-serif;
-      background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
-      color: var(--white);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* Header and nav */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(2, 12, 32, 0.7);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .nav-profile-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    /* Enlarged profile image only */
-    #navProfileImage {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: 3px solid var(--gold);
-      object-fit: cover;
-      display: none;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
-    }
-    .nav .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 1.3rem;
-    }
-    .nav .logo img {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-    }
-    .nav .links {
-      display: flex;
-      gap: 20px;
-      font-size: 0.9rem;
-    }
-    .nav .links a {
-      opacity: 0.85;
-      transition: opacity 0.2s ease;
-    }
-    .nav .links a:hover {
-      opacity: 1;
-      color: var(--gold);
-    }
-    .nav .cta {
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-      color: var(--dark-bg);
-      font-weight: 800;
-      font-size: 0.9rem;
-      box-shadow: 0 6px 18px rgba(180, 134, 0, 0.3);
-      white-space: nowrap;
-    }
-
-    /* Marquee: dark green background with gold text */
-    .marquee {
-      background: var(--dark-bg-alt);
-      color: var(--gold);
-      font-weight: 800;
-      font-size: 0.85rem;
-      overflow: hidden;
-      position: relative;
-    }
-    .marquee div {
-      display: inline-block;
-      padding: 12px 0;
-      white-space: nowrap;
-      animation: marquee 25s linear infinite;
-    }
-    @keyframes marquee {
-      from { transform: translateX(100%); }
-      to   { transform: translateX(-100%); }
-    }
-
-    /* Hero */
-    .hero {
-      padding: 60px 24px 80px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-    .hero .text { max-width: 600px; }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.6rem);
-      font-weight: 900;
-      line-height: 1.2;
-      margin: 0 0 20px;
-    }
-    .hero h1 .nowrap { white-space: nowrap; }
-    .hero h1 span {
-      color: var(--gold);
-      text-shadow: 0 0 12px rgba(180, 134, 0, 0.5);
-    }
-    .hero p { font-size: 1.1rem; color: var(--muted); margin-bottom: 28px; }
-    .hero .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-    .hero .actions a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-weight: 800;
-      text-transform: uppercase;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .hero .actions a.cta-primary {
-      background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-      color: var(--dark-bg);
-      box-shadow: 0 8px 22px rgba(180, 134, 0, 0.35);
-    }
-    .hero .actions a.cta-line {
-      background: linear-gradient(45deg, #0dd74f, #07b34a);
-      color: var(--dark-bg);
-      box-shadow: 0 8px 22px rgba(13, 215, 79, 0.35);
-    }
-    .hero .actions a.cta-outline {
-      border: 2px solid var(--gold);
-      color: var(--gold);
-      background: transparent;
-    }
-    .hero .actions a:hover { transform: translateY(-3px); }
-    .hero .media {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .hero .media img,
-    .hero .media iframe {
-      max-width: 100%;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .hero .media iframe {
-      aspect-ratio: 16 / 9;
-      border: none;
-    }
-
-    /* Sections, cards, sponsor, steps and footer styles stay the same as previous version */
-
-    /* Responsive tweaks for mobile */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero .media { order: -1; }
-      .sponsor { grid-template-columns: 1fr; }
-      .nav .links { display: none; }
-      .floating-cta { display: flex; }
-    }
-  </style>
-</head>
-<body>
-  <!-- Marquee showing random registration names -->
-  <div class="marquee">
-    <div id="marqueeContent"></div>
-  </div>
-
-  <!-- Header -->
-  <header>
-    <div class="nav">
-      <div class="nav-profile-wrap">
-        <img id="navProfileImage" src="" alt="ผู้แนะนำ" />
-      </div>
-      <a href="#" class="logo">
-        <img src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest-thai.png" alt="Project Everest Logo">
-        Project Everest
-      </a>
-      <div class="links">
-        <a href="#about">เกี่ยวกับ</a>
-        <a href="#academy">คอร์สเรียน</a>
-        <a href="#business">โมเดลธุรกิจ</a>
-        <a href="#sponsor">ผู้แนะนำ</a>
-        <a id="enLink" href="#" rel="noopener">ENGLISH</a>
-      </div>
-      <a id="navRegister" class="cta" href="#" target="_blank" rel="noopener">สมัคร</a>
-    </div>
-  </header>
-
-  <!-- Hero section -->
-  <section class="hero">
-    <div class="text">
-      <h1>เรียนรู้ทักษะใหม่<br/>สร้างตัวตน และ<span class="nowrap">ต่อยอด</span><br/><span>โอกาสทางธุรกิจ</span></h1>
-      <p>Project Everest คือแพลตฟอร์มดิจิทัลที่รวมคอร์สเรียนออนไลน์ สื่อความรู้ และคอนเทนต์ดิจิทัลหลากหลายประเภทไว้ในระบบเดียว เพื่อให้คุณเรียนรู้ พัฒนาทักษะ และนำไปใช้งานจริงได้อย่างเป็นระบบ</p>
-      <div class="actions">
-        <a id="heroRegister" class="cta-primary" href="#" target="_blank" rel="noopener">สมัคร / รับข้อมูล</a>
-        <a id="heroLine" class="cta-line" href="#" target="_blank" rel="noopener">ติดต่อ LINE</a>
-        <a class="cta-outline" href="#academy">ดู 9 สายอาชีพ</a>
-      </div>
-    </div>
-    <div class="media">
-      <img src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/everest-thai.png" alt="Everest Thai">
-      <iframe src="https://www.youtube.com/embed/AwRucYhIVJc?si=kZlxVWclqdppK-EG" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  </section>
-
-  <!-- … ส่วน About, Academy, Business model, Sponsor, Footer และ Floating CTA ยังคงเดิม … -->
-
-  <script>
-    const DEFAULT_REF = "coachpaul";
-    const MEMBERS_JSON_PATH = "./data/members.json";
-
-    function getReferralCode() {
-      const params = new URLSearchParams(window.location.search);
-      return (params.get("ref") || DEFAULT_REF).trim().toLowerCase();
-    }
-    function safeText(value, fallback = "") {
-      return value && String(value).trim() ? String(value).trim() : fallback;
-    }
-    function whatsappLink(rawPhone) {
-      const phone = safeText(rawPhone).replace(/[^\d+]/g, "");
-      if (!phone || phone.toLowerCase().includes("line")) return "#";
-      return "https://wa.me/" + phone.replace("+","");
-    }
-    function setLink(id, url) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (!url || url === "#") {
-        el.style.display = "none"; el.href = "#"; return;
-      }
-      el.style.display = "inline-flex"; el.href = url;
-    }
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
-    function setProfileImage(imgId, fallbackId, src, name) {
-      const img = document.getElementById(imgId);
-      const fallback = document.getElementById(fallbackId);
-      if (!img || !fallback) return;
-      const firstLetter = safeText(name,"E").charAt(0).toUpperCase();
-      fallback.textContent = firstLetter;
-      if (!src) {
-        img.style.display = "none"; fallback.style.display = "grid"; return;
-      }
-      img.src = src;
-      img.alt = "รูปโปรไฟล์ของ " + safeText(name,"ผู้แนะนำ");
-      img.onload = () => { img.style.display = "block"; fallback.style.display = "none"; };
-      img.onerror = () => { img.style.display = "none"; fallback.style.display = "grid"; };
-    }
-
-    function updateSponsor(member, refCode) {
-      const nameTh = safeText(member.name_th,"Project Everest");
-      const nameEn = safeText(member.name_en,"Sponsor");
-      const lineUrl = safeText(member.line_url,"#");
-      const registerLink = safeText(member.register_link,"#");
-      const imageUrl = safeText(member.image_url,"");
-      const phone = safeText(member.WhatsApp || member.whatsapp || member.phone,"");
-      const whatsApp = whatsappLink(phone);
-
-      setText("sponsorNameTh", nameTh);
-      setText("sponsorNameEn", nameEn);
-      setProfileImage("sponsorImage","avatarFallback", imageUrl, nameTh);
-
-      ["heroLine","sponsorLine","floatLine"].forEach(id => setLink(id, lineUrl));
-      ["heroRegister","sponsorRegister","floatRegister","navRegister"].forEach(id => setLink(id, registerLink));
-      ["sponsorWhatsApp"].forEach(id => setLink(id, whatsApp));
-
-      const host = "https://everest191.pages.dev";
-      const enLink = document.getElementById("enLink");
-      if (enLink) enLink.href = host + "/en/index.html?ref=" + encodeURIComponent(refCode);
-      const footerEn = document.getElementById("footerEnLink");
-      if (footerEn) footerEn.href = host + "/en/index.html?ref=" + encodeURIComponent(refCode);
-
-      // Set nav profile image (only one image shown)
-      const navImg = document.getElementById("navProfileImage");
-      if (navImg) {
-        if (imageUrl) {
-          navImg.src = imageUrl;
-          navImg.style.display = "block";
-        } else {
-          navImg.src = "";
-          navImg.style.display = "none";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Everest - แพลตฟอร์มยกระดับทักษะและการสร้างรายได้ระดับพรีเมียม</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom styling config for luxury dark theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            50: '#fdfbf7',
+                            100: '#fbf7ed',
+                            200: '#f4ebd2',
+                            300: '#eddca1',
+                            400: '#e1c667',
+                            500: '#d4af37', // Premium Rolex Gold
+                            600: '#bf982d',
+                            700: '#a07823',
+                            800: '#805d1e',
+                            900: '#694c1a',
+                        },
+                        obsidian: {
+                            800: '#141414',
+                            900: '#0B0B0B',
+                            950: '#050505'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s infinite linear',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
         }
-      }
+    </script>
+    <style>
+        /* Modern backdrop blur custom classes */
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gold-glow {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FFF 30%, #E1C667 70%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-silver {
+            background: linear-gradient(135deg, #FFFFFF 0%, #A3A3A3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Anti word-split for critical Thai words like ต่อยอด */
+        .thai-keep {
+            word-break: keep-all;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-obsidian-950 text-neutral-200 antialiased font-sans selection:bg-gold-500 selection:text-black">
 
-      // After sponsor update, generate new marquee names
-      generateMarqueeContent();
+<script>
+    // System Config & Coach Database
+    const coachDb = {
+        "coachpaul": {
+            "key": "paul",
+            "name_th": "โค้ชพล",
+            "name_en": "Coach Paul",
+            "phone": "+66952539634",
+            "line_url": "https://lin.ee/ScFhI5r",
+            "register_link": "https://everest-media.co/register?ref=E000694", 
+            "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpaul.png"
+        },
+        "coachpetch": {
+            "key": "petch",
+            "name_th": "คุณเพ็ชร",
+            "name_en": "Coachpetch",
+            "phone": "ติดต่อสอบถามผ่าน Line",
+            "line_url": "https://line.me/ti/p/6adHlDYIDR",
+            "register_link": "https://everest-media.co/register?ref=E000771", 
+            "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpetch.jpg"
+        }
+    };
+
+    // Global Active Coach State
+    let activeCoach = coachDb["coachpaul"];
+
+    // 90 Premium Randomized Thai Sign-up Registrants (Conversion Booster)
+    const registrants = [
+        "ธนพล เลิศวิจิตร", "วิภาดา รุ่งเรือง", "สมชาย ทรัพย์สิน", "ณัฐพงษ์ ศรีสุวรรณ", "ชลดา เกียตริไพศาล",
+        "อภิสิทธิ์ วัฒนพงศ์", "พัชราภา ตั้งใจเด็ด", "พงศธร บุญมี", "อรุณี เจริญพร", "จิรายุ สมบูรณ์",
+        "ปกรณ์ สุวรรณฉาย", "กิตติพงษ์ ทรัพย์ทวี", "รัตนา ปัญญาเลิศ", "ธีรเดช ศักดิ์เจริญ", "จารุวรรณ สุขใจ",
+        "สุพจน์ สุริยา", "วรรณภา บูรณะ", "เจษฎา แสนสุข", "เอกชัย ทองดี", "พัชรินทร์ มีทรัพย์",
+        "สมเกียรติ พูนพล", "ยุทธนา ปิยพันธุ์", "เมธี สุนทรารักษ์", "สิทธิชัย ศักดิ์เจริญ", "รังสรรค์ รัตนวิชัย",
+        "วิรัช รัตนโกสินทร์", "นิรันดร์ วงศ์ษา", "ศิริพร แซ่ตั้ง", "สุรเดช พัฒนเจริญ", "นงลักษณ์ รักดี",
+        "เกรียงไกร สมบูรณ์", "อมรินทร์ อุดมทรัพย์", "เกียรติศักดิ์ เจริญดี", "อนันต์ ทวีโชค", "นพดล พิพัฒน์",
+        "บัญชา ศรีนคร", "วีระ โชติช่วง", "สุทธิพงษ์ มั่นคง", "นรินทร์ เลิศปัญญา", "ธนากร แก้วมณี",
+        "วรวุฒิ สิทธิชัย", "ศักดิ์ชัย แสงจันทร์", "ประเสริฐ วงศ์ปัญญา", "อารีวรรณ ปิยะวัฒน์", "ศิริลักษณ์ อัศวชัย",
+        "ชัชวาลย์ วรโรจน์", "นพเกล้า ทวีวัฒน์", "ไกรสร ทัศนีย์", "เจริญศักดิ์ เด่นดวง", "วิศรุต ปรีชาชาญ",
+        "ณิชากร พรประสิทธิ์", "โสภณ ณ พัทลุง", "บุญส่ง พรหมมา", "ทวีศักดิ์ วงศ์สุภาพ", "มานะ มีผล",
+        "ปรีชา แสงอรุณ", "สมพร ดำรงธรรม", "เฉลิมพล ทวีเกียรติ", "สุชาติ รักธรรม", "กานดา ศรีสะอาด",
+        "ดนัย อนันตศิลป์", "เกรียงศักดิ์ นิลอุบล", "ชลสิทธิ์ พัฒนสุข", "ธวัชชัย เพชรน้ำหนึ่ง", "นที ธาราทิพย์",
+        "ปิยะ สุนทรานนท์", "พงษ์สิทธิ์ เรืองฤทธิ์", "รุ่งโรจน์ สว่างวงษ์", "วรุตม์ เจริญวงศ์", "ศักดิ์สิทธิ์ สุวรรณฉัตร",
+        "อเนก วงศ์ประเสริฐ", "อภิชาติ เลิศวรพงศ์", "อุดม เกียรติอนันต์", "สมบัติ ศิริวัฒน์", "อุทัย ชาญชัย",
+        "นิวัฒน์ มโนธรรม", "ศรันย์ รุ่งทรัพย์", "พีระพงศ์ วิจิตรศิลป์", "พงษ์สิทธิ์ ทวีสิน", "ยุทธการ วงศ์ศิลป์",
+        "อานนท์ เกรียงไกร", "ชยานนท์ ชาญวิทย์", "โฆสิต มนตรี", "ธีรภัทร อิทธิกร", "พัสกร พิพัฒนเดชา",
+        "วรากรณ์ ศักดิ์โสภา", "ศุภวิชญ์ พงศ์ไพโรจน์", "อดิเทพ โรจนศักดิ์", "กฤติน ศรีวรรณ", "ยศพล เกียรติมณี"
+    ];
+
+    const packageNames = ["Starter", "Premium", "Advanced", "Professional", "Signature"];
+
+    // Function to parse search query
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
     }
 
-    async function loadMemberData() {
-      const refCode = getReferralCode();
-      try {
-        const response = await fetch(MEMBERS_JSON_PATH,{ cache:"no-store" });
-        if (!response.ok) throw new Error("Cannot load members.json");
-        const members = await response.json();
-        const member = members[refCode] || members[DEFAULT_REF] || Object.values(members)[0];
-        if (!member) throw new Error("No member found");
-        updateSponsor(member, refCode);
-      } catch (error) {
-        console.error(error);
-        updateSponsor({
-          name_th: "Project Everest",
-          name_en: "Everest Platform",
-          line_url: "#",
-          register_link: "#",
-          image_url: ""
-        }, DEFAULT_REF);
-      }
-    }
-    loadMemberData();
+    // Function to update dynamic URLs and UI elements
+    function initializeCoachProfile() {
+        const ref = getQueryParam('ref');
+        if (ref === 'petch' || ref === 'coachpetch') {
+            activeCoach = coachDb["coachpetch"];
+        } else {
+            activeCoach = coachDb["coachpaul"]; // Default
+        }
 
-    /* สร้างข้อความวิ่งแบบสุ่ม 99 รายชื่อพร้อมธงชาติ */
-    function generateMarqueeContent() {
-      const thaiNames = [
-        "สมชาย นิลทอง 🇹🇭", "สมหญิง ใจดี 🇹🇭", "ณัฐพงศ์ ศรีวิเศษ 🇹🇭", "ปรียานันท์ บุญมาก 🇹🇭", "กาญจนา ศรีทอง 🇹🇭",
-        "ขจรศักดิ์ ประทีป 🇹🇭", "สุธิดา ภูเมฆ 🇹🇭", "กิตติพงษ์ สมบูรณ์ 🇹🇭", "สุภาภรณ์ ใจงาม 🇹🇭", "วันชัย เดชดำ 🇹🇭",
-        "รุ่งทิวา มณีชัย 🇹🇭", "ศิริวรรณ เพ็งหว้า 🇹🇭", "วุฒิกร พิมพ์ทอง 🇹🇭", "อภิญญา ศรีแสง 🇹🇭", "พิชัย อินทรา 🇹🇭",
-        "รัชนี ศิริวงศ์ 🇹🇭", "ธนวัฒน์ สุขดี 🇹🇭", "ชลธิชา ดวงแก้ว 🇹🇭", "ชัยวัฒน์ ตั้งใจ 🇹🇭", "สุนารี ทองสุข 🇹🇭"
-      ];
-      const laoNames = [
-        "ພະໂຣມ ສົມບູນ 🇱🇦", "ຊົນພອນ ວົງສິນ 🇱🇦", "ສຸກກິດ ພິມພ້ານ 🇱🇦", "ເພັດສະຫວັນ ໄຊຍິງ 🇱🇦", "ອານຸສອນ ແກ້ວສີຫອຍ 🇱🇦",
-        "ສົມບັດ ທິສານ 🇱🇦", "ສົມພອນ ຄຳພອນ 🇱🇦", "ສົມພູດ ທິມມຸນ 🇱🇦", "ທິມມີ ເກດທີ 🇱🇦", "ບຸນທາວີ ເມືອງພອນ 🇱🇦",
-        "ໂພທິ ໄຊຍາ 🇱🇦", "ພັດທະໄຊ ບຸນຈັນ 🇱🇦", "ຫຼວງພອງ ບູລິກຳ 🇱🇦", "ແກ້ວພອນ ສົມອັດ 🇱🇦", "ຄຳພູ ໂພນຄຳ 🇱🇦"
-      ];
-      const intlNames = [
-        "John Smith 🇺🇸", "Maria Garcia 🇪🇸", "Michael Brown 🇬🇧", "Emma Müller 🇩🇪", "David Lee 🇨🇦",
-        "Sophie Dubois 🇫🇷", "James Wilson 🇺🇸", "Sarah Kim 🇰🇷", "Robert Johnson 🇺🇸", "Isabella Rossi 🇮🇹",
-        "Thomas Nguyen 🇻🇳", "Laura González 🇲🇽", "Daniel Andersen 🇩🇰", "Chloe Martin 🇫🇷", "Liam O'Connor 🇮🇪",
-        "Emily Wright 🇬🇧", "Alexander Ivanov 🇷🇺", "Hiroshi Tanaka 🇯🇵", "Olivia Davies 🇦🇺", "Mateo Silva 🇧🇷",
-        "Lucas Santos 🇵🇹", "Sophia Berg 🇸🇪", "Mohammed Salah 🇪🇬", "Chen Wei 🇨🇳", "Amina Khan 🇵🇰"
-      ];
-      const pool = thaiNames.concat(laoNames).concat(intlNames);
-      const result = [];
-      for (let i = 0; i < 99; i++) {
-        const idx = Math.floor(Math.random() * pool.length);
-        result.push(pool[idx]);
-      }
-      const marqueeEl = document.getElementById("marqueeContent");
-      if (marqueeEl) {
-        marqueeEl.textContent = result.join("   •   ");
-      }
+        // Render coach-specific information
+        document.querySelectorAll('[data-coach-name]').forEach(el => el.textContent = activeCoach.name_th);
+        document.querySelectorAll('[data-coach-phone]').forEach(el => el.textContent = activeCoach.phone);
+        
+        document.querySelectorAll('[data-coach-line-btn]').forEach(el => {
+            el.href = activeCoach.line_url;
+        });
+        document.querySelectorAll('[data-coach-register-btn]').forEach(el => {
+            el.href = activeCoach.register_link;
+        });
+        
+        // Coach Image Updates
+        document.querySelectorAll('[data-coach-img]').forEach(el => {
+            el.src = activeCoach.image_url;
+            el.onerror = () => {
+                el.src = 'https://placehold.co/400x400/1e293b/d4af37?text=' + encodeURIComponent(activeCoach.name_en);
+            };
+        });
+
+        // Language Switcher Dynamic Configuration
+        const enSwitcher = document.getElementById('lang-switcher-en');
+        if (enSwitcher) {
+            enSwitcher.href = `https://everest191.pages.dev/en/?ref=${activeCoach.key}`;
+        }
+        const thSwitcher = document.getElementById('lang-switcher-th');
+        if (thSwitcher) {
+            thSwitcher.href = `https://everest191.pages.dev/?ref=${activeCoach.key}`;
+        }
     }
-  </script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+        initializeCoachProfile();
+        startNotificationLoop();
+    });
+</script>
+
+<header class="sticky top-0 z-50 glass-panel border-b border-white/5 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Brand identity Inspired by Tesla Minimalist Layout -->
+        <a href="#" class="flex items-center space-x-3 group">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold-600 to-amber-400 p-[1.5px] shadow-lg shadow-gold-500/10">
+                <div class="w-full h-full bg-obsidian-950 rounded-[10px] flex items-center justify-center">
+                    <span class="text-gold-400 font-extrabold text-xl tracking-tight">E</span>
+                </div>
+            </div>
+            <div>
+                <span class="text-white font-extrabold text-lg tracking-wider block leading-none">PROJECT EVEREST</span>
+                <span class="text-[10px] text-gold-500 font-medium tracking-widest uppercase block mt-1">THE ULTRA ELITE ACADEMY</span>
+            </div>
+        </a>
+
+        <!-- Premium Utility Links -->
+        <div class="flex items-center space-x-4">
+            <!-- Language Selection Switcher -->
+            <div class="bg-neutral-900/80 rounded-full p-1 border border-neutral-800 flex items-center text-xs">
+                <a id="lang-switcher-th" class="bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 font-bold px-3 py-1.5 rounded-full transition-all cursor-pointer">
+                    TH
+                </a>
+                <a id="lang-switcher-en" class="text-neutral-400 hover:text-white px-3 py-1.5 rounded-full transition-all cursor-pointer">
+                    EN
+                </a>
+            </div>
+            
+            <!-- Quick Contact Button -->
+            <a data-coach-line-btn target="_blank" class="hidden sm:flex items-center space-x-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 px-4 py-2 rounded-full text-xs font-semibold text-neutral-300 hover:text-gold-400 transition-all duration-300">
+                <i class="fab fa-line text-emerald-500 text-base"></i>
+                <span>คุยกับ <span data-coach-name>โค้ช</span></span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-12 md:py-24">
+    <!-- Radial Spotlight Glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.08)_0%,transparent_60%)] pointer-events-none"></div>
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-gold-500/5 rounded-full filter blur-[120px] pointer-events-none animate-pulse-slow"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 bg-gold-400/5 rounded-full filter blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Hero Typography Context (Left Grid) -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 bg-gradient-to-r from-gold-500/10 to-amber-400/10 border border-gold-500/20 px-4 py-1.5 rounded-full text-xs font-semibold text-gold-400 tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-gold-500 animate-ping"></span>
+                    <span>แพลตฟอร์มการเรียนรู้และสร้างอาชีพอันดับ 1 ของทีม Everest</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-none text-white font-sans">
+                    ปลดล็อกทุกขีดจำกัด<br class="hidden sm:inline">
+                    <span class="text-gradient-gold">เรียนรู้ พัฒนาทักษะ</span><br>
+                    และ <span class="text-gradient-gold thai-keep">ต่อยอด</span> โอกาสธุรกิจระดับสากล
+                </h1>
+                
+                <p class="text-base sm:text-lg text-neutral-400 font-light max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    ไม่ใช่แค่คอร์สออนไลน์ทั่วไป แต่คือ Ecosystem แห่งความสำเร็จ ที่หลอมรวมความรู้ดิจิทัลชั้นยอดและการสร้างรายได้จากพันธมิตรระดับโลกเข้าไว้ด้วยกันอย่างลงตัว
+                </p>
+
+                <!-- Immediate Value Propositions -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4 text-left max-w-lg mx-auto lg:mx-0">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-check-circle text-gold-500 mt-1 text-sm"></i>
+                        <span class="text-xs text-neutral-300">9 สายอาชีพเปลี่ยนชีวิต</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-check-circle text-gold-500 mt-1 text-sm"></i>
+                        <span class="text-xs text-neutral-300">จ่ายสูงสุดถึง 30%</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-check-circle text-gold-500 mt-1 text-sm"></i>
+                        <span class="text-xs text-neutral-300">ระบบ Auto-Matrix พรีเมียม</span>
+                    </div>
+                </div>
+
+                <!-- High Conversion CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-6">
+                    <a data-coach-register-btn target="_blank" class="w-full sm:w-auto relative group inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 font-bold text-obsidian-950 tracking-wider shadow-xl shadow-gold-500/20 transition-all duration-300 hover:scale-105 active:scale-95 text-center overflow-hidden">
+                        <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></span>
+                        <i class="fas fa-paper-plane mr-2 text-sm"></i>
+                        สมัครร่วมทีมเดี๋ยวนี้
+                    </a>
+                    <a data-coach-line-btn target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-neutral-900 border border-neutral-800 hover:border-gold-500/40 text-neutral-300 hover:text-white transition-all duration-300 text-center font-medium">
+                        <i class="fab fa-line mr-2 text-emerald-400 text-lg"></i>
+                        คุยกับทีมสปอนเซอร์ส่วนตัว
+                    </a>
+                </div>
+
+                <!-- Social Proof Live Badge inside Hero -->
+                <div class="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                    <div class="flex -space-x-3">
+                        <img class="w-9 h-9 rounded-full border-2 border-obsidian-950" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User 1">
+                        <img class="w-9 h-9 rounded-full border-2 border-obsidian-950" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="User 2">
+                        <img class="w-9 h-9 rounded-full border-2 border-obsidian-950" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=100" alt="User 3">
+                    </div>
+                    <p class="text-xs text-neutral-400">
+                        มีผู้เข้าร่วมและเรียนรู้ทักษะกับเราแล้วมากกว่า <span class="text-gold-500 font-bold">14,200+ คน</span> ทั่วประเทศ
+                    </p>
+                </div>
+            </div>
+
+            <!-- Hero Media Assets (Right Grid - Premium Image Mockup) -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative mx-auto max-w-[420px] lg:max-w-none">
+                    <!-- Tech Aura Background -->
+                    <div class="absolute -inset-1.5 bg-gradient-to-tr from-gold-500 to-amber-400 rounded-3xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    
+                    <div class="relative bg-obsidian-900 border border-white/10 p-4 rounded-3xl overflow-hidden shadow-2xl">
+                        <!-- Upper Bezel Header -->
+                        <div class="flex items-center justify-between mb-4 px-2">
+                            <div class="flex space-x-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                            </div>
+                            <span class="text-[10px] text-neutral-500 font-mono tracking-wider">PROJECT_EVEREST_ACTIVE.PNG</span>
+                        </div>
+                        
+                        <!-- Requested Image 1 Placement -->
+                        <img src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/everest-thai.png" 
+                             alt="Everest Thai" 
+                             class="w-full h-auto rounded-2xl object-cover shadow-inner hover:scale-[1.02] transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Everest+Thai+Platform'">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="border-y border-white/5 bg-neutral-900/40 py-8 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-gold-500 to-amber-400 rounded-full blur opacity-40"></div>
+                    <img data-coach-img src="" alt="Coach Profile" class="relative w-16 h-16 rounded-full object-cover border border-gold-500/30">
+                </div>
+                <div>
+                    <span class="text-xs text-gold-500 uppercase font-bold tracking-widest">ที่ปรึกษาส่วนตัวของคุณ</span>
+                    <h3 data-coach-name class="text-xl font-bold text-white leading-tight">โค้ช</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">เบอร์ติดต่อ: <span data-coach-phone>...</span></p>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 w-full md:w-auto justify-center">
+                <a data-coach-line-btn target="_blank" class="px-5 py-2.5 rounded-full bg-emerald-600/10 border border-emerald-500/30 hover:bg-emerald-600/20 text-emerald-400 text-sm font-semibold flex items-center space-x-2 transition-all">
+                    <i class="fab fa-line text-lg"></i>
+                    <span>สอบถามทางไลน์</span>
+                </a>
+                <a data-coach-register-btn target="_blank" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 text-sm font-extrabold flex items-center space-x-2 hover:scale-[1.03] transition-all">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>สมัครสมาชิกผ่านบัญชีโค้ช</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">CORPORATE OVERVIEW</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">
+                บริษัท Project Everest คืออะไร?
+            </p>
+            <div class="w-16 h-[2px] bg-gradient-to-r from-gold-500 to-amber-300 mx-auto mt-4"></div>
+            <p class="mt-4 text-neutral-400 font-light leading-relaxed">
+                Project Everest คือแพลตฟอร์มดิจิทัลระดับแนวหน้า ที่รวบรวมคอร์สเรียนออนไลน์ สื่อความรู้ และคอนเทนต์ดิจิทัลหลากหลายมิติ เพื่อให้ผู้ใช้งานเรียนรู้ พัฒนาทักษะ และนำไป <span class="text-gold-500 font-medium thai-keep">ต่อยอด</span> เป็นอาชีพหรือธุรกิจที่ยั่งยืนได้อย่างไร้ขีดจำกัด
+            </p>
+        </div>
+
+        <!-- Video Integration (Premium Embedded Frame) -->
+        <div class="max-w-4xl mx-auto mb-20">
+            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl gold-glow bg-obsidian-900 group">
+                <div class="aspect-video w-full">
+                    <!-- Embedded YouTube video correctly using Embed format -->
+                    <iframe class="w-full h-full" 
+                            src="https://www.youtube.com/embed/AwRucYhIVJc" 
+                            title="Project Everest Introduction Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <p class="text-center text-xs text-neutral-500 mt-4">
+                <i class="fas fa-info-circle mr-1"></i> วิดีโอแนะนำแนวคิดเบื้องหลังความสำเร็จของ Project Everest
+            </p>
+        </div>
+
+        <!-- Corporate Pillars (Apple Style Minimal Cards) -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden hover:border-gold-500/30 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-xl mb-6 border border-gold-500/20">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">เรียนรู้ได้ทุกที่</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    ระบบคอร์สเรียนรูปแบบออนไลน์ที่ได้รับการปรับปรุงเนื้อหาอย่างสม่ำเสมอ สามารถเชื่อมต่อเข้าเรียนรู้จากที่ไหนก็ได้ทั่วโลก 24 ชั่วโมง
+                </p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden hover:border-gold-500/30 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-xl mb-6 border border-gold-500/20">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">ใช้งานได้ทันที</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    หลักสูตรถูกออกแบบจากประสบการณ์ตรงของผู้เชี่ยวชาญ เน้นเนื้อหาแบบจับมือทำที่ผู้เรียนนำไปปฏิบัติและใช้สร้างผลงานจริงได้ทันที
+                </p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden hover:border-gold-500/30 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-xl mb-6 border border-gold-500/20">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3"><span class="thai-keep">ต่อยอด</span> โอกาสทางธุรกิจ</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    เชื่อมต่อทุกความรู้สู่โอกาสทางการเงินผ่านระบบพันธมิตร (Affiliate & Matrix) ที่ปฏิวัติแนวทางการสร้างความมั่งคั่งให้เข้าถึงได้ทุกคน
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-neutral-900/20 border-t border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">CURRICULUM</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">
+                9 สายอาชีพปฏิวัติรายได้ในอนาคต
+            </p>
+            <p class="mt-4 text-neutral-400 font-light leading-relaxed">
+                Everest Academy คัดสรรหลักสูตรเฉพาะทางที่ตลาดงานต้องการสูงสุดในปัจจุบัน และพร้อมอัปเดตหลักสูตรใหม่ๆ เติมเข้ามาในอนาคตเพื่อผลลัพธ์ของสมาชิกเป็นสำคัญ
+            </p>
+        </div>
+
+        <!-- 9 Interactive Course Cards Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Course 1 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 1</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-language"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        พัฒนาทักษะการฟัง พูด อ่าน เขียน เพื่อความมั่นใจในการสื่อสารระดับสากล การเจรจากับลูกค้าต่างชาติ และการสร้างโอกาสอาชีพขั้นสูง
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-briefcase mr-1"></i>คนทำงาน</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-user-tie mr-1"></i>เจ้าของธุรกิจ</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-graduation-cap mr-1"></i>ผู้เริ่มต้นภาษา</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 2</span>
+                        <div class="text-gold-400 text-lg"><i class="fab fa-facebook-f"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Facebook & Fanpage Marketing</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        การสร้างและปรับแต่งเพจอย่างเป็นทางการ เทคนิคการจัดทำเนื้อหาที่มียอดแชร์สูง การเพิ่มยอดผู้ติดตาม และการสร้างความน่าเชื่อถือให้แบรนด์เพื่อปิดการขาย
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-store mr-1"></i>พ่อค้าแม่ค้าออนไลน์</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-ad mr-1"></i>นักการตลาด</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 3 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 3</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-brain"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI เพื่อธุรกิจและการตลาดยุคใหม่</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        ทักษะแห่งอนาคตกับการนำเอาเครื่องมือ AI เช่น ChatGPT และ Generative AI อื่นๆ มาใช้วางแผนแคมเปญ ออกแบบคอนเทนต์ และทวีคูณประสิทธิภาพการทำงานให้เหนือคู่แข่ง
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">จุดเด่นพิเศษ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gold-500/10 text-gold-400 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-magic mr-1"></i>สร้างคอนเทนต์รวดเร็ว</span>
+                            <span class="bg-gold-500/10 text-gold-400 text-[10px] px-2.5 py-1 rounded-full"><i class="fas fa-bolt mr-1"></i>เพิ่มความเร็วการทำงาน</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 4 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 4</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-hat-wizard"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">ไพ่ทาโรต์และการพยากรณ์</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        ศาสตร์แห่งการอ่านความหมายและทำนายพลังงานอย่างมีหลักจิตวิทยาที่ถูกต้อง ทักษะทางเลือกที่สร้างความนิยมสูง เหมาะสำหรับบริการหรือผู้ทำงานสายที่ปรึกษาอิสระ
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">ผู้สนใจพยากรณ์ศาสตร์</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">สร้างอาชีพเสริมเสริมรายได้</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 5 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 5</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">คอร์สสอนทำอาหาร</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        เจาะลึกสูตรการทำอาหารเมนูยอดนิยม เทคนิคการตกแต่งจาน และการจัดโครงสร้างต้นทุนสู่วิชาชีพร้านอาหารหรือเดลิเวอรี่ที่มีประสิทธิภาพ
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">จุดเด่นพิเศษ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">สูตรทำตามง่ายได้จริง</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">ต่อยอดสู่อาหารออนไลน์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 6 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 6</span>
+                        <div class="text-gold-400 text-lg"><i class="fab fa-tiktok"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">TikTok Marketing</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        การจับทิศทางอัลกอริทึม การเล่าเรื่องสไตล์วิดีโอสั้นให้น่าดึงดูดตั้งแต่ 3 วินาทีแรก การเพิ่มผู้ติดตาม และแนวทางการไลฟ์สดขายของเพื่อกวาดรายได้มหาศาล
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">นักสร้างคอนเทนต์</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">พ่อค้าแม่ค้ายุคใหม่</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 7 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 7</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-bullseye"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">การตลาดออนไลน์ครบวงจร</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        ครอบคลุมการวิเคราะห์พฤติกรรมกลุ่มเป้าหมาย กลยุทธ์การจัดซื้อโฆษณาในแพลตฟอร์มต่างๆ และแนวคิดในการสร้างแบรนด์ออนไลน์ให้แข็งแกร่งตั้งแต่เริ่มต้น
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">ผู้ประกอบการ SME</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">ผู้เริ่มขายของออนไลน์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 8 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 8</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-video"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">ตัดต่อวิดีโอมืออาชีพ</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        เทคนิคการเล่าเรื่องผ่านภาพ การจับจังหวะเสียงดนตรี และขั้นตอนตัดแต่งวิดีโอผ่านเครื่องมือสมัยใหม่เพื่อดึงดูดสายตาผู้รับชมในทุกแพลตฟอร์มโซเชียลมีเดีย
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">จุดเด่นพิเศษ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gold-500/10 text-gold-400 text-[10px] px-2.5 py-1 rounded-full">รองรับวิดีโอทุก Platform</span>
+                            <span class="bg-gold-500/10 text-gold-400 text-[10px] px-2.5 py-1 rounded-full">เพิ่มคุณภาพการขายสินค้า</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 9 -->
+            <div class="glass-panel rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col h-full group">
+                <div class="p-8 flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gold-500">สายอาชีพที่ 9</span>
+                        <div class="text-gold-400 text-lg"><i class="fas fa-palette"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">กราฟิกดีไซน์และออกแบบสื่อ</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">
+                        หลักจิตวิทยาในการเลือกใช้สี ทฤษฎีการจัดวางองค์ประกอบ และขั้นตอนการใช้งานชุดกราฟิกเพื่อนำมาสื่อสารโฆษณาสินค้าหรือบริการให้ออกมาดูเรียบหรู น่าเชื่อถือ
+                    </p>
+                    <div class="border-t border-white/5 pt-4">
+                        <span class="text-[11px] text-neutral-500 block uppercase mb-2">เหมาะสำหรับ</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">เจ้าของเพจและธุรกิจ</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-[10px] px-2.5 py-1 rounded-full">คอนเทนต์ครีเอเตอร์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- High-conversion Call to Action beneath Courses -->
+        <div class="mt-16 text-center">
+            <p class="text-sm text-neutral-400 mb-6">ทักษะที่ยอดเยี่ยมเหล่านี้นำมารวมกันอยู่ในหนึ่งเดียว พร้อมสนับสนุนความสำเร็จของคุณแล้ววันนี้</p>
+            <a data-coach-register-btn target="_blank" class="inline-flex items-center space-x-3 bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 px-8 py-4 rounded-full font-bold text-base hover:scale-[1.03] transition-all duration-300 shadow-lg shadow-gold-500/20 cursor-pointer">
+                <span>เริ่มต้นลงทะเบียนเข้าเรียนด่วน</span>
+                <i class="fas fa-chevron-right text-sm"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 relative overflow-hidden">
+    <!-- Rolex inspired gold/dark accent lines -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gold-500/5 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">BUSINESS REVENUE SCHEME</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">
+                กลยุทธ์การต่อยอดทำรายได้ของ Project Everest
+            </p>
+            <p class="mt-4 text-neutral-400 font-light leading-relaxed">
+                การผสานสามโมเดลทรงประสิทธิภาพ: Digital Product Platform + Affiliate Marketing + Referral System มอบสัดส่วนการคืนผลตอบแทนที่ปฏิวัติและแตกต่างจากที่เคยมีมา
+            </p>
+        </div>
+
+        <!-- 3 Pillars Model Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-20">
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                <span class="text-gold-500 font-extrabold text-3xl block mb-4">01</span>
+                <h4 class="text-lg font-bold text-white mb-2">เลือกแพ็กเกจเรียนรู้</h4>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    สมัครสมาชิกระดับที่เหมาะสม เข้าศึกษาวิดีโอและทำตามกระบวนการที่ระบบเตรียมไว้ให้เพื่อสร้างทักษะ
+                </p>
+            </div>
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                <span class="text-gold-500 font-extrabold text-3xl block mb-4">02</span>
+                <h4 class="text-lg font-bold text-white mb-2">แนะนำแพลตฟอร์ม</h4>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    บอกต่อสิ่งดีๆ หรือสร้างช่องทางให้คนสมัครเข้าศึกษาผ่านลิงก์ส่วนตัวของคุณในระบบแนะนำต่อ
+                </p>
+            </div>
+            <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                <span class="text-gold-500 font-extrabold text-3xl block mb-4">03</span>
+                <h4 class="text-lg font-bold text-white mb-2">รับผลตอบแทนสูง</h4>
+                <p class="text-neutral-400 text-sm leading-relaxed">
+                    รับส่วนแบ่งรายได้ตามระบบการคำนวณและข้อตกลงของแผนธุรกิจอย่างถูกต้องตามเงื่อนไขของบริษัท
+                </p>
+            </div>
+        </div>
+
+        <!-- Structure Layout & Reborn Mechanics Simulator -->
+        <div class="grid lg:grid-cols-12 gap-12 items-center bg-neutral-900/40 border border-white/5 p-8 md:p-12 rounded-3xl">
+            <div class="lg:col-span-6 space-y-6">
+                <span class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-full text-[11px] font-semibold text-emerald-400">
+                    <i class="fas fa-coins text-sm"></i>
+                    <span>Promotion Bonus สูงสุดถึง 30%</span>
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white">ระบบ Auto-Matrix และ Reborn สุดอัจฉริยะ</h3>
+                <p class="text-neutral-300 text-sm leading-relaxed">
+                    สูตรสร้างรายรับแบบลื่นไหลไร้รอยต่อด้วยรูปแบบ Matrix 2 สายงาน รวม 6 รหัส ช่วยพยุงการเติบโตของทีมงานและการแนะนำต่อได้อย่างทรงคุณค่า
+                </p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start space-x-3">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-xs"><i class="fas fa-check"></i></span>
+                        <span class="text-neutral-300 text-sm font-light"><strong>ชั้นที่ 1 จ่าย 10%</strong> (นำหักเก็บไว้ 7% สำหรับการ Reborn)</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-xs"><i class="fas fa-check"></i></span>
+                        <span class="text-neutral-300 text-sm font-light"><strong>ชั้นที่ 2 จ่าย 50%</strong> (นำหักเก็บไว้ 50% สำหรับการ Reborn)</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-xs"><i class="fas fa-check"></i></span>
+                        <span class="text-neutral-300 text-sm font-light"><strong>ระบบ Reborn:</strong> พากลับสู่รอบการสร้างยอดรายได้ใหม่พร้อมโบนัสนายหน้า 30% ให้ผู้แนะนำตลอดไป</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Requested Image 2 Placement -->
+            <div class="lg:col-span-6 relative">
+                <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-xl bg-obsidian-900 p-4">
+                    <img src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest-thai.png" 
+                         alt="Project Everest Thai Strategy" 
+                         class="w-full h-auto rounded-xl shadow-lg"
+                         onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Project+Everest+Model'">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-obsidian-950/90 to-transparent p-6 text-center">
+                        <span class="text-[11px] font-bold text-gold-400 uppercase tracking-widest"><i class="fas fa-network-wired mr-1.5"></i>แผนผังรายได้แบบพรีเมียม</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Split Matrix Calculator -->
+        <div class="mt-12 bg-neutral-900/60 border border-white/5 p-6 md:p-8 rounded-3xl">
+            <h4 class="text-lg font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-calculator text-gold-500 mr-2.5"></i>
+                ตารางจำลองสัดส่วนส่วนแบ่ง (Matrix 70% / 20% / 10%)
+            </h4>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Advanced/Signature Package Simulation Details -->
+                <div class="bg-obsidian-900 border border-white/5 p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
+                        <span class="text-sm font-bold text-white">แพ็กเกจยอดนิยม (7,490 บาท)</span>
+                        <span class="text-xs bg-gold-500/10 text-gold-400 px-2.5 py-1 rounded-full font-bold">Signature</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>ยอดรายได้ Matrix รวมทั้งหมด</span>
+                            <span class="font-bold text-white">7,910 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 70% (ผู้ดำเนินการเดิมได้รับ)</span>
+                            <span class="font-bold text-gold-400">5,537 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 20% (ผู้แนะนำโดยตรง)</span>
+                            <span class="font-bold text-white">1,582 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 10% (ผู้แนะนำของผู้แนะนำ)</span>
+                            <span class="font-bold text-neutral-300">791 บาท</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Starter Package Simulation Details -->
+                <div class="bg-obsidian-900 border border-white/5 p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
+                        <span class="text-sm font-bold text-white">แพ็กเกจทดลอง (535 บาท)</span>
+                        <span class="text-xs bg-neutral-800 text-neutral-300 px-2.5 py-1 rounded-full font-bold">Starter</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>ยอดรายได้ Matrix รวมทั้งหมด</span>
+                            <span class="font-bold text-white">565 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 70% (ผู้ดำเนินการเดิมได้รับ)</span>
+                            <span class="font-bold text-gold-400">395.5 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 20% (ผู้แนะนำโดยตรง)</span>
+                            <span class="font-bold text-white">113 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400">
+                            <span>สัดส่วน 10% (ผู้แนะนำของผู้แนะนำ)</span>
+                            <span class="font-bold text-neutral-300">56.5 บาท</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promotion All Sales Info Box -->
+            <div class="mt-8 p-4 bg-gold-500/5 rounded-2xl border border-gold-500/10 flex items-start space-x-3">
+                <i class="fas fa-gift text-gold-500 mt-0.5 text-base"></i>
+                <div class="text-xs text-neutral-400 leading-relaxed">
+                    <strong class="text-white block mb-0.5">Promotion All Sales ยิ่งใหญ่ทุกๆ สิ้นเดือน</strong>
+                    โบนัสจากยอดขายรวมของระบบตามเงื่อนไขบริษัท จะมีการจ่ายรหัสละ 1% ภายใต้สายงานแมททริกซ์ 2 สายงาน ลึกสุดถึง 10 ชั้น รวมสูงสุด 2,048 รหัส จ่ายให้คุณโดยตรงทันที
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="pricing" class="py-24 bg-neutral-900/40 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">MEMBERSHIP PLANS</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">เลือกแพ็กเกจความสำเร็จระดับที่เหมาะสม</p>
+            <p class="mt-4 text-neutral-400 font-light text-sm">
+                เข้าถึงโอกาสสร้างความมั่งคั่งได้ตามงบประมาณที่คุณพร้อม เริ่มต้นง่ายด้วยราคาที่สมเหตุสมผล
+            </p>
+
+            <!-- Currency Conversion Premium Widget (USDT Toggle Option) -->
+            <div class="mt-8 inline-flex items-center space-x-3 bg-neutral-900 border border-white/5 p-1 rounded-full text-xs">
+                <button id="btn-currency-thb" onclick="toggleCurrency('THB')" class="px-4 py-2 rounded-full font-bold transition-all bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 shadow-md">
+                    THB (บาทไทย)
+                </button>
+                <button id="btn-currency-usdt" onclick="toggleCurrency('USDT')" class="px-4 py-2 rounded-full font-semibold transition-all text-neutral-400 hover:text-white">
+                    USDT (คริปโต)
+                </button>
+            </div>
+        </div>
+
+        <!-- 5 Packages Main Columns Flex Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch">
+            
+            <!-- Starter Package -->
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all duration-300">
+                <div>
+                    <span class="text-xs text-neutral-400 font-bold tracking-wider uppercase">Starter</span>
+                    <div class="mt-4 flex items-baseline">
+                        <span id="price-starter" class="text-3xl font-extrabold text-white">535</span>
+                        <span id="unit-starter" class="text-xs text-neutral-400 ml-1">บาท + VAT</span>
+                    </div>
+                    <p class="text-[11px] text-neutral-400 mt-2">เหมาะสำหรับผู้เริ่มต้น เรียนรู้และทดลองระบบ</p>
+                </div>
+                <div class="mt-8">
+                    <a data-coach-register-btn target="_blank" class="w-full py-2.5 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all text-center text-xs block font-bold cursor-pointer">
+                        เลือกสมัครแพ็กเกจนี้
+                    </a>
+                </div>
+            </div>
+
+            <!-- Premium Package -->
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all duration-300">
+                <div>
+                    <span class="text-xs text-neutral-400 font-bold tracking-wider uppercase">Premium</span>
+                    <div class="mt-4 flex items-baseline">
+                        <span id="price-premium" class="text-3xl font-extrabold text-white">1,605</span>
+                        <span id="unit-premium" class="text-xs text-neutral-400 ml-1">บาท + VAT</span>
+                    </div>
+                    <p class="text-[11px] text-neutral-400 mt-2">เหมาะสำหรับผู้ที่ต้องการเพิ่มทักษะและเข้าถึงโอกาสมากขึ้น</p>
+                </div>
+                <div class="mt-8">
+                    <a data-coach-register-btn target="_blank" class="w-full py-2.5 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all text-center text-xs block font-bold cursor-pointer">
+                        เลือกสมัครแพ็กเกจนี้
+                    </a>
+                </div>
+            </div>
+
+            <!-- Advanced Package -->
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all duration-300">
+                <div>
+                    <span class="text-xs text-neutral-400 font-bold tracking-wider uppercase">Advanced</span>
+                    <div class="mt-4 flex items-baseline">
+                        <span id="price-advanced" class="text-3xl font-extrabold text-white">3,210</span>
+                        <span id="unit-advanced" class="text-xs text-neutral-400 ml-1">บาท + VAT</span>
+                    </div>
+                    <p class="text-[11px] text-neutral-400 mt-2">เหมาะสำหรับผู้ที่ต้องการพัฒนาตัวเองอย่างจริงจัง</p>
+                </div>
+                <div class="mt-8">
+                    <a data-coach-register-btn target="_blank" class="w-full py-2.5 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all text-center text-xs block font-bold cursor-pointer">
+                        เลือกสมัครแพ็กเกจนี้
+                    </a>
+                </div>
+            </div>
+
+            <!-- Professional Package -->
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all duration-300">
+                <div>
+                    <span class="text-xs text-neutral-400 font-bold tracking-wider uppercase">Professional</span>
+                    <div class="mt-4 flex items-baseline">
+                        <span id="price-professional" class="text-3xl font-extrabold text-white">5,350</span>
+                        <span id="unit-professional" class="text-xs text-neutral-400 ml-1">บาท + VAT</span>
+                    </div>
+                    <p class="text-[11px] text-neutral-400 mt-2">เหมาะสำหรับระดับการทำงานและธุรกิจแบบมืออาชีพ</p>
+                </div>
+                <div class="mt-8">
+                    <a data-coach-register-btn target="_blank" class="w-full py-2.5 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all text-center text-xs block font-bold cursor-pointer">
+                        เลือกสมัครแพ็กเกจนี้
+                    </a>
+                </div>
+            </div>
+
+            <!-- Signature Package (Recommended Luxury Package) -->
+            <div class="glass-panel border-gold-500/50 gold-glow p-6 rounded-3xl flex flex-col justify-between hover:border-gold-500 transition-all duration-300 relative">
+                <!-- Most Popular / VIP Badge -->
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 font-extrabold text-[10px] tracking-widest px-3 py-1 rounded-full uppercase">
+                    RECOMMENDED
+                </span>
+                
+                <div>
+                    <span class="text-xs text-gold-400 font-extrabold tracking-wider uppercase">Signature</span>
+                    <div class="mt-4 flex items-baseline">
+                        <span id="price-signature" class="text-3xl font-extrabold text-gold-400">7,490</span>
+                        <span id="unit-signature" class="text-xs text-neutral-300 ml-1">บาท + VAT</span>
+                    </div>
+                    <p class="text-[11px] text-neutral-300 mt-2">คุ้มค่าที่สุด! เพื่อเข้าถึงเครื่องมือหลักสูตรระดับสากลครบวงจรสูงสุด</p>
+                </div>
+                <div class="mt-8">
+                    <a data-coach-register-btn target="_blank" class="w-full py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 font-extrabold text-center text-xs block shadow-lg shadow-gold-500/20 hover:scale-[1.03] transition-all cursor-pointer">
+                        เลือกสมัครแพ็กเกจสูงสุด
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Dynamic USDT Price Calculator Logic -->
+        <script>
+            function toggleCurrency(type) {
+                const btnThb = document.getElementById('btn-currency-thb');
+                const btnUsdt = document.getElementById('btn-currency-usdt');
+                
+                // Active configuration
+                if (type === 'USDT') {
+                    btnUsdt.className = "px-4 py-2 rounded-full font-bold transition-all bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 shadow-md";
+                    btnThb.className = "px-4 py-2 rounded-full font-semibold transition-all text-neutral-400 hover:text-white";
+
+                    // Update values based on (1 USDT = 29 THB promotional exchange rate)
+                    updatePriceElement('price-starter', 'unit-starter', 535);
+                    updatePriceElement('price-premium', 'unit-premium', 1605);
+                    updatePriceElement('price-advanced', 'unit-advanced', 3210);
+                    updatePriceElement('price-professional', 'unit-professional', 5350);
+                    updatePriceElement('price-signature', 'unit-signature', 7490, true);
+                } else {
+                    btnThb.className = "px-4 py-2 rounded-full font-bold transition-all bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 shadow-md";
+                    btnUsdt.className = "px-4 py-2 rounded-full font-semibold transition-all text-neutral-400 hover:text-white";
+
+                    // Revert values to standard THB
+                    setStandardThbPrice('price-starter', 'unit-starter', "535");
+                    setStandardThbPrice('price-premium', 'unit-premium', "1,605");
+                    setStandardThbPrice('price-advanced', 'unit-advanced', "3,210");
+                    setStandardThbPrice('price-professional', 'unit-professional', "5,350");
+                    setStandardThbPrice('price-signature', 'unit-signature', "7,490");
+                }
+            }
+
+            function updatePriceElement(priceId, unitId, thbValue, isGold = false) {
+                const usdtVal = (thbValue / 29).toFixed(2);
+                document.getElementById(priceId).textContent = usdtVal;
+                document.getElementById(unitId).textContent = "USDT + VAT";
+            }
+
+            function setStandardThbPrice(priceId, unitId, standardValue) {
+                document.getElementById(priceId).textContent = standardValue;
+                document.getElementById(unitId).textContent = "บาท + VAT";
+            }
+        </script>
+
+        <!-- USDT Payment Terms Information Disclaimer (Highly Premium Accent Box) -->
+        <div class="mt-12 max-w-4xl mx-auto p-6 bg-neutral-900 border border-white/5 rounded-3xl">
+            <h5 class="text-sm font-bold text-white mb-2"><i class="fas fa-exclamation-shield text-gold-500 mr-2"></i>หมายเหตุสำคัญเกี่ยวกับโครงสร้างธุรกรรม USDT (คริปโตเคอเรนซี)</h5>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+                มูลค่าราคาเทียบเท่าในสกุลเงิน USDT จะคำนวณตามสูตรอัตราแลกเปลี่ยนคงที่โปรโมชั่นเฉพาะ **1 USDT = 29 บาท** ซึ่งอัตราดังกล่าวอาจครอบคลุมค่าธรรมเนียมประมวลผลเครือข่ายบล็อกเชนเป็นที่เรียบร้อย โปรดยึดยอดรวมสุดท้ายตามระบบการชำระเงินที่แจ้งในหน้าเว็บไซต์เป็นหลัก หากมีคำถามเพิ่มเติมกรุณาติดต่อประสานงานโดยตรงกับที่ปรึกษาของคุณทันที
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<div id="reg-toast" class="fixed bottom-6 left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-700 ease-out max-w-sm w-full">
+    <div class="glass-panel border-gold-500/30 gold-glow p-4 rounded-2xl flex items-center space-x-4">
+        <!-- Notification Icon -->
+        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 flex items-center justify-center text-obsidian-950 font-bold">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <!-- Notification Text Content -->
+        <div>
+            <span class="text-[10px] text-gold-500 uppercase tracking-widest font-extrabold block">ผู้สมัครใหม่เข้าร่วมทีม</span>
+            <span id="toast-name" class="text-sm font-bold text-white block">...</span>
+            <span id="toast-action" class="text-xs text-neutral-400 block">...</span>
+        </div>
+        <!-- Close Button -->
+        <button onclick="dismissToast()" class="text-neutral-500 hover:text-white ml-auto">
+            <i class="fas fa-times text-xs"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    // System to loop notification toasts imitating real life sign ups
+    let toastIndex = 0;
+    let toastTimer;
+
+    function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function showRegistrationToast() {
+        const toast = document.getElementById('reg-toast');
+        const nameEl = document.getElementById('toast-name');
+        const actionEl = document.getElementById('toast-action');
+
+        // Random Thai Registrant Info
+        const randomName = getRandomElement(registrants);
+        const randomPackage = getRandomElement(packageNames);
+        
+        nameEl.textContent = `คุณ ${randomName}`;
+        actionEl.textContent = `สมัครสมาชิกแพ็กเกจ ${randomPackage} แล้ว`;
+
+        // Slide up and Fade-in
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        // Hide notification after 4 seconds
+        setTimeout(() => {
+            dismissToast();
+        }, 4000);
+    }
+
+    function dismissToast() {
+        const toast = document.getElementById('reg-toast');
+        if (toast) {
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-24', 'opacity-0');
+        }
+    }
+
+    function startNotificationLoop() {
+        // First notification in 5 seconds
+        setTimeout(() => {
+            showRegistrationToast();
+            // Loop every 12 to 18 seconds
+            toastTimer = setInterval(() => {
+                showRegistrationToast();
+            }, Math.floor(Math.random() * (18000 - 12000 + 1)) + 12000);
+        }, 5000);
+    }
+</script>
+
+<section class="py-24 border-t border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">TESTIMONIALS</h2>
+            <p class="text-3xl sm:text-4xl font-extrabold text-white">เสียงตอบรับจริงจากสมาชิกระดับพรีเมียม</p>
+            <p class="mt-4 text-neutral-400 font-light text-sm">
+                ความสม่ำเสมอในการส่งมอบคุณค่าและการปฏิบัติงานจริง พลิกโฉมทักษะของผู้เรียนสู่ความสำเร็จที่ประเมินค่ามิได้
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                <div>
+                    <div class="flex text-gold-500 space-x-1 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-sm text-neutral-300 italic font-light leading-relaxed">
+                        "ตั้งแต่เลือกเริ่มศึกษา AI และการทำการตลาดออนไลน์ผ่านแพลตฟอร์มนี้ ยอดขายแบรนด์ส่วนตัวโตขึ้น 3 เท่าอย่างชัดเจน คุ้มค่าที่สุดกับการตัดสินใจครั้งนี้"
+                    </p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-white/5 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-gold-400 text-xs">คุณอภิชา</div>
+                    <div>
+                        <span class="text-xs font-bold text-white block">คุณอภิชา สุขเจริญ</span>
+                        <span class="text-[10px] text-neutral-500">เจ้าของกิจการ SME</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                <div>
+                    <div class="flex text-gold-500 space-x-1 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-sm text-neutral-300 italic font-light leading-relaxed">
+                        "ตอนแรกกังวลเรื่องการหาลูกค้า แต่ที่นี่มีระบบ Matrix และ Affiliate ที่ทันสมัยมาก ทำให้ทีมงานเติบโตอย่างมั่นคงและสร้างยอดรับรายได้ได้อย่างเป็นระบบ"
+                    </p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-white/5 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-gold-400 text-xs">คุณณัฐ</div>
+                    <div>
+                        <span class="text-xs font-bold text-white block">คุณณัฐวุฒิ สิทธิวงศ์</span>
+                        <span class="text-[10px] text-neutral-500">ที่ปรึกษาการตลาดอิสระ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                <div>
+                    <div class="flex text-gold-500 space-x-1 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-sm text-neutral-300 italic font-light leading-relaxed">
+                        "หลักสูตรภาษาอังกฤษและ TikTok คือที่สุดของการย่นย่อระยะเวลาลองผิดลองถูก ทำให้เข้าใจวิธีดึงยอดเข้าชมได้อย่างกระชับและนำมา <span class="text-gold-500 font-medium thai-keep">ต่อยอด</span> ธุรกิจบริการส่วนตัวได้จริงค่ะ"
+                    </p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-white/5 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-gold-400 text-xs">พญ.ศรันยา</div>
+                    <div>
+                        <span class="text-xs font-bold text-white block">พญ.ศรันยา พัฒนาธนัน</span>
+                        <span class="text-[10px] text-neutral-500">คลินิกผิวพรรณส่วนตัว</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="py-24 relative overflow-hidden bg-neutral-900/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        
+        <div class="text-center mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-3">FAQ</h2>
+            <p class="text-3xl font-extrabold text-white">คำถามที่พบบ่อย</p>
+        </div>
+
+        <div class="space-y-4">
+            
+            <!-- Question 1 -->
+            <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex justify-between items-center text-white hover:text-gold-400 transition-colors font-bold text-sm">
+                    <span>ไม่มีความรู้หรือพื้นฐานมาก่อน จะเรียนรู้และเริ่มต้นได้ไหม?</span>
+                    <span id="faq-icon-1" class="transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div id="faq-ans-1" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/5 pt-4">
+                    สามารถเริ่มต้นศึกษาได้อย่างแน่นอนครับ เนื้อหาหลักสูตรใน Everest Academy ได้รับการออกแบบการสอนตั้งแต่ขั้นปูพื้นฐาน ไล่เรียงระดับความยากง่ายไปจนถึงจุดประยุกต์ใช้ทำธุรกิจ อีกทั้งยังมีระบบกลุ่มสนับสนุนสำหรับการปรึกษาพูดคุยอย่างสม่ำเสมอ
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex justify-between items-center text-white hover:text-gold-400 transition-colors font-bold text-sm">
+                    <span>การต่ออายุสมาชิกมีเงื่อนไขอย่างไร และมีค่าธรรมเนียมเพิ่มเติมหรือไม่?</span>
+                    <span id="faq-icon-2" class="transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div id="faq-ans-2" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/5 pt-4">
+                    แพ็กเกจที่คุณเลือกซื้อเป็นรูปแบบการสมัครเรียนรู้เพื่อเข้าถึงระบบ โดยโครงสร้างค่าบริการต่างๆ จะยึดตามที่กำหนดไว้ในประเภทแพ็กเกจนั้นๆ และสามารถตรวจสอบยอดสรุปราคาอย่างละเอียด ณ ขณะเช็คเอาต์ชำระเงินโดยไม่มีเงื่อนไขผูกมัดหรือค่าธรรมเนียมแอบแฝง
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex justify-between items-center text-white hover:text-gold-400 transition-colors font-bold text-sm">
+                    <span>ระบบแบ่งเบารายรับแบบ Auto-Matrix โอนย้ายเข้าสู่บัญชีธนาคารปกติได้ไหม?</span>
+                    <span id="faq-icon-3" class="transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div id="faq-ans-3" class="hidden px-6 pb-6 text-xs text-neutral-400 leading-relaxed border-t border-white/5 pt-4">
+                    ใช่ครับ รายรับส่วนแบ่งทั้งหมดจากโบนัสบริษัทสามารถขอทำเรื่องเบิกจ่ายโอนย้ายเข้าสู่บัญชีธนาคารที่คุณผูกไว้กับระบบโดยตรงตามระเบียบและรอบเวลาเบิกจ่ายที่กำหนดไว้ หรือเลือกรับผลตอบแทนผ่านช่องทางการทำธุรกรรมดิจิทัลที่สนับสนุน
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            function toggleFaq(num) {
+                const answer = document.getElementById(`faq-ans-${num}`);
+                const icon = document.getElementById(`faq-icon-${num}`);
+                
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    answer.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        </script>
+
+    </div>
+</section>
+
+<section class="py-24 relative overflow-hidden text-center border-t border-white/5">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05)_0%,transparent_50%)] pointer-events-none"></div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 space-y-8">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-none">
+            ถึงเวลาเลือกอนาคตที่ดีที่สุด<br>
+            เพื่อพัฒนาชีวิตและทักษะของคุณ
+        </h2>
+        <p class="text-neutral-400 text-sm max-w-xl mx-auto font-light leading-relaxed">
+            มาร่วมเป็นส่วนหนึ่งของครอบครัว Project Everest ทั่วประเทศ เพื่อเริ่มต้นสร้างทักษะคุณภาพสูงและสร้างโอกาสการรับรายได้ที่ยั่งยืนแบบไร้ขีดจำกัด
+        </p>
+
+        <!-- High Impact Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <a data-coach-register-btn target="_blank" class="w-full py-4 px-8 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 font-extrabold text-base shadow-xl shadow-gold-500/10 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+                สมัครรับบัญชีใช้งานทันที
+            </a>
+            <a data-coach-line-btn target="_blank" class="w-full py-4 px-8 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white transition-all hover:border-gold-500/40 cursor-pointer">
+                ติดต่อสอบถามรายละเอียด
+            </a>
+        </div>
+        
+        <!-- Trust badge icons -->
+        <div class="pt-8 flex justify-center items-center space-x-6 text-neutral-500 text-xs">
+            <span><i class="fas fa-lock mr-1"></i> ปลอดภัยและได้มาตรฐาน</span>
+            <span>•</span>
+            <span><i class="fas fa-user-shield mr-1"></i> ดูแลอย่างใกล้ชิด</span>
+        </div>
+    </div>
+</section>
+
+<div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-obsidian-900/95 border-t border-white/10 backdrop-blur-lg px-4 py-3.5 flex items-center justify-between gap-4 shadow-2xl">
+    <div class="flex items-center space-x-2">
+        <img data-coach-img src="" alt="Coach avatar" class="w-9 h-9 rounded-full object-cover border border-gold-500/20">
+        <div>
+            <span class="text-[10px] text-neutral-400 block leading-tight">ที่ปรึกษาของคุณ</span>
+            <span data-coach-name class="text-xs font-bold text-white block">โค้ช</span>
+        </div>
+    </div>
+    <div class="flex space-x-2 flex-grow justify-end max-w-[70%]">
+        <a data-coach-line-btn target="_blank" class="px-3.5 py-2.5 rounded-full bg-neutral-800 text-neutral-300 flex items-center justify-center text-xs border border-white/5 active:bg-neutral-700">
+            <i class="fab fa-line text-emerald-500 text-lg"></i>
+        </a>
+        <a data-coach-register-btn target="_blank" class="flex-grow px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 text-obsidian-950 font-extrabold text-xs text-center shadow-lg shadow-gold-500/10 active:scale-95 transition-transform block">
+            สมัครทันที
+        </a>
+    </div>
+</div>
+
+<footer class="bg-obsidian-950 border-t border-white/5 py-12 pb-24 sm:pb-12 text-center text-xs text-neutral-500 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        
+        <!-- Minimalist Luxury Branding in Footer -->
+        <div class="flex flex-col items-center">
+            <div class="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center text-gold-400 text-sm mb-3">
+                <span class="font-extrabold">E</span>
+            </div>
+            <p class="text-white font-bold tracking-widest text-[11px] uppercase">PROJECT EVEREST ACADEMY</p>
+        </div>
+
+        <p class="max-w-xl mx-auto leading-relaxed">
+            หมายเหตุผลลัพธ์: การศึกษา พัฒนา และสร้างรายได้ของบุคคลที่เกี่ยวข้องขึ้นอยู่กับการลงมือทำ ความพากเพียร ความรู้ความสามารถเฉพาะตัว ตลอดจนวินัยและความเข้าใจในระบบข้อมูล สถิติและรายละเอียดทั้งหมดไม่ใช่การการันตีรายได้ล่วงหน้า
+        </p>
+        
+        <p class="text-[10px] text-neutral-600">
+            &copy; 2026 Project Everest. All rights reserved. Designed and optimized with utmost precision.
+        </p>
+    </div>
+</footer>
+
 </body>
 </html>
