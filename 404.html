@@ -4,45 +4,59 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-        // 1. ดึงชื่อสมาชิกออกจาก URL (เช่น /coachwin -> coachwin)
-        var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        // 1. ดึงเส้นทาง URL ทั้งหมดออกมาและลบสแลชหัวท้ายออก
+        var fullPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
         
-        // แยกเคสเผื่อเว็บอยู่ในซับโฟลเดอร์ everest
-        if (path.startsWith('everest/')) {
-            path = path.replace('everest/', '');
+        // เคลียร์ซับโฟลเดอร์ของ GitHub (ถ้ามี)
+        if (fullPath.startsWith('everest/')) {
+            fullPath = fullPath.replace('everest/', '');
         }
 
-        if (path && !path.includes('.')) {
-            // 2. ยิงพาธไปที่โฟลเดอร์ data/members.json ให้ถูกต้องตามโครงสร้าง GitHub ของคุณ
+        // 2. ตรวจสอบว่าเป็นเวอร์ชันภาษาอังกฤษหรือไม่
+        var isEnglish = false;
+        var memberName = fullPath;
+
+        if (fullPath.startsWith('en/')) {
+            isEnglish = true;
+            memberName = fullPath.replace('en/', ''); // ตัดคำว่า en/ ออกเพื่อให้เหลือแค่ชื่อสมาชิกเพียวๆ เช่น coachpetch
+        }
+
+        // 3. ตรวจสอบความถูกต้องและดึงข้อมูลสมาชิก
+        if (memberName && !memberName.includes('.')) {
             fetch('/everest/data/members.json')
                 .then(function(response) { 
                     if (!response.ok) {
-                        // ป้องกันเผื่อพาธหลักบนเว็บจริงไม่มีคำว่า /everest/
                         return fetch('/data/members.json').then(function(res) { return res.json(); });
                     }
                     return response.json(); 
                 })
                 .then(function(members) {
                     
-                    // 3. ตรวจสอบว่ามีชื่อสมาชิกคนนี้ (เช่น coachwin หรือ coachpaul) อยู่ใน Object หรือไม่
-                    if (members && members[path] !== undefined) {
-                        // ถ้าเจอสมาชิกในระบบ ให้เด้งไปที่ลิงก์ที่ถูกต้องทันที!
-                        window.location.href = "https://everest191.com/?ref=" + path;
+                    // 4. ตรวจสอบว่ามีชื่อสมาชิกคนนี้อยู่ในไฟล์ members.json หรือไม่
+                    if (members && members[memberName] !== undefined) {
+                        
+                        // ถ้าระบบตรวจพบว่าเป็นลิงก์ฝั่งอังกฤษ (/en/) ให้ดีดไปเวอร์ชันภาษาอังกฤษ
+                        if (isEnglish) {
+                            window.location.href = "https://everest191.com/en/?ref=" + memberName;
+                        } else {
+                            // ถ้าไม่ใช่ ให้เด้งไปเวอร์ชันปกติ (ภาษาไทย)
+                            window.location.href = "https://everest191.com/?ref=" + memberName;
+                        }
+                        
                     } else {
-                        // ถ้าหาไม่เจอ ให้ส่งกลับหน้าแรก
-                        window.location.href = "https://everest191.com/";
+                        // ถ้าไม่พบชื่อสมาชิก ให้ส่งกลับหน้าแรกของเวอร์ชันนั้นๆ
+                        window.location.href = isEnglish ? "https://everest191.com/en/" : "https://everest191.com/";
                     }
                 })
                 .catch(function(err) {
-                    // หากเกิดข้อผิดพลาดใดๆ ให้ส่งกลับหน้าแรกป้องกันหน้าขาวค้าง
-                    window.location.href = "https://everest191.com/";
+                    window.location.href = isEnglish ? "https://everest191.com/en/" : "https://everest191.com/";
                 });
         } else {
-            window.location.href = "https://everest191.com/";
+            window.location.href = isEnglish ? "https://everest191.com/en/" : "https://everest191.com/";
         }
     </script>
 </head>
 <body>
-    <p>กำลังนำคุณไปสู่หน้าผู้แนะนำ...</p>
+    <p>กำลังนำคุณไปสู่หน้าผู้แนะนำ... / Redirecting to referrer page...</p>
 </body>
 </html>
