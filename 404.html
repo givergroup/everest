@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        // ดึงตัวอักษรที่พิมพ์เกินมา เช่น จาก "/coachwin" จะเหลือแค่ "coachwin"
+        var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        
+        if (path && !path.includes('.')) {
+            // โหลดรายชื่อจาก members.json มาเช็กความถูกต้อง
+            fetch('/members.json')
+                .then(function(response) { return response.json(); })
+                .then(function(members) {
+                    
+                    // เช็กว่ามีชื่อนี้ใน json ไหม
+                    var isMember = Array.isArray(members) ? members.includes(path) : members[path] !== undefined;
+                    
+                    if (isMember) {
+                        // บังคับเปลี่ยนเส้นทางให้กระโดดกลับไปหน้าแรกพร้อม ?ref= ทันที
+                        window.location.href = "https://everest191.com/?ref=" + path;
+                    } else {
+                        // ถ้าไม่มีชื่อสมาชิกนี้จริงๆ ให้เด้งกลับหน้าแรกปกติ
+                        window.location.href = "https://everest191.com/";
+                    }
+                })
+                .catch(function() {
+                    window.location.href = "https://everest191.com/";
+                });
+        } else {
+            window.location.href = "https://everest191.com/";
+        }
+    </script>
+</head>
+<body>
+    <p>กำลังนำคุณไปสู่หน้าผู้แนะนำ...</p>
+</body>
+</html>
