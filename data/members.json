@@ -24,9 +24,12 @@
     "image_url": "/en/images/coachwin.jpg"
   }
     }, 
+    "register_link": "https://everest-media.co/register?ref=E001394",
+        "image_url": "/en/images/coachwin.jpg"
+    },
     "coachpal": {
-    "name_th": "โค้ช ปาล",
-    "name_en": "Coach Pal",
+        "name_th": "โค้ช ปาล",
+        "name_en": "Coach Pal",
     "phone": "093-9791791​",
     "line_url": "https://line.me/ti/p/E7tuyxzg4Q",
     "register_link": "https://everest-media.co/register?ref=E005256", 
