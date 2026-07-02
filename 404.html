@@ -4,27 +4,37 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-        // ดึงตัวอักษรที่พิมพ์เกินมา เช่น จาก "/coachwin" จะเหลือแค่ "coachwin"
+        // 1. ดึงชื่อสมาชิกออกจาก URL (เช่น /coachwin -> coachwin)
         var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
         
+        // แยกเคสเผื่อเว็บอยู่ในซับโฟลเดอร์ everest
+        if (path.startsWith('everest/')) {
+            path = path.replace('everest/', '');
+        }
+
         if (path && !path.includes('.')) {
-            // โหลดรายชื่อจาก members.json มาเช็กความถูกต้อง
-            fetch('/members.json')
-                .then(function(response) { return response.json(); })
+            // 2. ยิงพาธไปที่โฟลเดอร์ data/members.json ให้ถูกต้องตามโครงสร้าง GitHub ของคุณ
+            fetch('/everest/data/members.json')
+                .then(function(response) { 
+                    if (!response.ok) {
+                        // ป้องกันเผื่อพาธหลักบนเว็บจริงไม่มีคำว่า /everest/
+                        return fetch('/data/members.json').then(function(res) { return res.json(); });
+                    }
+                    return response.json(); 
+                })
                 .then(function(members) {
                     
-                    // เช็กว่ามีชื่อนี้ใน json ไหม
-                    var isMember = Array.isArray(members) ? members.includes(path) : members[path] !== undefined;
-                    
-                    if (isMember) {
-                        // บังคับเปลี่ยนเส้นทางให้กระโดดกลับไปหน้าแรกพร้อม ?ref= ทันที
+                    // 3. ตรวจสอบว่ามีชื่อสมาชิกคนนี้ (เช่น coachwin หรือ coachpaul) อยู่ใน Object หรือไม่
+                    if (members && members[path] !== undefined) {
+                        // ถ้าเจอสมาชิกในระบบ ให้เด้งไปที่ลิงก์ที่ถูกต้องทันที!
                         window.location.href = "https://everest191.com/?ref=" + path;
                     } else {
-                        // ถ้าไม่มีชื่อสมาชิกนี้จริงๆ ให้เด้งกลับหน้าแรกปกติ
+                        // ถ้าหาไม่เจอ ให้ส่งกลับหน้าแรก
                         window.location.href = "https://everest191.com/";
                     }
                 })
-                .catch(function() {
+                .catch(function(err) {
+                    // หากเกิดข้อผิดพลาดใดๆ ให้ส่งกลับหน้าแรกป้องกันหน้าขาวค้าง
                     window.location.href = "https://everest191.com/";
                 });
         } else {
