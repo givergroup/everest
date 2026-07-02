@@ -1120,21 +1120,45 @@
             { name: "Stella P.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" }
         ];
 
-        let currentTickerIndex = 0;
+        let lastTickerIndex = -1;
+
+        function getRandomTickerIndex() {
+            if (!Array.isArray(liveRegistrations) || liveRegistrations.length === 0) {
+                return -1;
+            }
+
+            if (liveRegistrations.length === 1) {
+                lastTickerIndex = 0;
+                return 0;
+            }
+
+            let randomIndex;
+
+            do {
+                randomIndex = Math.floor(Math.random() * liveRegistrations.length);
+            } while (randomIndex === lastTickerIndex);
+
+            lastTickerIndex = randomIndex;
+            return randomIndex;
+        }
 
         function updateLiveTicker() {
             const container = document.getElementById('liveTickerContainer');
             if (!container) return;
 
+            const randomIndex = getRandomTickerIndex();
+            if (randomIndex === -1) return;
+
             container.style.opacity = '0';
             container.style.transform = 'translateY(-10px)';
 
             setTimeout(() => {
-                const reg = liveRegistrations[currentTickerIndex];
+                const reg = liveRegistrations[randomIndex];
+
                 container.innerHTML = `🔥 <span class="text-white">${reg.name}</span> (${reg.country}) has successfully unlocked <span class="text-emeraldGlow-500 font-extrabold underline decoration-dotted decoration-emeraldGlow-400">${reg.package}</span>!`;
+
                 container.style.opacity = '1';
                 container.style.transform = 'translateY(0)';
-                currentTickerIndex = (currentTickerIndex + 1) % liveRegistrations.length;
             }, 300);
         }
 
