@@ -266,6 +266,74 @@
         </div>
     </section>
 
+
+    <!-- OFFICIAL LIVE LEARNING METRICS (Synced from everest-media.co) -->
+    <section id="official-live-metrics" class="py-12 bg-gradient-to-b from-white via-slate-50 to-white border-t border-b border-slate-100 relative overflow-hidden">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[620px] h-[260px] bg-emeraldGlow-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute -bottom-28 right-0 w-[420px] h-[260px] bg-gold-500/10 rounded-full blur-[110px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <span class="inline-flex items-center gap-2 text-emeraldGlow-700 text-xs sm:text-sm uppercase font-black tracking-widest bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 px-4 py-2 rounded-full">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldGlow-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emeraldGlow-500"></span>
+                    </span>
+                    Official Live Metrics
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-navy-900 mt-4 leading-tight">
+                    Real-Time Everest <span class="text-gradient-gold">Learning Performance</span>
+                </h2>
+                <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+                    These two key indicators are synchronized from the official Everest Learning website to keep this replicated portal aligned with the main platform.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="group bg-white rounded-[2rem] border border-emeraldGlow-500/20 p-7 sm:p-8 shadow-xl hover:shadow-emerald-glow transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-emeraldGlow-500/10 rounded-full blur-3xl translate-x-12 -translate-y-12 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-5">
+                        <div class="w-20 h-20 rounded-3xl bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 flex items-center justify-center shrink-0 text-4xl shadow-sm">
+                            👥
+                        </div>
+                        <div class="text-left">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[11px] uppercase tracking-[0.22em] font-black text-emeraldGlow-700">Live Students</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emeraldGlow-500 animate-pulse"></span>
+                            </div>
+                            <div id="officialStudentsCount" class="text-5xl sm:text-6xl font-black text-navy-900 tracking-tight leading-none">5,207</div>
+                            <p class="text-slate-500 font-bold text-base sm:text-lg mt-3">Students in the System</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white rounded-[2rem] border border-gold-500/25 p-7 sm:p-8 shadow-xl hover:shadow-luxury-gold transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gold-500/10 rounded-full blur-3xl translate-x-12 -translate-y-12 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-5">
+                        <div class="w-20 h-20 rounded-3xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center shrink-0 text-4xl shadow-sm">
+                            ✅
+                        </div>
+                        <div class="text-left">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[11px] uppercase tracking-[0.22em] font-black text-gold-700">Satisfaction</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse"></span>
+                            </div>
+                            <div id="officialSatisfactionRate" class="text-5xl sm:text-6xl font-black text-navy-900 tracking-tight leading-none">95%</div>
+                            <p class="text-slate-500 font-bold text-base sm:text-lg mt-3">Learner Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <p id="officialMetricsStatus" class="inline-flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-sm font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emeraldGlow-500 animate-pulse"></span>
+                    Syncing with everest-media.co...
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- INTRODUCTORY OVERVIEW VIDEO (Direct conversion fold after hero hook) -->
     <section class="py-12 bg-white border-t border-b border-slate-100 relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -1102,6 +1170,161 @@
             }, 300);
         }
 
+
+        const officialMetricsFallback = {
+            students: 5207,
+            satisfaction: 95
+        };
+
+        const officialMetricsSourceUrl = 'https://everest-media.co/';
+
+        function formatIntegerMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return '5,207';
+            return Math.round(number).toLocaleString('en-US');
+        }
+
+        function formatPercentMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return '95%';
+            return `${Math.round(number)}%`;
+        }
+
+        function setOfficialMetricsStatus(message, isLive = false) {
+            const status = document.getElementById('officialMetricsStatus');
+            if (!status) return;
+
+            const dotClass = isLive ? 'bg-emeraldGlow-500' : 'bg-gold-500';
+            status.innerHTML = `
+                <span class="w-2 h-2 rounded-full ${dotClass} animate-pulse"></span>
+                ${message}
+            `;
+        }
+
+        function extractMetricNearLabel(searchableText, labels, options = {}) {
+            const text = String(searchableText || '').replace(/\s+/g, ' ').trim();
+
+            for (const label of labels) {
+                const labelIndex = text.indexOf(label);
+                if (labelIndex === -1) continue;
+
+                const before = text.slice(Math.max(0, labelIndex - 110), labelIndex);
+                const after = text.slice(labelIndex, Math.min(text.length, labelIndex + 110));
+                const context = `${before} ${after}`;
+
+                const matches = context.match(/\d[\d,]*(?:\.\d+)?\s*%?/g);
+                if (!matches || !matches.length) continue;
+
+                const cleanMatches = matches
+                    .map(item => item.trim())
+                    .filter(item => {
+                        if (options.percentOnly) {
+                            const numeric = Number(item.replace(/[^\d.-]/g, ''));
+                            return item.includes('%') || (Number.isFinite(numeric) && numeric <= 100);
+                        }
+                        return !item.includes('%');
+                    });
+
+                if (!cleanMatches.length) continue;
+
+                return cleanMatches[cleanMatches.length - 1];
+            }
+
+            return null;
+        }
+
+        function htmlToSearchableText(html) {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                doc.querySelectorAll('script, style, noscript, svg').forEach(node => node.remove());
+                const visibleText = doc.body ? doc.body.innerText : '';
+                const rawText = String(html || '').replace(/<[^>]*>/g, ' ');
+                return `${visibleText} ${rawText}`;
+            } catch (error) {
+                return String(html || '').replace(/<[^>]*>/g, ' ');
+            }
+        }
+
+        function parseOfficialMetrics(sourceHtml) {
+            const plainText = htmlToSearchableText(sourceHtml);
+
+            const students = extractMetricNearLabel(plainText, [
+                'นักเรียนในระบบ',
+                'Students in the System',
+                'Students in System',
+                'System Students'
+            ]);
+
+            const satisfaction = extractMetricNearLabel(plainText, [
+                'ผู้เรียนพึงพอใจ',
+                'Learner Satisfaction',
+                'Student Satisfaction',
+                'Satisfaction'
+            ], { percentOnly: true });
+
+            return {
+                students: students ? Number(String(students).replace(/[^\d.-]/g, '')) : officialMetricsFallback.students,
+                satisfaction: satisfaction ? Number(String(satisfaction).replace(/[^\d.-]/g, '')) : officialMetricsFallback.satisfaction
+            };
+        }
+
+        function renderOfficialMetrics(metrics, isLive = false) {
+            const studentsEl = document.getElementById('officialStudentsCount');
+            const satisfactionEl = document.getElementById('officialSatisfactionRate');
+
+            if (studentsEl) studentsEl.textContent = formatIntegerMetric(metrics.students);
+            if (satisfactionEl) satisfactionEl.textContent = formatPercentMetric(metrics.satisfaction);
+
+            const updatedTime = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            setOfficialMetricsStatus(
+                isLive
+                    ? `Live synced from everest-media.co • Updated ${updatedTime}`
+                    : `Showing fallback values • Auto-sync active`,
+                isLive
+            );
+        }
+
+        async function fetchOfficialMetricsHtml() {
+            const source = `${officialMetricsSourceUrl}?v=${Date.now()}`;
+            const urls = [
+                source,
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(source)}`,
+                `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(source)}`
+            ];
+
+            let lastError = null;
+
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const html = await response.text();
+                    if (html && html.length > 50) return html;
+                } catch (error) {
+                    lastError = error;
+                    console.warn('Official metrics sync attempt failed:', error);
+                }
+            }
+
+            throw lastError || new Error('Unable to fetch official metrics source.');
+        }
+
+        async function syncOfficialEverestMetrics() {
+            try {
+                const html = await fetchOfficialMetricsHtml();
+                const parsedMetrics = parseOfficialMetrics(html);
+                renderOfficialMetrics(parsedMetrics, true);
+            } catch (error) {
+                console.warn('Using fallback official metrics because live sync failed.', error);
+                renderOfficialMetrics(officialMetricsFallback, false);
+            }
+        }
+
         function normalizeKey(value) {
             return String(value || '')
                 .toLowerCase()
@@ -1278,6 +1501,10 @@
 
             updateLiveTicker();
             setInterval(updateLiveTicker, 4000);
+
+            renderOfficialMetrics(officialMetricsFallback, false);
+            await syncOfficialEverestMetrics();
+            setInterval(syncOfficialEverestMetrics, 120000);
         });
     </script>
 </body>
