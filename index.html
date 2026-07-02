@@ -1,31 +1,6 @@
 <!DOCTYPE html>
 <html lang="th" class="scroll-smooth">
 <head>
-  <script>
-  // 1. ดึงชื่อที่พิมพ์ต่อท้าย URL มา (เช่น จาก /coachwin จะตัดเหลือแค่ coachwin)
-  const memberName = window.location.pathname.replace(/^\/+|\/+$/g, '');
-
-  // 2. ถ้ามีคำต่อท้าย และไม่ใช่หน้าหลัก หรือไม่ใช่ชื่อไฟล์ระบบที่มีจุด (เช่น index.html)
-  if (memberName && !memberName.includes('.')) {
-    
-    // โหลดไฟล์ members.json มาเช็กว่าชื่อนี้เป็นสมาชิกจริงไหม
-    fetch('./members.json')
-      .then(response => response.json())
-      .then(members => {
-        // สมมติว่าใน members.json เป็น Array ของรายชื่อ หรือ Object 
-        // เช็กว่ามีชื่อสมาชิกคนนี้อยู่ในระบบไหม (ปรับเงื่อนไขตามโครงสร้าง json ของคุณได้ครับ)
-        const isMemberExist = Array.isArray(members) 
-          ? members.includes(memberName) 
-          : members[memberName] !== undefined;
-
-        if (isMemberExist) {
-          // ถ้าเจอชื่อสมาชิกใน members.json ให้ส่งไปที่หน้าหลักพร้อมรหัสผู้แนะนำทันที!
-          window.location.href = `https://everest191.com/?ref=${memberName}`;
-        }
-      })
-      .catch(err => console.error("Error checking members.json:", err));
-  }
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Everest - แพลตฟอร์มยกระดับทักษะและการสร้างรายได้ระดับพรีเมียม</title>
