@@ -8,11 +8,19 @@
     "image_url": "/en/images/coachpaul.png"
   },
   "coachpetch": {
-    "name_th": "คุณเพ็ชร",
-    "name_en": "Coachpetch",
+    "name_th": "โค้ชเพ็ชร",
+    "name_en": "Coach Petch",
     "phone": "Contact me via line",
     "line_url": "https://line.me/ti/p/6adHlDYIDR",
     "register_link": "https://everest-media.co/register?ref=E000771", 
+    "image_url": "/en/images/coachpetch.jpg"
+  }
+    "coachwin": {
+    "name_th": "โค้ชวิน",
+    "name_en": "Coach Win",
+    "phone": "081-734-6398​",
+    "line_url": "https://line.me/ti/p/PKJ48PW53g",
+    "register_link": "https://everest-media.co/register?ref=E001394", 
     "image_url": "/en/images/coachpetch.jpg"
   }
 }
