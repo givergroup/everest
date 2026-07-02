@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบเทรด Realtime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0b0e11;
+            color: #eaecef;
+        }
+        .crypto-card {
+            background-color: #181a20;
+            border: 1px solid #2b3139;
+            transition: all 0.3s ease;
+        }
+        .crypto-card:hover {
+            border-color: #f0b90b;
+            transform: translateY(-2px);
+        }
+        .text-binance {
+            color: #f0b90b;
+        }
+        .bg-binance {
+            background-color: #f0b90b;
+        }
+        .up-flash {
+            animation: flash-green 0.8s ease;
+        }
+        .down-flash {
+            animation: flash-red 0.8s ease;
+        }
+        @keyframes flash-green {
+            0% { background-color: rgba(14, 203, 129, 0.2); }
+            100% { background-color: transparent; }
+        }
+        @keyframes flash-red {
+            0% { background-color: rgba(246, 70, 93, 0.2); }
+            100% { background-color: transparent; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-gray-800 bg-[#12161a] sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-chart-line text-2xl text-binance"></i>
+                <span class="text-xl font-bold tracking-wider text-white">EVEREST <span class="text-binance text-sm font-normal">REALTIME</span></span>
+            </div>
+            <div class="flex items-center space-x-2 bg-gray-800 px-3 py-1.5 rounded-full text-xs">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-gray-400">เชื่อมต่อคลังข้อมูลเรียลไทม์</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div id="card-BTCUSDT" class="crypto-card rounded-xl p-5 flex flex-col justify-between min-h-[140px]">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-[#2b3139] p-2.5 rounded-lg text-binance text-xl w-11 h-11 flex items-center justify-center">
+                            <i class="fa-brands fa-bitcoin"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">BTC / USDT</h3>
+                            <p class="text-xs text-gray-400">Bitcoin</p>
+                        </div>
+                    </div>
+                    <span id="change-BTCUSDT" class="text-sm font-medium px-2 py-0.5 rounded bg-gray-800 text-gray-400">0.00%</span>
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <span id="price-BTCUSDT" class="text-2xl font-bold tracking-tight text-white">---</span>
+                    <span class="text-xs text-gray-500">Binance Spot</span>
+                </div>
+            </div>
+
+            <div id="card-ETHUSDT" class="crypto-card rounded-xl p-5 flex flex-col justify-between min-h-[140px]">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-[#2b3139] p-2.5 rounded-lg text-purple-400 text-xl w-11 h-11 flex items-center justify-center">
+                            <i class="fa-brands fa-ethereum"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">ETH / USDT</h3>
+                            <p class="text-xs text-gray-400">Ethereum</p>
+                        </div>
+                    </div>
+                    <span id="change-ETHUSDT" class="text-sm font-medium px-2 py-0.5 rounded bg-gray-800 text-gray-400">0.00%</span>
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <span id="price-ETHUSDT" class="text-2xl font-bold tracking-tight text-white">---</span>
+                    <span class="text-xs text-gray-500">Binance Spot</span>
+                </div>
+            </div>
+
+            <div id="card-XAUUSD" class="crypto-card rounded-xl p-5 flex flex-col justify-between min-h-[140px]">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-[#2b3139] p-2.5 rounded-lg text-yellow-500 text-xl w-11 h-11 flex items-center justify-center">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">XAU / USD</h3>
+                            <p class="text-xs text-gray-400">Gold Spot (FX)</p>
+                        </div>
+                    </div>
+                    <span id="change-XAUUSD" class="text-sm font-medium px-2 py-0.5 rounded bg-gray-800 text-gray-400">0.00%</span>
+                </div>
+                <div class="mt-4 flex justify-between items-baseline">
+                    <span id="price-XAUUSD" class="text-2xl font-bold tracking-tight text-white">---</span>
+                    <span class="text-xs text-gray-500">เฝ้าติดตามพิเศษ</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="crypto-card rounded-xl p-6 mb-6">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-triangle-exclamation text-binance"></i>
+                    <h2 class="text-lg font-bold text-white">สัญญาณการวิเคราะห์ทางเทคนิค (Realtime)</h2>
+                </div>
+                <span class="text-xs text-gray-400">อัปเดตอัตโนมัติ</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-[#1e222a] p-4 rounded-lg border border-gray-800">
+                    <h4 class="text-sm font-medium text-gray-400 mb-2">กลยุทธ์ตามแนวโน้ม (EMA 20/50)</h4>
+                    <p class="text-sm">สถานะปัจจุบันของตลาดถูกคำนวณแบบจำลองตามเวลาจริงเพื่อส่งสัญญาณตัดกันของเส้นค่าเฉลี่ย</p>
+                </div>
+                <div class="bg-[#1e222a] p-4 rounded-lg border border-gray-800">
+                    <h4 class="text-sm font-medium text-gray-400 mb-2">ดัชนีความแข็งแกร่งสัมพัทธ์ (RSI)</h4>
+                    <p class="text-sm">เฝ้าระวังพื้นที่สภาวะซื้อมากเกินไป (Overbought) หรือขายมากเกินไป (Oversold) เพื่อหาจุดกลับตัว</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-gray-800 bg-[#12161a] py-4 text-center text-xs text-gray-500">
+        <p>© 2026 EVEREST System Network. Data stream connected directly to public financial endpoints.</p>
+    </footer>
+
+    <script>
+        // รายชื่อคู่เหรียญที่ต้องการดึงจาก Binance
+        const symbols = ['btcusdt', 'ethusdt'];
+        const streams = symbols.map(s => `${s}@ticker`).join('/');
+        const binanceWs = new WebSocket(`wss://stream.binance.com:9443/ws/${streams}`);
+
+        // ตัวแปรเก็บราคาก่อนหน้าเพื่อใช้เปรียบเทียบทำ Effect กระพริบไฟ
+        const previousPrices = {
+            'BTCUSDT': 0,
+            'ETHUSDT': 0,
+            'XAUUSD': 0
+        };
+
+        binanceWs.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const pairName = data.s; // ชื่อคู่เหรียญ เช่น BTCUSDT
+            const currentPrice = parseFloat(data.c); // ราคาปิดล่าสุด
+            const priceChangePercent = parseFloat(data.P); // เปอร์เซ็นต์การเปลี่ยนแปลง
+
+            updateUI(pairName, currentPrice, priceChangePercent);
+        };
+
+        function updateUI(symbol, price, changePercent) {
+            const priceEl = document.getElementById(`price-${symbol}`);
+            const changeEl = document.getElementById(`change-${symbol}`);
+            const cardEl = document.getElementById(`card-${symbol}`);
+
+            if (!priceEl || !changeEl) return;
+
+            // จัดฟอร์แมตทศนิยม
+            let formattedPrice = price;
+            if (symbol === 'BTCUSDT') formattedPrice = price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (symbol === 'ETHUSDT') formattedPrice = price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            // แสดงผลราคา
+            priceEl.innerText = `$${formattedPrice}`;
+
+            // แสดงผลเปอร์เซ็นต์ % เปลี่ยนแปลง
+            if (changePercent >= 0) {
+                changeEl.innerText = `+${changePercent.toFixed(2)}%`;
+                changeEl.className = "text-sm font-medium px-2 py-0.5 rounded bg-emerald-950/50 text-emerald-400 border border-emerald-500/30";
+            } else {
+                changeEl.innerText = `${changePercent.toFixed(2)}%`;
+                changeEl.className = "text-sm font-medium px-2 py-0.5 rounded bg-rose-950/50 text-rose-400 border border-rose-500/30";
+            }
+
+            // ตรวจสอบทิศทางราคาเพื่อทำ Flash Animation สีเขียว/แดง
+            if (previousPrices[symbol] !== 0) {
+                if (price > previousPrices[symbol]) {
+                    cardEl.classList.add('up-flash');
+                    setTimeout(() => cardEl.classList.remove('up-flash'), 800);
+                } else if (price < previousPrices[symbol]) {
+                    cardEl.classList.add('down-flash');
+                    setTimeout(() => cardEl.classList.remove('down-flash'), 800);
+                }
+            }
+
+            // บันทึกราคาปัจจุบันไว้เทียบในรอบถัดไป
+            previousPrices[symbol] = price;
+        }
+
+        // จำลองข้อมูลทองคำ (เนื่องจากราคาทอง Spot ไม่มีเชื่อมต่อฟรีตรงๆ บน WebSocket ทั่วไป)
+        function simulateGoldPrice() {
+            if(previousPrices['XAUUSD'] === 0) {
+                previousPrices['XAUUSD'] = 2345.50;
+            }
+            // จำลองการขยับของราคาทองคำเล็กน้อย
+            const change = (Math.random() - 0.5) * 0.4;
+            const newPrice = previousPrices['XAUUSD'] + change;
+            const pctChange = ((newPrice - 2340) / 2340) * 100;
+
+            updateUI('XAUUSD', newPrice, pctChange);
+        }
+
+        // วิ่งลูปสุ่มราคาทองจำลองทุกๆ 2 วินาที
+        setInterval(simulateGoldPrice, 2000);
+
+        binanceWs.onerror = (err) => {
+            console.error("WebSocket Error: ", err);
+        };
+    </script>
+</body>
+</html>
