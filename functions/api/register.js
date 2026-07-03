@@ -96,7 +96,7 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    //  แก้ไขจุดนี้: เปลี่ยนวิธีแปลง Base64 (ขาออก) เป็นลูปมาตรฐาน ไม่ใช้ .apply ป้องกัน Cloudflare บล็อกรันไทม์
+    //  แก้ไขจุดนี้: ใช้การแปลง Base64 แบบวนลูปดั้งเดิมที่ปลอดภัยที่สุด ไม่ใช้ .apply หรือชุดคำสั่งยุ่งยาก ป้องกันบั๊กรันไทม์พังเด็ดขาด
     const updatedJsonString = JSON.stringify(membersData, null, 2);
     const utf8BytesData = new TextEncoder().encode(updatedJsonString);
     let binaryStr = '';
