@@ -96,14 +96,10 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    //  แก้ไขจุดนี้: ใช้การแปลง Base64 แบบวนลูปดั้งเดิมที่ปลอดภัยที่สุด ไม่ใช้ .apply หรือชุดคำสั่งยุ่งยาก ป้องกันบั๊กรันไทม์พังเด็ดขาด
+    //  แก้ไขจุดนี้: ใช้โครงสร้าง Array.from ปลอดภัยกว่า ไร้บั๊กความยาวสแต็กเต็ม และไม่เรียกใช้ฟังก์ชันต้องห้ามบน Cloudflare 
     const updatedJsonString = JSON.stringify(membersData, null, 2);
     const utf8BytesData = new TextEncoder().encode(updatedJsonString);
-    let binaryStr = '';
-    for (let i = 0; i < utf8BytesData.length; i++) {
-        binaryStr += String.fromCharCode(utf8BytesData[i]);
-    }
-    const base64JsonContent = btoa(binaryStr);
+    const base64JsonContent = btoa(Array.from(utf8BytesData, b => String.fromCharCode(b)).join(''));
 
     // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
