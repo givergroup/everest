@@ -96,17 +96,9 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // 🛠️ แก้ไขจุดนี้: เปลี่ยนวิธีเข้ารหัส Base64 (ขาออก) เป็นลูปประมวลผลขนาดเบา ไม่กินแรม ไม่กระตุก ชัวร์ที่สุดสำหรับ Cloudflare
+    // 🛠️ แก้ไขจุดนี้: เปลี่ยนมาใช้โครงสร้างการแปลงแบบสากลผ่านบิตข้อมูล (Buffer) ตรงตัว ไม่ติดขัดเรื่องแรมเต็มแน่นอน
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const encoder = new TextEncoder();
-    const dataBytes = encoder.encode(updatedJsonString);
-    
-    let binaryStr = '';
-    const byteLength = dataBytes.byteLength;
-    for (let i = 0; i < byteLength; i++) {
-      binaryStr += String.fromCharCode(dataBytes[i]);
-    }
-    const base64JsonContent = btoa(binaryStr);
+    const base64JsonContent = btoa(unescape(encodeURIComponent(updatedJsonString)));
 
     // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
