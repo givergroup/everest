@@ -2,20 +2,27 @@ export async function onRequestPost(context) {
   const { request, env } = context;
 
   try {
-    // 1. รับข้อมูลชุดใหม่จากหน้าฟอร์ม
-    const { username, name_th, name_en, phone, line_url, register_link, image_ext, image_data } = await request.json();
+    const payload = await request.json();
+    
+    // ดึงค่าอย่างปลอดภัย ป้องกันหน้าบ้านส่งมาไม่ครบ
+    const username = payload.username || '';
+    const name_th = payload.name_th || '';
+    const name_en = payload.name_en || '';
+    const phone = payload.phone || '';
+    const line_url = payload.line_url || '';
+    const register_link = payload.register_link || '';
+    const image_ext = payload.image_ext || 'jpg';
+    const image_data = payload.image_data || null;
 
     const GITHUB_TOKEN = env.GITHUB_TOKEN; 
     const REPO_OWNER = 'givergroup';
     const REPO_NAME = 'everest';
     const JSON_FILE_PATH = 'data/members.json';
-    
     const IMAGE_FILE_PATH = `en/images/${username}.${image_ext}`;
 
     if (!GITHUB_TOKEN) {
-      return new Response(JSON.stringify({ message: "ระบบยังไม่ได้ตั้งค่า GitHub Token ใน Cloudflare Environment" }), { 
-        status: 500, 
-        headers: { 'Content-Type': 'application/json' } 
+      return new Response(JSON.stringify({ message: "ระบบยังไม่ได้ตั้งค่า GitHub Token" }), { 
+        status: 500, headers: { 'Content-Type': 'application/json' } 
       });
     }
 
@@ -32,15 +39,13 @@ export async function onRequestPost(context) {
 
     if (!jsonRes.ok) {
       return new Response(JSON.stringify({ message: "ไม่สามารถเชื่อมต่อฐานข้อมูลรายชื่อบน GitHub ได้" }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        status: 500, headers: { 'Content-Type': 'application/json' }
       });
     }
 
     const jsonContentData = await jsonRes.json();
     const jsonSha = jsonContentData.sha; 
     
-    // ถอดรหัส Base64 รองรับภาษาไทย UTF-8 (ขาเข้า)
     const base64Content = jsonContentData.content.replace(/\n/g, '');
     const binaryString = atob(base64Content);
     const len = binaryString.length;
@@ -51,55 +56,44 @@ export async function onRequestPost(context) {
     const fileContent = new TextDecoder('utf-8').decode(bytes);
     const membersData = JSON.parse(fileContent);
 
-    // ตรวจสอบ Username ซ้ำ
+    // ตรวจสอบข้อมูลซ้ำ
     if (membersData[username]) {
       return new Response(JSON.stringify({ message: 'Username นี้ถูกใช้ไปแล้ว กรุณาเปลี่ยนชื่ออื่น' }), { 
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
+        status: 400, headers: { 'Content-Type': 'application/json' }
       });
     }
-    
-    // ตรวจสอบเบอร์โทรศัพท์ซ้ำ
     const isPhoneDuplicate = Object.values(membersData).some(member => member.phone === phone);
-    if (isPhoneDuplicate) {
+    if (isPhoneDuplicate && phone !== '') {
       return new Response(JSON.stringify({ message: 'เบอร์โทรศัพท์นี้เคยลงทะเบียนในระบบแล้ว' }), { 
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
+        status: 400, headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub ---
-    //  แก้ไขจุดนี้: เพิ่มเงื่อนไขตรวจสอบว่ารูปภาพถูกส่งมาจริง และดักจับบั๊กตัวแปรภาพว่าง
-    if (image_data && typeof image_data === 'string' && image_data.includes(',')) {
-      const cleanImageData = image_data.split(',')[1] || image_data;
-      const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
-      
-      await fetch(imageUrl, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${GITHUB_TOKEN}`,
-          'User-Agent': 'Cloudflare-Pages-Function',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
-          content: cleanImageData 
-        })
-      });
-    } else if (image_data && typeof image_data === 'string' && !image_data.includes(',')) {
-      const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
-      await fetch(imageUrl, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${GITHUB_TOKEN}`,
-          'User-Agent': 'Cloudflare-Pages-Function',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
-          content: image_data 
-        })
-      });
+    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub (ดักจับเช็คความปลอดภัยขั้นสูงสุด) ---
+    if (image_data && typeof image_data === 'string') {
+      try {
+        let cleanImageData = image_data;
+        if (image_data.includes(',')) {
+          cleanImageData = image_data.split(',')[1];
+        }
+        
+        const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
+        await fetch(imageUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${GITHUB_TOKEN}`,
+            'User-Agent': 'Cloudflare-Pages-Function',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
+            content: cleanImageData 
+          })
+        });
+      } catch (imgError) {
+        // หากรูปภาพอัปโหลดมีปัญหา ให้ข้ามไปบันทึกรายชื่อก่อนเพื่อไม่ให้ระบบสมัครพัง
+        console.error("Image upload failed but continuing:", imgError);
+      }
     }
 
     // --- ส่วนที่ 3: บันทึกข้อมูลสมาชิกใหม่ต่อท้ายลงในข้อมูลเดิม ---
@@ -112,14 +106,12 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    //  แก้ไขจุดนี้: เปลี่ยนวิธีเข้ารหัส Base64 (ขาออก) เป็นลูปประมวลผลขนาดเล็ก เพื่อไม่ทำให้สแต็กแรมของ Cloudflare ล้น
+    // เข้ารหัสแปลงข้อความกลับเป็น Base64
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const utf8BytesData = new TextEncoder().encode(updatedJsonString);
-    
+    const utf8Bytes = new TextEncoder().encode(updatedJsonString);
     let binaryStr = "";
-    const byteLength = utf8BytesData.byteLength;
-    for (let i = 0; i < byteLength; i++) {
-      binaryStr += String.fromCharCode(utf8BytesData[i]);
+    for (let i = 0; i < utf8Bytes.length; i++) {
+      binaryStr += String.fromCharCode(utf8Bytes[i]);
     }
     const base64JsonContent = btoa(binaryStr);
 
@@ -140,8 +132,7 @@ export async function onRequestPost(context) {
 
     if (!updateJsonRes.ok) {
       return new Response(JSON.stringify({ message: "อัปเดตข้อมูลรายชื่อในสมาชิกไม่สำเร็จ" }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        status: 500, headers: { 'Content-Type': 'application/json' }
       });
     }
 
@@ -149,14 +140,12 @@ export async function onRequestPost(context) {
       message: 'ลงทะเบียนสำเร็จ',
       web_url: `https://everest191.com/?ref=${username}`
     }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      status: 200, headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
     return new Response(JSON.stringify({ message: 'เกิดข้อผิดพลาดรุนแรงที่ระบบหลังบ้าน: ' + error.message }), { 
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      status: 500, headers: { 'Content-Type': 'application/json' }
     });
   }
 }
