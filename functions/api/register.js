@@ -96,14 +96,15 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // 🛠️ แก้ไขจุดนี้: วิธีแปลงรหัส Base64 ขาออกที่เป็นมาตรฐาน เสถียร และปลอดภัยต่อ Cloudflare มากที่สุด ไม่ติดขัดเรื่องแรม และไม่พังเรื่องภาษาไทยแน่นอน
+    // 🛠️ แก้ไขจุดนี้: เปลี่ยนวิธีเข้ารหัส Base64 (ขาออก) เป็นลูปมาตรฐานแบบแบ่งรอบ ไม่ใช้ .apply ป้องกันแรมเต็มและแก้ไขปัญหา Cloudflare บล็อกได้อย่างสมบูรณ์
     const updatedJsonString = JSON.stringify(membersData, null, 2);
     const uint8Array = new TextEncoder().encode(updatedJsonString);
+    
     let binaryStr = "";
-    const chunk_size = 0x8000; // แบ่งกลุ่มข้อมูลทีละ 32KB ป้องกันสแต็กเต็ม
-    for (let i = 0; i < uint8Array.length; i += chunk_size) {
-      const chunk = uint8Array.subarray(i, i + chunk_size);
-      binaryStr += String.fromCharCode.apply(null, chunk);
+    const byteLength = uint8Array.byteLength;
+    // วนลูปแกะข้อมูลทีละไบต์อย่างปลอดภัย ไม่ทำให้ Stack ล้น
+    for (let i = 0; i < byteLength; i++) {
+      binaryStr += String.fromCharCode(uint8Array[i]);
     }
     const base64JsonContent = btoa(binaryStr);
 
