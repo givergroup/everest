@@ -38,5 +38,13 @@
     "line_url": "https://line.me/ti/p/_UnmGdysG3",
     "register_link": "https://everest-media.co/register?ref=E002735",
     "image_url": "/en/images/coachaoy.jpg"
+  },
+  "admin": {
+    "name_th": "แอดมิน",
+    "name_en": "Admin",
+    "phone": "0849165235",
+    "line_url": "https://line.me/ti/p/myU1RXCxly",
+    "register_link": "https://line.me/ti/p/myU1RXCxly",
+    "image_url": "/en/images/admin.jpg"
   }
 }
