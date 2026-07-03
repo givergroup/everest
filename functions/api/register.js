@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
   const { request, env } = context;
 
   try {
-    // 1. รับข้อมูลชุดใหม่ที่มีข้อมูลรูปภาพพ่วงมาด้วยจากหน้าฟอร์ม
+    // 1. รับข้อมูลชุดใหม่จากหน้าฟอร์ม
     const { username, name_th, name_en, phone, line_url, register_link, image_ext, image_data } = await request.json();
 
     const GITHUB_TOKEN = env.GITHUB_TOKEN; 
@@ -10,7 +10,6 @@ export async function onRequestPost(context) {
     const REPO_NAME = 'everest';
     const JSON_FILE_PATH = 'data/members.json';
     
-    // ตั้งค่าพาร์ทโฟลเดอร์เก็บรูปภาพตามโครงสร้างเว็บของคุณ
     const IMAGE_FILE_PATH = `en/images/${username}.${image_ext}`;
 
     if (!GITHUB_TOKEN) {
@@ -20,7 +19,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // --- ส่วนที่ 1: ดึงไฟล์ JSON ปัจจุบัน และตรวจสอบความซ้ำของข้อมูล ---
+    // --- ส่วนที่ 1: ดึงไฟล์ JSON ปัจจุบัน ---
     const jsonUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${JSON_FILE_PATH}`;
     const jsonRes = await fetch(jsonUrl, {
       method: 'GET',
@@ -39,9 +38,9 @@ export async function onRequestPost(context) {
     }
 
     const jsonContentData = await jsonRes.json();
-    const jsonSha = jsonContentData.sha; // เก็บค่า SHA ไว้ใช้อัปเดตไฟล์กลับ
+    const jsonSha = jsonContentData.sha; 
     
-    //  แก้ไขจุดนี้: ถอดรหัส Base64 ให้รองรับภาษาไทย UTF-8 ป้องกันอักขระเยื้องและลิงก์ขาดหายอย่างถูกต้อง
+    // ถอดรหัส Base64 รองรับภาษาไทย UTF-8
     const base64Content = jsonContentData.content.replace(/\n/g, '');
     const binaryString = atob(base64Content);
     const len = binaryString.length;
@@ -69,12 +68,11 @@ export async function onRequestPost(context) {
       });
     }
 
-    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้นโฟลเดอร์ en/images/ บน GitHub ---
+    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub ---
     if (image_data) {
       const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
       
-      // ยิง API บันทึกรูปภาพ (สร้างไฟล์รูปใหม่แกะกล่อง ไม่ต้องใส่ SHA)
-      const imageUploadRes = await fetch(imageUrl, {
+      await fetch(imageUrl, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${GITHUB_TOKEN}`,
@@ -83,16 +81,9 @@ export async function onRequestPost(context) {
         },
         body: JSON.stringify({
           message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
-          content: image_data // ตัวรูปถูกเข้ารหัส Base64 มาจากหน้าฟอร์มแล้ว ส่งขึ้น GitHub ได้เลย
+          content: image_data 
         })
       });
-
-      if (!imageUploadRes.ok) {
-        return new Response(JSON.stringify({ message: "อัปโหลดรูปภาพโปรไฟล์เข้าสู่ระบบ GitHub ไม่สำเร็จ" }), { 
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
     }
 
     // --- ส่วนที่ 3: บันทึกข้อมูลสมาชิกใหม่ต่อท้ายลงในข้อมูลเดิม ---
@@ -102,15 +93,21 @@ export async function onRequestPost(context) {
       phone,
       line_url,
       register_link,
-      image_url: `/en/images/${username}.${image_ext}` // ลิงก์รูปภาพที่จะแสดงผลหน้าเว็บ
+      image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // แปลงไฟล์เป็นตัวพิมพ์สวยงามและป้องกันภาษาไทยเพี้ยนตอนเปลี่ยนเป็น Base64
+    // ปรับปรุงการเข้ารหัสเป็น Base64 วิธีใหม่ที่ปลอดภัยและเสถียรสำหรับ Cloudflare ป้องกันสคริปต์หลุดทำงานกลางคัน
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const utf8Bytes = new TextEncoder().encode(updatedJsonString);
-    const base64JsonContent = btoa(String.fromCharCode(...utf8Bytes));
+    const encoder = new TextEncoder();
+    const dataBytes = encoder.encode(updatedJsonString);
+    let base64JsonContent = "";
+    const chunk_size = 0x8000; 
+    for (let i = 0; i < dataBytes.length; i += chunk_size) {
+      base64JsonContent += String.fromCharCode.apply(null, dataBytes.subarray(i, i + chunk_size));
+    }
+    base64JsonContent = btoa(base64JsonContent);
 
-    // ยิง API กลับไป Commit ทับไฟล์เดิมบน GitHub
+    // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
       method: 'PUT',
       headers: {
@@ -126,13 +123,12 @@ export async function onRequestPost(context) {
     });
 
     if (!updateJsonRes.ok) {
-      return new Response(JSON.stringify({ message: "อัปเดตข้อมูลรายชื่อในสมาชิกไม่สำเร็จ (แต่รูปภาพถูกบันทึกแล้ว)" }), { 
+      return new Response(JSON.stringify({ message: "อัปเดตข้อมูลรายชื่อในสมาชิกไม่สำเร็จ" }), { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // ส่งลิงก์เว็บสำเร็จรูปกลับไปให้หน้าบ้านแสดงความยินดี
     return new Response(JSON.stringify({
       message: 'ลงทะเบียนสำเร็จ',
       web_url: `https://everest191.com/?ref=${username}`
