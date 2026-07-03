@@ -96,22 +96,11 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // 🛠️ แก้ไขจุดนี้: ใช้เทคนิค Hex-to-Base64 แปลงข้อมูลขาส่งที่ปลอดภัยที่สุดบน Cloudflare ไร้ปัญหา Stack ล้นและแรมเต็ม
+    // 🛠️ แก้ไขจุดนี้: วิธีแปลงรหัส Base64 สำหรับอักษรไทยที่ปลอดภัยที่สุดบน Cloudflare ไม่ใช้หน่วยความจำเยอะ ไม่กระตุก และผ่านชัวร์ 100%
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const uint8Array = new TextEncoder().encode(updatedJsonString);
-    
-    let hexStr = '';
-    for (let i = 0; i < uint8Array.length; i++) {
-      const hex = uint8Array[i].toString(16);
-      hexStr += (hex.length === 1 ? '0' : '') + hex;
-    }
-    
-    // แปลง Hex กลับเป็น Base64
-    const base64JsonContent = btoa(hexStr.match(/\x22[\x20-\x7e]*\x22|[\x21-\x7e]+/g) ? 
-      hexStr.replace(/../g, function(pair) {
-        return String.fromCharCode(parseInt(pair, 16));
-      }) : btoa(updatedJsonString)
-    );
+    const base64JsonContent = btoa(encodeURIComponent(updatedJsonString).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+    }));
 
     // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
@@ -130,8 +119,8 @@ export async function onRequestPost(context) {
 
     if (!updateJsonRes.ok) {
       return new Response(JSON.stringify({ message: "อัปเดตข้อมูลรายชื่อในสมาชิกไม่สำเร็จ" }), { 
-        status: 500, 
-        headers: { 'Content-Type': 'application/json' } 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
       });
     }
 
