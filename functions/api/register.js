@@ -41,8 +41,15 @@ export async function onRequestPost(context) {
     const jsonContentData = await jsonRes.json();
     const jsonSha = jsonContentData.sha; // เก็บค่า SHA ไว้ใช้อัปเดตไฟล์กลับ
     
-    // แปลงข้อมูล Base64 ของไฟล์ JSON จาก GitHub ออกมาเป็นข้อความปกติ
-    const fileContent = atob(jsonContentData.content.replace(/\n/g, ''));
+    //  แก้ไขจุดนี้: ถอดรหัส Base64 ให้รองรับภาษาไทย UTF-8 ของสมาชิกเก่าอย่างถูกต้อง ไม่ให้เป็นตัวต่างดาว
+    const base64Content = jsonContentData.content.replace(/\n/g, '');
+    const binaryString = atob(base64Content);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    const fileContent = new TextDecoder('utf-8').decode(bytes);
     const membersData = JSON.parse(fileContent);
 
     // ตรวจสอบ Username ซ้ำ
