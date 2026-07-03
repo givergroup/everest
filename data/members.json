@@ -39,22 +39,6 @@
     "register_link": "https://everest-media.co/register?ref=E002735",
     "image_url": "/en/images/coachaoy.jpg"
   },
-  "admin": {
-    "name_th": "แอดมิน",
-    "name_en": "Admin",
-    "phone": "0849165235",
-    "line_url": "https://line.me/ti/p/myU1RXCxly",
-    "register_link": "https://everest-media.co/register?ref=E000694",
-    "image_url": "/en/images/admin.jpg"
-  },
-  "paul": {
-    "name_th": "พล เอเวอร์เรส",
-    "name_en": "Paul Everest",
-    "phone": "+66849168234",
-    "line_url": "https://line.me/ti/p/myU1RXCxly",
-    "register_link": "https://line.me/ti/p/myU1RXCxly",
-    "image_url": "/en/images/paul.jpg"
-  },
   "coachrainny": {
     "name_th": "โค้ชเรนนี่",
     "name_en": "Sikarin Wichainchi",
