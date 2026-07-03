@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ลงทะเบียนสร้างเว็บไซต์ส่วนตัว - EVEREST</title>
+    <title>ลงทะเบียนสร้างเว็บไซต์ส่วนตัว - EVEREST 191</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; padding: 20px; color: #333; }
         .form-container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #1a365d; margin-bottom: 25px; }
+        
+        /* สไตล์สำหรับโลโก้ให้อยู่ตรงกลาง */
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 180px; height: auto; }
+        
+        h2 { text-align: center; color: #1a365d; margin-bottom: 15px; margin-top: 0; font-size: 24px; }
+        
+        /* แถบข้อความแจ้งเตือนเฉพาะสายงานโค้ชพล */
+        .notice-banner { background-color: #fffaf0; border-left: 4px solid #dd6b20; color: #dd6b20; padding: 12px; border-radius: 4px; font-size: 13px; line-height: 1.5; margin-bottom: 25px; text-align: center; font-weight: 500; }
+        
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
         input[type="text"], input[type="tel"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
@@ -24,7 +33,15 @@
 <body>
 
 <div class="form-container">
-    <h2>🚀 ลงทะเบียนรับเว็บส่วนตัว EVEREST</h2>
+    <div class="logo-container">
+        <img src="/en/images/everest191thai.png" alt="Everest 191 Logo">
+    </div>
+
+    <h2>ยินดีต้อนรับสู่ Everest 191 Team</h2>
+    <div class="notice-banner">
+        ระบบข้อมูลนี้จัดทำขึ้นเป็นการภายในเฉพาะสายงานขอสงวนสิทธิ์สำหรับสมาชิกทีมงานของโค้ชพลเท่านั้น
+    </div>
+
     <form id="regForm">
         <div class="form-group">
             <label for="username">Username (ภาษาอังกฤษตัวพิมพ์เล็กเท่านั้น)</label>
@@ -91,20 +108,17 @@
             return;
         }
 
-        // ฟังก์ชันสำหรับแปลงไฟล์รูปภาพเป็น Base64 String ฝั่งหน้าบ้าน
         const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result.split(',')[1]); // แยกเอาเฉพาะ Data ตัว Base64 เนื้อๆ
+            reader.onload = () => resolve(reader.result.split(',')[1]);
             reader.onerror = error => reject(error);
         });
 
         try {
             const imageBase64 = await toBase64(file);
-            // คัดแยกนามสกุลไฟล์รูปจากไทป์ของออบเจกต์ไฟล์
             const fileExt = file.type === 'image/png' ? 'png' : 'jpg';
 
-            // รวบรวมฟิลด์ข้อมูลทั้งหมดส่งให้ Cloudflare Pages Functions หลังบ้าน
             const formData = {
                 username: username,
                 name_th: document.getElementById('name_th').value.trim(),
@@ -116,7 +130,6 @@
                 image_data: imageBase64
             };
 
-            // เรียกไปที่ API ของ Cloudflare Pages บรรทัดนี้ใช้ Path สั้นได้เลยเพราะอยู่บนโฮสต์เดียวกัน
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
