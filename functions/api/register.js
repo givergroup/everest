@@ -41,7 +41,7 @@ export async function onRequestPost(context) {
     const jsonContentData = await jsonRes.json();
     const jsonSha = jsonContentData.sha; // เก็บค่า SHA ไว้ใช้อัปเดตไฟล์กลับ
     
-    //  แก้ไขจุดนี้: ถอดรหัส Base64 ให้รองรับภาษาไทย UTF-8 ของสมาชิกเก่าอย่างถูกต้อง ไม่ให้เป็นตัวต่างดาว
+    //  แก้ไขจุดนี้: ถอดรหัส Base64 ให้รองรับภาษาไทย UTF-8 ป้องกันอักขระเยื้องและลิงก์ขาดหายอย่างถูกต้อง
     const base64Content = jsonContentData.content.replace(/\n/g, '');
     const binaryString = atob(base64Content);
     const len = binaryString.length;
