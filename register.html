@@ -80,12 +80,12 @@
         };
 
         try {
-            // ส่งข้อมูลไปที่ Backend API (ให้เปลี่ยน URL เป็นหลังบ้านของคุณ)
-            const response = await fetch('https://your-api-domain.com/api/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+            // แก้ไขจาก URL เดิม ให้เป็น Path ของ Cloudflare ได้เลย (ไม่ต้องมี Domain นำหน้า)
+const response = await fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+});
 
             const result = await response.json();
 
