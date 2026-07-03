@@ -7,127 +7,81 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; padding: 20px; color: #333; }
         .form-container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        /* สไตล์สำหรับโลโก้ให้อยู่ตรงกลาง */
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { max-width: 180px; height: auto; }
-        
-        h2 { text-align: center; color: #1a365d; margin-bottom: 15px; margin-top: 0; font-size: 24px; }
-        
-        /* แถบข้อความแจ้งเตือนเฉพาะสายงานโค้ชพล */
-        .notice-banner { background-color: #fffaf0; border-left: 4px solid #dd6b20; color: #dd6b20; padding: 12px; border-radius: 4px; font-size: 13px; line-height: 1.5; margin-bottom: 25px; text-align: center; font-weight: 500; }
-        
+        h2 { text-align: center; color: #1a365d; margin-bottom: 25px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input[type="text"], input[type="tel"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        input[type="file"] { background: #fafafa; cursor: pointer; }
+        input[type="text"], input[type="tel"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         input:focus { border-color: #3182ce; outline: none; }
-        .note { font-size: 12px; color: #718096; margin-top: 2px; }
-        button { width: 100%; padding: 12px; background-color: #3182ce; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .note { font-size: 11px; color: #718096; margin-top: 4px; }
+        button { width: 100%; padding: 12px; background-color: #3182ce; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
         button:hover { background-color: #2b6cb0; }
-        #message { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; text-align: center; font-weight: bold; line-height: 1.6; }
-        .success { background-color: #c6f6d5; color: #22543d; border: 1px solid #c6f6d5; }
-        .error { background-color: #fed7d7; color: #742a2a; border: 1px solid #fed7d7; }
+        button:disabled { background-color: #cbd5e0; cursor: not-allowed; }
+        .success { background-color: #c6f6d5; color: #22543d; padding: 15px; border-radius: 4px; margin-top: 20px; border: 1px solid #38a169; display: none; text-align: center; font-weight: bold; }
+        .error { background-color: #fed7d7; color: #742a2a; padding: 15px; border-radius: 4px; margin-top: 20px; border: 1px solid #e53e3e; display: none; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="form-container">
-    <div class="logo-container">
-        <img src="/en/images/everest191thai.png" alt="Everest 191 Logo">
-    </div>
-
-    <h2>ยินดีต้อนรับสู่ Everest 191 Team</h2>
-    <div class="notice-banner">
-        ระบบข้อมูลนี้จัดทำขึ้นเป็นการภายในเฉพาะสายงานขอสงวนสิทธิ์สำหรับสมาชิกทีมงานของโค้ชพลเท่านั้น
-    </div>
-
+    <h2>EVEREST 191<br><span style="font-size: 16px; color:#4a5568;">ลงทะเบียนสร้างเว็บไซต์ส่วนตัว</span></h2>
+    
     <form id="regForm">
         <div class="form-group">
-            <label for="username">Username (ภาษาอังกฤษตัวพิมพ์เล็กเท่านั้น)</label>
-            <input type="text" id="username" placeholder="เช่น coachwin" required pattern="^[a-z0-9]+$">
-            <div class="note">ห้ามเว้นวรรค และห้ามใช้ภาษาไทย (ใช้ต่อท้ายลิงก์ ?ref=username)</div>
+            <label for="username">Username (ภาษาอังกฤษตัวพิมพ์เล็ก/ตัวเลขเท่านั้น)</label>
+            <input type="text" id="username" placeholder="เช่น paul191" required pattern="^[a-z0-9]+$">
+            <div class="note">ใช้สำหรับเป็นลิงก์เว็บของคุณ เช่น everest191.com/?ref=username</div>
         </div>
         
-        <div class="form-group">
-            <label for="avatar_file">รูปภาพโปรไฟล์ของคุณ (ไฟล์ .jpg หรือ .png)</label>
-            <input type="file" id="avatar_file" accept="image/jpeg, image/png" required>
-            <div class="note">แนะนำรูปหน้าตรง สว่าง ชัดเจน ระบบจะตั้งชื่อไฟล์ให้ตรงกับ Username อัตโนมัติ</div>
-        </div>
-
         <div class="form-group">
             <label for="name_th">ชื่อ-นามสกุล (ภาษาไทย)</label>
-            <input type="text" id="name_th" placeholder="เช่น โค้ชวิน" required>
+            <input type="text" id="name_th" placeholder="เช่น โค้ชพล" required>
         </div>
         
         <div class="form-group">
-            <label for="name_en">ชื่อ (ภาษาอังกฤษ)</label>
-            <input type="text" id="name_en" placeholder="เช่น Coach Win" required>
+            <label for="name_en">ชื่อ-นามสกุล (ภาษาอังกฤษ)</label>
+            <input type="text" id="name_en" placeholder="เช่น Coach Paul" required>
         </div>
         
         <div class="form-group">
-            <label for="phone">เบอร์โทรศัพท์</label>
-            <input type="tel" id="phone" placeholder="เช่น 0817346398" required>
+            <label for="phone">เบอร์โทรศัพท์มือถือ</label>
+            <input type="tel" id="phone" placeholder="เช่น 0952539634" required>
         </div>
         
         <div class="form-group">
-            <label for="line_url">ลิงก์ Line ส่วนตัว หรือ Line OA</label>
+            <label for="line_url">ลิงก์ Line QR Code หรือ ลิงก์ไลน์ส่วนตัว</label>
             <input type="url" id="line_url" placeholder="https://line.me/ti/p/..." required>
         </div>
         
         <div class="form-group">
-            <label for="register_link">ลิงก์สมัครสมาชิกเว็บหลักของคุณ</label>
-            <input type="url" id="register_link" placeholder="https://everest-media.co/register?ref=..." required>
+            <label for="register_link">ลิงก์สมัครสมาชิกหลักของคุณ</label>
+            <input type="url" id="register_link" placeholder="https://..." required>
         </div>
-
+        
         <button type="submit" id="submitBtn">สร้างเว็บไซต์ส่วนตัวทันที</button>
     </form>
 
-    <div id="message"></div>
+    <div id="msg" class="success"></div>
 </div>
 
 <script>
-    document.getElementById('regForm').addEventListener('submit', async (e) => {
+    document.getElementById('regForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
-        const msgDiv = document.getElementById('message');
+        const msgDiv = document.getElementById('msg');
         
         submitBtn.disabled = true;
-        submitBtn.innerText = 'กำลังอัปโหลดรูปภาพและบันทึกข้อมูล...';
+        submitBtn.innerText = 'กำลังประมวลผลระบบระบบ...';
         msgDiv.style.display = 'none';
 
-        const username = document.getElementById('username').value.trim().toLowerCase();
-        const fileInput = document.getElementById('avatar_file');
-        const file = fileInput.files[0];
-
-        if (!file) {
-            alert('กรุณาเลือกรูปภาพโปรไฟล์');
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'สร้างเว็บไซต์ส่วนตัวทันที';
-            return;
-        }
-
-        const toBase64 = file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result.split(',')[1]);
-            reader.onerror = error => reject(error);
-        });
-
         try {
-            const imageBase64 = await toBase64(file);
-            const fileExt = file.type === 'image/png' ? 'png' : 'jpg';
-
             const formData = {
-                username: username,
+                username: document.getElementById('username').value.trim().toLowerCase(),
                 name_th: document.getElementById('name_th').value.trim(),
                 name_en: document.getElementById('name_en').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 line_url: document.getElementById('line_url').value.trim(),
-                register_link: document.getElementById('register_link').value.trim(),
-                image_ext: fileExt,
-                image_data: imageBase64
+                register_link: document.getElementById('register_link').value.trim()
             };
 
             const response = await fetch('/api/register', {
@@ -140,7 +94,7 @@
 
             if (response.ok) {
                 msgDiv.className = 'success';
-                msgDiv.innerHTML = `🎉 ลงทะเบียนและอัปโหลดรูปสำเร็จ!<br>เว็บไซต์ของคุณพร้อมใช้งานแล้ว:<br><br><a href="${result.web_url}" target="_blank" style="color: #2b6cb0; word-break: break-all; font-size: 18px;">${result.web_url}</a>`;
+                msgDiv.innerHTML = `🎉 ลงทะเบียนสำเร็จ!<br>เว็บไซต์ของคุณพร้อมใช้งานแล้ว:<br><br><a href="${result.web_url}" target="_blank" style="color: #2b6cb0; word-break: break-all; font-size: 18px;">${result.web_url}</a>`;
                 msgDiv.style.display = 'block';
                 document.getElementById('regForm').reset();
             } else {
