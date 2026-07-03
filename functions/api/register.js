@@ -40,7 +40,7 @@ export async function onRequestPost(context) {
     const jsonContentData = await jsonRes.json();
     const jsonSha = jsonContentData.sha; 
     
-    // ถอดรหัส Base64 รองรับภาษาไทย UTF-8
+    // ถอดรหัส Base64 รองรับภาษาไทย UTF-8 (ขาเข้า)
     const base64Content = jsonContentData.content.replace(/\n/g, '');
     const binaryString = atob(base64Content);
     const len = binaryString.length;
@@ -96,16 +96,14 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // ปรับปรุงการเข้ารหัสเป็น Base64 วิธีใหม่ที่ปลอดภัยและเสถียรสำหรับ Cloudflare ป้องกันสคริปต์หลุดทำงานกลางคัน
+    //  แก้ไขจุดนี้: เปลี่ยนวิธีแปลง Base64 (ขาออก) เป็นลูปมาตรฐาน ไม่ใช้ .apply ป้องกัน Cloudflare บล็อกรันไทม์
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const encoder = new TextEncoder();
-    const dataBytes = encoder.encode(updatedJsonString);
-    let base64JsonContent = "";
-    const chunk_size = 0x8000; 
-    for (let i = 0; i < dataBytes.length; i += chunk_size) {
-      base64JsonContent += String.fromCharCode.apply(null, dataBytes.subarray(i, i + chunk_size));
+    const utf8BytesData = new TextEncoder().encode(updatedJsonString);
+    let binaryStr = '';
+    for (let i = 0; i < utf8BytesData.length; i++) {
+        binaryStr += String.fromCharCode(utf8BytesData[i]);
     }
-    base64JsonContent = btoa(base64JsonContent);
+    const base64JsonContent = btoa(binaryStr);
 
     // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
