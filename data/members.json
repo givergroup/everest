@@ -1,34 +1,42 @@
 {
   "coachpaul": {
-    "name_th": "โค้ชพล",
+    "name_th": "à¹à¸à¹à¸à¸à¸¥",
     "name_en": "Coach Paul",
     "phone": "+66952539634",
     "line_url": "https://lin.ee/ScFhI5r",
-    "register_link": "https://everest-media.co/register?ref=E000694", 
+    "register_link": "https://everest-media.co/register?ref=E000694",
     "image_url": "/en/images/coachpaul.png"
   },
   "coachpetch": {
-    "name_th": "โค้ชเพ็ชร",
+    "name_th": "à¹à¸à¹à¸à¹à¸à¹à¸à¸£",
     "name_en": "Coach Petch",
     "phone": "Contact me via line",
     "line_url": "https://line.me/ti/p/6adHlDYIDR",
-    "register_link": "https://everest-media.co/register?ref=E000771", 
+    "register_link": "https://everest-media.co/register?ref=E000771",
     "image_url": "/en/images/coachpetch.jpg"
-  }, 
-    "coachwin": {
-    "name_th": "โค้ชวิน",
+  },
+  "coachwin": {
+    "name_th": "à¹à¸à¹à¸à¸§à¸´à¸",
     "name_en": "Coach Win",
-    "phone": "081-734-6398​",
+    "phone": "081-734-6398â",
     "line_url": "https://line.me/ti/p/PKJ48PW53g",
-    "register_link": "https://everest-media.co/register?ref=E001394", 
+    "register_link": "https://everest-media.co/register?ref=E001394",
     "image_url": "/en/images/coachwin.jpg"
-    }, 
-    "coachpal": {
-        "name_th": "โค้ช ปาล",
-        "name_en": "Coach Pal",
-    "phone": "093-9791791​",
+  },
+  "coachpal": {
+    "name_th": "à¹à¸à¹à¸ à¸à¸²à¸¥",
+    "name_en": "Coach Pal",
+    "phone": "093-9791791â",
     "line_url": "https://line.me/ti/p/E7tuyxzg4Q",
-    "register_link": "https://everest-media.co/register?ref=E005256", 
+    "register_link": "https://everest-media.co/register?ref=E005256",
     "image_url": "/en/images/coachpal.jpg"
+  },
+  "coachaoy": {
+    "name_th": "โค้ช อ๋อย",
+    "name_en": "Coach Aoy",
+    "phone": "098-167-0132",
+    "line_url": "https://line.me/ti/p/_UnmGdysG3",
+    "register_link": "https://everest-media.co/register?ref=E002735",
+    "image_url": "/en/images/coachaoy.jpg"
   }
 }
