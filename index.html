@@ -118,7 +118,7 @@
 
     .metric-card {
       background: linear-gradient(145deg, rgba(8,18,37,0.96), rgba(14,30,56,0.86));
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 24px 70px rgba(0,0,0,0.32);
     }
 
@@ -143,10 +143,6 @@
 <script>
   /*
     ✅ Project Everest Thai Index - Real-Time Fixed Version
-    สิ่งสำคัญ:
-    1) ต้องมีไฟล์ /functions/api/everest-stats.js ใน GitHub
-    2) หน้าเว็บนี้เรียก API ด้วย fetch('/api/everest-stats?ts=' + Date.now(), { cache: 'no-store' })
-    3) ถ้า API ส่ง ok:false หรือส่งเลขเก่า จะไม่เอาค่าเก่ามาทับหน้าเว็บ
   */
 
   const fallbackCoachDb = {
@@ -195,7 +191,7 @@
     "สมเกียรติ พูนพล", "ยุทธนา ปิยพันธุ์", "เมธี สุนทรารักษ์", "สิทธิชัย ศักดิ์เจริญ", "รังสรรค์ รัตนวิชัย"
   ];
 
-  const packageNames = ["Starter", "Premium", "Advanced", "Professional", "Signature"];
+  const packageNames = ["Starter", "Premium", "Advanced", "Signature"];
 
   function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -352,10 +348,6 @@
 
     const data = await response.json();
 
-    /*
-      ป้องกันปัญหา API ส่งค่า fallback เก่า เช่น 5,259 กลับมา
-      ถ้า API ยังอ่านเว็บหลักไม่ได้และส่ง ok:false จะไม่ใช้ค่านั้น
-    */
     if (data.ok !== true) {
       throw new Error(data.error || 'Metrics API returned ok:false');
     }
@@ -513,7 +505,6 @@
       starter: 535,
       premium: 1605,
       advanced: 3210,
-      professional: 5350,
       signature: 7490
     };
 
@@ -898,11 +889,11 @@
       </div>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
+    <!-- ปรับความกว้างคอลัมน์เป็น 4 คอลัมน์ (lg:grid-cols-4) หลังจากนำแพ็กเกจ Professional ออก -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
       <div class="glass-panel p-5 rounded-3xl flex flex-col justify-between"><div><span class="text-xs text-neutral-300 font-bold tracking-wider uppercase">Starter</span><div class="mt-3 flex items-baseline"><span id="price-starter" class="text-3xl font-extrabold text-white">535</span><span id="unit-starter" class="text-xs text-neutral-300 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-300 mt-2">เหมาะสำหรับผู้เริ่มต้น</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-bold cursor-pointer"><span>เลือกแพ็กเกจนี้</span></a></div></div>
       <div class="glass-panel p-5 rounded-3xl flex flex-col justify-between"><div><span class="text-xs text-neutral-300 font-bold tracking-wider uppercase">Premium</span><div class="mt-3 flex items-baseline"><span id="price-premium" class="text-3xl font-extrabold text-white">1,605</span><span id="unit-premium" class="text-xs text-neutral-300 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-300 mt-2">เพิ่มประสิทธิภาพทักษะ</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-bold cursor-pointer"><span>เลือกแพ็กเกจนี้</span></a></div></div>
       <div class="glass-panel p-5 rounded-3xl flex flex-col justify-between"><div><span class="text-xs text-neutral-300 font-bold tracking-wider uppercase">Advanced</span><div class="mt-3 flex items-baseline"><span id="price-advanced" class="text-3xl font-extrabold text-white">3,210</span><span id="unit-advanced" class="text-xs text-neutral-300 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-300 mt-2">จริงจังกับการพัฒนา</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-bold cursor-pointer"><span>เลือกแพ็กเกจนี้</span></a></div></div>
-      <div class="glass-panel p-5 rounded-3xl flex flex-col justify-between"><div><span class="text-xs text-neutral-300 font-bold tracking-wider uppercase">Professional</span><div class="mt-3 flex items-baseline"><span id="price-professional" class="text-3xl font-extrabold text-white">5,350</span><span id="unit-professional" class="text-xs text-neutral-300 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-300 mt-2">ยกระดับแบบมืออาชีพ</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-bold cursor-pointer"><span>เลือกแพ็กเกจนี้</span></a></div></div>
       <div class="glass-panel border-gold-500/50 p-5 rounded-3xl flex flex-col justify-between relative"><span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-500 to-amber-400 text-navy-950 font-extrabold text-[9px] tracking-widest px-3 py-1 rounded-full uppercase">Recommended</span><div><span class="text-xs text-gold-400 font-extrabold tracking-wider uppercase">Signature</span><div class="mt-3 flex items-baseline"><span id="price-signature" class="text-3xl font-extrabold text-gold-400">7,490</span><span id="unit-signature" class="text-xs text-neutral-200 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-200 mt-2 font-medium">คุ้มค่าสูงสุด ครอบคลุมระบบ</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-extrabold cursor-pointer"><span>เลือกแพ็กเกจสูงสุด</span></a></div></div>
     </div>
 
