@@ -3,60 +3,23 @@ export async function onRequestPost(context) {
 
   try {
     // 1. รับข้อมูลชุดใหม่จากหน้าฟอร์ม
-    const inputData = await request.json();
-    
-    // ดึงข้อมูลภาพแยกออกมาก่อน เพื่อนำไปเคลียร์แรมไม่ให้ข้อมูลบวม
-    const username = inputData.username;
-    const name_th = inputData.name_th;
-    const name_en = inputData.name_en;
-    const phone = inputData.phone;
-    const line_url = inputData.line_url;
-    const register_link = inputData.register_link;
-    const image_ext = inputData.image_ext;
-    const image_data = inputData.image_data; // ข้อความรูปภาพก้อนใหญ่
+    const { username, name_th, name_en, phone, line_url, register_link, image_ext, image_data } = await request.json();
 
     const GITHUB_TOKEN = env.GITHUB_TOKEN; 
     const REPO_OWNER = 'givergroup';
     const REPO_NAME = 'everest';
     const JSON_FILE_PATH = 'data/members.json';
+    
     const IMAGE_FILE_PATH = `en/images/${username}.${image_ext}`;
 
     if (!GITHUB_TOKEN) {
-      return new Response(JSON.stringify({ message: "ระบบยังไม่ได้ตั้งค่า GitHub Token" }), { 
+      return new Response(JSON.stringify({ message: "ระบบยังไม่ได้ตั้งค่า GitHub Token ใน Cloudflare Environment" }), { 
         status: 500, 
         headers: { 'Content-Type': 'application/json' } 
       });
     }
 
-    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub ก่อนเป็นอันดับแรก (ใช้เสร็จแล้วล้างทิ้งทันที) ---
-    if (image_data) {
-      const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
-      
-      const imgRes = await fetch(imageUrl, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${GITHUB_TOKEN}`,
-          'User-Agent': 'Cloudflare-Pages-Function',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
-          content: image_data 
-        })
-      });
-
-      if (!imgRes.ok) {
-        return new Response(JSON.stringify({ message: "อัปโหลดรูปภาพโปรไฟล์ไม่สำเร็จ" }), { 
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-    }
-
-    // 💡 จุดสำคัญ: ลบข้อมูลตัวแปรที่เป็นก้อนรูปภาพยักษ์ทิ้งจากหน่วยความจำทันที เพื่อให้แรมลดลงเกินครึ่ง ป้องกันระบบ Crash
-    delete inputData.image_data;
-
-    // --- ส่วนที่ 1: ดึงไฟล์ JSON ปัจจุบันจาก GitHub ---
+    // --- ส่วนที่ 1: ดึงไฟล์ JSON ปัจจุบัน ---
     const jsonUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${JSON_FILE_PATH}`;
     const jsonRes = await fetch(jsonUrl, {
       method: 'GET',
@@ -77,7 +40,7 @@ export async function onRequestPost(context) {
     const jsonContentData = await jsonRes.json();
     const jsonSha = jsonContentData.sha; 
     
-    // ถอดรหัสไฟล์เดิมมาคำนวณ (ขารับ)
+    // ถอดรหัส Base64 รองรับภาษาไทย UTF-8 (ขาเข้า)
     const base64Content = jsonContentData.content.replace(/\n/g, '');
     const binaryString = atob(base64Content);
     const len = binaryString.length;
@@ -88,7 +51,7 @@ export async function onRequestPost(context) {
     const fileContent = new TextDecoder('utf-8').decode(bytes);
     const membersData = JSON.parse(fileContent);
 
-    // ตรวจสอบ Username และเบอร์ซ้ำ
+    // ตรวจสอบ Username ซ้ำ
     if (membersData[username]) {
       return new Response(JSON.stringify({ message: 'Username นี้ถูกใช้ไปแล้ว กรุณาเปลี่ยนชื่ออื่น' }), { 
         status: 400,
@@ -96,11 +59,46 @@ export async function onRequestPost(context) {
       });
     }
     
+    // ตรวจสอบเบอร์โทรศัพท์ซ้ำ
     const isPhoneDuplicate = Object.values(membersData).some(member => member.phone === phone);
     if (isPhoneDuplicate) {
       return new Response(JSON.stringify({ message: 'เบอร์โทรศัพท์นี้เคยลงทะเบียนในระบบแล้ว' }), { 
         status: 400,
         headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub ---
+    //  แก้ไขจุดนี้: เพิ่มเงื่อนไขตรวจสอบว่ารูปภาพถูกส่งมาจริง และดักจับบั๊กตัวแปรภาพว่าง
+    if (image_data && typeof image_data === 'string' && image_data.includes(',')) {
+      const cleanImageData = image_data.split(',')[1] || image_data;
+      const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
+      
+      await fetch(imageUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'User-Agent': 'Cloudflare-Pages-Function',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
+          content: cleanImageData 
+        })
+      });
+    } else if (image_data && typeof image_data === 'string' && !image_data.includes(',')) {
+      const imageUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGE_FILE_PATH}`;
+      await fetch(imageUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'User-Agent': 'Cloudflare-Pages-Function',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `📸 บอทระบบ: อัปโหลดรูปภาพโปรไฟล์ของคุณ ${name_en} (${username})`,
+          content: image_data 
+        })
       });
     }
 
@@ -114,11 +112,18 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // แปลงข้อมูลกลับเป็น Base64 แบบปลอดภัยที่สุด (ขาส่ง) 
+    //  แก้ไขจุดนี้: เปลี่ยนวิธีเข้ารหัส Base64 (ขาออก) เป็นลูปประมวลผลขนาดเล็ก เพื่อไม่ทำให้สแต็กแรมของ Cloudflare ล้น
     const updatedJsonString = JSON.stringify(membersData, null, 2);
-    const base64JsonContent = btoa(unescape(encodeURIComponent(updatedJsonString)));
+    const utf8BytesData = new TextEncoder().encode(updatedJsonString);
+    
+    let binaryStr = "";
+    const byteLength = utf8BytesData.byteLength;
+    for (let i = 0; i < byteLength; i++) {
+      binaryStr += String.fromCharCode(utf8BytesData[i]);
+    }
+    const base64JsonContent = btoa(binaryStr);
 
-    // ยิง API กลับไปเขียนทับไฟล์ JSON บน GitHub
+    // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
       method: 'PUT',
       headers: {
