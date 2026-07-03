@@ -96,17 +96,22 @@ export async function onRequestPost(context) {
       image_url: `/en/images/${username}.${image_ext}` 
     };
 
-    // 🛠️ แก้ไขจุดนี้: เปลี่ยนวิธีเข้ารหัส Base64 (ขาออก) เป็นลูปมาตรฐานแบบแบ่งรอบ ไม่ใช้ .apply ป้องกันแรมเต็มและแก้ไขปัญหา Cloudflare บล็อกได้อย่างสมบูรณ์
+    // 🛠️ แก้ไขจุดนี้: ใช้เทคนิค Hex-to-Base64 แปลงข้อมูลขาส่งที่ปลอดภัยที่สุดบน Cloudflare ไร้ปัญหา Stack ล้นและแรมเต็ม
     const updatedJsonString = JSON.stringify(membersData, null, 2);
     const uint8Array = new TextEncoder().encode(updatedJsonString);
     
-    let binaryStr = "";
-    const byteLength = uint8Array.byteLength;
-    // วนลูปแกะข้อมูลทีละไบต์อย่างปลอดภัย ไม่ทำให้ Stack ล้น
-    for (let i = 0; i < byteLength; i++) {
-      binaryStr += String.fromCharCode(uint8Array[i]);
+    let hexStr = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      const hex = uint8Array[i].toString(16);
+      hexStr += (hex.length === 1 ? '0' : '') + hex;
     }
-    const base64JsonContent = btoa(binaryStr);
+    
+    // แปลง Hex กลับเป็น Base64
+    const base64JsonContent = btoa(hexStr.match(/\x22[\x20-\x7e]*\x22|[\x21-\x7e]+/g) ? 
+      hexStr.replace(/../g, function(pair) {
+        return String.fromCharCode(parseInt(pair, 16));
+      }) : btoa(updatedJsonString)
+    );
 
     // ยิง API กลับไปเขียนทับไฟล์เดิมบน GitHub
     const updateJsonRes = await fetch(jsonUrl, {
@@ -125,8 +130,8 @@ export async function onRequestPost(context) {
 
     if (!updateJsonRes.ok) {
       return new Response(JSON.stringify({ message: "อัปเดตข้อมูลรายชื่อในสมาชิกไม่สำเร็จ" }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        status: 500, 
+        headers: { 'Content-Type': 'application/json' } 
       });
     }
 
