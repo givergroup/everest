@@ -32,13 +32,15 @@
 <body>
 
 <div class="form-container">
+    <!-- แก้ไขพาธรูปภาพให้ชี้ไปที่ /en/images/ อ้างอิงจากโฟลเดอร์จริงใน GitHub -->
     <div class="logo-container">
-        <img src="/images/everest191eng.png" alt="Everest 191 Logo">
+        <img src="/en/images/everest191eng.png" alt="Everest 191 Logo">
     </div>
 
+    <!-- เปลี่ยนข้อความท้ายแบนเนอร์แจ้งเตือนเป็น Everest191 Team -->
     <h2>Welcome to Everest 191 Team</h2>
     <div class="notice-banner">
-        This information system is for internal use within the specific team line only. Reserved exclusively for members of Coach Phon's team.
+        This information system is for internal use within the specific team line only. Reserved exclusively for members of Everest191 Team.
     </div>
 
     <form id="regForm">
@@ -102,7 +104,6 @@
                 register_link: document.getElementById('register_link').value.trim()
             };
 
-            // Call the same Cloudflare Pages API
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
