@@ -730,7 +730,8 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 items-stretch">
+            <!-- Adjusted layout from lg:grid-cols-5 to lg:grid-cols-4 after removing Professional package -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
 
                 <div class="bg-slate-100 rounded-3xl p-6 border border-slate-300 shadow-md flex flex-col justify-between hover:scale-[1.02] hover:shadow-lg transition-all relative">
                     <div>
@@ -809,33 +810,6 @@
                     <div class="pt-6">
                         <a href="#" target="_blank" class="package-cta-btn w-full block text-center py-3.5 rounded-xl bg-emerald-100 text-navy-900 hover:bg-gold-500 hover:text-white transition-all text-sm font-black uppercase tracking-wider">
                             Choose Advanced
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-purple-50 rounded-3xl p-6 border border-purple-200 shadow-md flex flex-col justify-between hover:scale-[1.02] hover:shadow-lg transition-all relative">
-                    <div>
-                        <div class="text-xs uppercase font-black tracking-widest text-purple-600 mb-2">Tier 4</div>
-                        <h4 class="text-navy-900 font-extrabold text-2xl mb-1">Professional</h4>
-                        <p class="text-slate-600 text-sm font-medium mb-4">Upgrade yourself toward professional-level work and business.</p>
-                        <div class="mb-6 pt-2">
-                            <span class="text-4xl font-black text-navy-900">185</span>
-                            <span class="text-purple-600 font-black text-lg tracking-wider ml-1">USDT</span>
-                        </div>
-                        <ul class="text-sm text-slate-700 space-y-3.5 border-t border-purple-100 pt-4">
-                            <li class="flex items-center space-x-2">
-                                <span class="text-purple-600 font-bold text-lg">✓</span>
-                                <span class="font-medium text-slate-900">Full elite video editing & marketing</span>
-                            </li>
-                            <li class="flex items-center space-x-2">
-                                <span class="text-purple-600 font-bold text-lg">✓</span>
-                                <span class="font-medium text-slate-900">Priority business tools access</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pt-6">
-                        <a href="#" target="_blank" class="package-cta-btn w-full block text-center py-3.5 rounded-xl bg-purple-100 text-navy-900 hover:bg-gold-500 hover:text-white transition-all text-sm font-black uppercase tracking-wider">
-                            Choose Professional
                         </a>
                     </div>
                 </div>
@@ -1032,10 +1006,6 @@
     <script>
         /*
             Fixed replicated sponsor logic + Real-Time Metrics
-            - Loads live data from /data/members.json.
-            - Supports dynamic sponsor ref.
-            - Syncs metrics from /api/everest-stats.
-            - /api/everest-stats must be powered by /functions/api/everest-stats.js.
         */
 
         const fallbackMembersData = {
@@ -1072,49 +1042,40 @@
             { name: "Emily R.", package: "Premium Package (56 USDT)", country: "🇬🇧 UK" },
             { name: "David L.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
             { name: "Sophia M.", package: "Advanced Package (111 USDT)", country: "🇨🇦 Canada" },
-            { name: "Michael B.", package: "Professional Package (185 USDT)", country: "🇺🇸 USA" },
             { name: "Jessica W.", package: "Starter Package (19 USDT)", country: "🇳🇿 New Zealand" },
             { name: "Daniel K.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
-            { name: "Olivia H.", package: "Professional Package (185 USDT)", country: "🇬🇧 UK" },
             { name: "Alexander G.", package: "Signature Package (259 USDT)", country: "🇨🇭 Switzerland" },
             { name: "Sarah P.", package: "Advanced Package (111 USDT)", country: "🇸🇬 Singapore" },
             { name: "Matthew C.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
             { name: "Isabella T.", package: "Signature Package (259 USDT)", country: "🇫🇷 France" },
             { name: "James F.", package: "Starter Package (19 USDT)", country: "🇮🇪 Ireland" },
-            { name: "Charlotte N.", package: "Professional Package (185 USDT)", country: "🇳🇱 Netherlands" },
             { name: "Robert M.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
             { name: "Abigail D.", package: "Advanced Package (111 USDT)", country: "🇬🇧 UK" },
             { name: "William J.", package: "Premium Package (56 USDT)", country: "🇨🇦 Canada" },
             { name: "Madison O.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Joseph V.", package: "Professional Package (185 USDT)", country: "🇮🇹 Italy" },
             { name: "Elizabeth Y.", package: "Starter Package (19 USDT)", country: "🇸🇪 Sweden" },
             { name: "Andrew Q.", package: "Signature Package (259 USDT)", country: "🇩🇰 Denmark" },
             { name: "Chloe R.", package: "Advanced Package (111 USDT)", country: "🇳🇴 Norway" },
             { name: "Christopher S.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
-            { name: "Mia L.", package: "Professional Package (185 USDT)", country: "🇬🇧 UK" },
             { name: "Daniel A.", package: "Signature Package (259 USDT)", country: "🇫🇮 Finland" },
             { name: "Evelyn T.", package: "Advanced Package (111 USDT)", country: "🇦🇺 Australia" },
             { name: "Anthony C.", package: "Signature Package (259 USDT)", country: "🇨🇭 Switzerland" },
             { name: "Harper G.", package: "Starter Package (19 USDT)", country: "🇨🇦 Canada" },
             { name: "Ethan F.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
             { name: "Sofia B.", package: "Signature Package (259 USDT)", country: "🇪🇸 Spain" },
-            { name: "Ryan W.", package: "Professional Package (185 USDT)", country: "🇬🇧 UK" },
             { name: "Grace H.", package: "Signature Package (259 USDT)", country: "🇳🇿 New Zealand" },
             { name: "Nicholas P.", package: "Advanced Package (111 USDT)", country: "🇦🇹 Austria" },
             { name: "Natalie D.", package: "Premium Package (56 USDT)", country: "🇸🇬 Singapore" },
             { name: "Christian J.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Lily M.", package: "Professional Package (185 USDT)", country: "🇮🇪 Ireland" },
             { name: "Tyler S.", package: "Starter Package (19 USDT)", country: "🇨🇦 Canada" },
             { name: "Victoria K.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
             { name: "Brandon L.", package: "Advanced Package (111 USDT)", country: "🇺🇸 USA" },
             { name: "Emily O.", package: "Premium Package (56 USDT)", country: "🇬🇧 UK" },
-            { name: "Samuel N.", package: "Professional Package (185 USDT)", country: "🇫🇷 France" },
             { name: "Zoey A.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
             { name: "Benjamin R.", package: "Starter Package (19 USDT)", country: "🇨🇭 Switzerland" },
             { name: "Penelope V.", package: "Signature Package (259 USDT)", country: "🇳🇱 Netherlands" },
             { name: "Dylan Y.", package: "Advanced Package (111 USDT)", country: "🇺🇸 USA" },
             { name: "Layla H.", package: "Premium Package (56 USDT)", country: "🇳🇿 New Zealand" },
-            { name: "Gabriel S.", package: "Professional Package (185 USDT)", country: "🇬🇧 UK" },
             { name: "Anna T.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
             { name: "Logan M.", package: "Advanced Package (111 USDT)", country: "🇨🇦 Canada" },
             { name: "Stella P.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" }
@@ -1162,7 +1123,6 @@
             }, 300);
         }
 
-        // ✅ TRUE REAL-TIME SYNC VIA SAME-ORIGIN CLOUDFLARE PAGES FUNCTION
         const officialMetricsFallback = {
             students: 5292,
             satisfaction: 95
