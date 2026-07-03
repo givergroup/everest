@@ -10,14 +10,15 @@
         h2 { text-align: center; color: #1a365d; margin-bottom: 25px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input[type="text"], input[type="tel"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="text"], input[type="tel"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="file"] { background: #fafafa; cursor: pointer; }
         input:focus { border-color: #3182ce; outline: none; }
         .note { font-size: 12px; color: #718096; margin-top: 2px; }
         button { width: 100%; padding: 12px; background-color: #3182ce; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         button:hover { background-color: #2b6cb0; }
-        #message { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; text-align: center; font-weight: bold; }
-        .success { background-color: #c6f6d5; color: #22543d; }
-        .error { background-color: #fed7d7; color: #742a2a; }
+        #message { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; text-align: center; font-weight: bold; line-height: 1.6; }
+        .success { background-color: #c6f6d5; color: #22543d; border: 1px solid #c6f6d5; }
+        .error { background-color: #fed7d7; color: #742a2a; border: 1px solid #fed7d7; }
     </style>
 </head>
 <body>
@@ -30,22 +31,33 @@
             <input type="text" id="username" placeholder="เช่น coachwin" required pattern="^[a-z0-9]+$">
             <div class="note">ห้ามเว้นวรรค และห้ามใช้ภาษาไทย (ใช้ต่อท้ายลิงก์ ?ref=username)</div>
         </div>
+        
+        <div class="form-group">
+            <label for="avatar_file">รูปภาพโปรไฟล์ของคุณ (ไฟล์ .jpg หรือ .png)</label>
+            <input type="file" id="avatar_file" accept="image/jpeg, image/png" required>
+            <div class="note">แนะนำรูปหน้าตรง สว่าง ชัดเจน ระบบจะตั้งชื่อไฟล์ให้ตรงกับ Username อัตโนมัติ</div>
+        </div>
+
         <div class="form-group">
             <label for="name_th">ชื่อ-นามสกุล (ภาษาไทย)</label>
             <input type="text" id="name_th" placeholder="เช่น โค้ชวิน" required>
         </div>
+        
         <div class="form-group">
             <label for="name_en">ชื่อ (ภาษาอังกฤษ)</label>
             <input type="text" id="name_en" placeholder="เช่น Coach Win" required>
         </div>
+        
         <div class="form-group">
             <label for="phone">เบอร์โทรศัพท์</label>
             <input type="tel" id="phone" placeholder="เช่น 0817346398" required>
         </div>
+        
         <div class="form-group">
             <label for="line_url">ลิงก์ Line ส่วนตัว หรือ Line OA</label>
             <input type="url" id="line_url" placeholder="https://line.me/ti/p/..." required>
         </div>
+        
         <div class="form-group">
             <label for="register_link">ลิงก์สมัครสมาชิกเว็บหลักของคุณ</label>
             <input type="url" id="register_link" placeholder="https://everest-media.co/register?ref=..." required>
@@ -65,40 +77,64 @@
         const msgDiv = document.getElementById('message');
         
         submitBtn.disabled = true;
-        submitBtn.innerText = 'กำลังระบบบันทึกข้อมูล...';
+        submitBtn.innerText = 'กำลังอัปโหลดรูปภาพและบันทึกข้อมูล...';
         msgDiv.style.display = 'none';
 
-        // รวบรวมข้อมูลจากฟอร์ม
-        const formData = {
-            username: document.getElementById('username').value.trim().toLowerCase(),
-            name_th: document.getElementById('name_th').value.trim(),
-            name_en: document.getElementById('name_en').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            line_url: document.getElementById('line_url').value.trim(),
-            register_link: document.getElementById('register_link').value.trim(),
-            image_url: `/en/images/${document.getElementById('username').value.trim().toLowerCase()}.jpg` // ตั้งชื่อรูปแบบออโต้
-        };
+        const username = document.getElementById('username').value.trim().toLowerCase();
+        const fileInput = document.getElementById('avatar_file');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert('กรุณาเลือกรูปภาพโปรไฟล์');
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'สร้างเว็บไซต์ส่วนตัวทันที';
+            return;
+        }
+
+        // ฟังก์ชันสำหรับแปลงไฟล์รูปภาพเป็น Base64 String ฝั่งหน้าบ้าน
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]); // แยกเอาเฉพาะ Data ตัว Base64 เนื้อๆ
+            reader.onerror = error => reject(error);
+        });
 
         try {
-            // แก้ไขจาก URL เดิม ให้เป็น Path ของ Cloudflare ได้เลย (ไม่ต้องมี Domain นำหน้า)
-const response = await fetch('/api/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-});
+            const imageBase64 = await toBase64(file);
+            // คัดแยกนามสกุลไฟล์รูปจากไทป์ของออบเจกต์ไฟล์
+            const fileExt = file.type === 'image/png' ? 'png' : 'jpg';
+
+            // รวบรวมฟิลด์ข้อมูลทั้งหมดส่งให้ Cloudflare Pages Functions หลังบ้าน
+            const formData = {
+                username: username,
+                name_th: document.getElementById('name_th').value.trim(),
+                name_en: document.getElementById('name_en').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                line_url: document.getElementById('line_url').value.trim(),
+                register_link: document.getElementById('register_link').value.trim(),
+                image_ext: fileExt,
+                image_data: imageBase64
+            };
+
+            // เรียกไปที่ API ของ Cloudflare Pages บรรทัดนี้ใช้ Path สั้นได้เลยเพราะอยู่บนโฮสต์เดียวกัน
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
 
             const result = await response.json();
 
             if (response.ok) {
-                msgDiv.className = 'message success';
-                msgDiv.innerHTML = `🎉 ลงทะเบียนสำเร็จ!<br>เว็บไซต์ของคุณพร้อมใช้งานแล้ว:<br><a href="${result.web_url}" target="_blank">${result.web_url}</a>`;
+                msgDiv.className = 'success';
+                msgDiv.innerHTML = `🎉 ลงทะเบียนและอัปโหลดรูปสำเร็จ!<br>เว็บไซต์ของคุณพร้อมใช้งานแล้ว:<br><br><a href="${result.web_url}" target="_blank" style="color: #2b6cb0; word-break: break-all; font-size: 18px;">${result.web_url}</a>`;
                 msgDiv.style.display = 'block';
                 document.getElementById('regForm').reset();
             } else {
                 throw new Error(result.message || 'เกิดข้อผิดพลาดในการลงทะเบียน');
             }
         } catch (error) {
-            msgDiv.className = 'message error';
+            msgDiv.className = 'error';
             msgDiv.innerText = error.message;
             msgDiv.style.display = 'block';
         } finally {
