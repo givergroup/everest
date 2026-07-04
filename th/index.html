@@ -193,7 +193,6 @@
 <div class="glow-orb w-[650px] h-[650px] bg-emeraldAccent-400 bottom-[10%] left-[-200px]"></div>
 
 <script>
-  // Robust Fallback Database with local and remote fallback support
   const fallbackCoachDb = {
     "coachpaul": {
       "key": "coachpaul",
@@ -232,7 +231,6 @@
     satisfaction: 95
   };
 
-  // 150 simulated Thai full names (First name + Last name) requested by user
   const registrants = [
     "สมชาย เจริญสุข", "สมศักดิ์ รุ่งเรือง", "สมพงษ์ ทองดี", "สมเกียรติ มั่นคง", "สมจิตต์ รักษาดี",
     "วิชัย เกียรติภูมิ", "วิชาญ บุญนำ", "วิชา เก่งกาจ", "วิเชียร เลิศล้ำ", "วิชิต สุวรรณฉาย",
@@ -256,13 +254,13 @@
     "วรวุฒิ ทรัพย์สิน", "วรุตม์ เจริญดี", "วรนนท์ ชัยมงคล", "วรพจน์ มั่นคง", "วรพล สถิตตระกูล",
     "เกศรา โสภณ", "เกรียงไกร สิงห์โต", "เกียรติศักดิ์ ศรีวิชัย", "โกวิท เกตุแก้ว", "โกสิทธิ์ บุญเกื้อ",
     "ศิริพงษ์ ชื่นชม", "ศิริวัฒน์ วงศ์เทวา", "ศิริลาภ ยิ้มแย้ม", "ศิริชัย เลิศมงคล", "ศิริวรรณ บุญมี",
-    "ดนัย รัตนวงค์", "ดนตรี วรากุล", "ดวงพร อนันต์ศิลป์", "ดวงใจ ทรัพย์แสนดี", "ดวงใจ ทรัพย์แสนดี", "ดุสิต โกสิยพงศ์",
+    "ดนัย รัตนวงค์", "ดนตรี วรากุล", "ดวงพร อนันต์ศิลป์", "ดวงใจ ทรัพย์แสนดี", "ดุสิต โกสิยพงศ์",
     "ปิยะบุตร แสงจันทร์", "ปิยะพงษ์ แก้วมณี", "ปิยะนันท์ เลิศพาณิชย์", "ปิยมาศ วงศ์ตระกูล", "ปิยพัทธ์ สว่างวงศ์",
     "อารีรัตน์ รุ่งเรือง", "อาทิตย์ แสงสว่าง", "อานนท์ บุญรักษา", "อำนาจ มีอำนาจ", "อำนวย พูนสิน",
     "สุพัตรา สุวรรณ", "สุพรรณิการ์ ทวีวัฒน์", "สุพาณี สุขสมบัติ", "สุพรรณ ทรัพย์ศิริ", "สุภารัตน์ เลิศเดช",
     "พรรณรายณ์ ยิ่งยศ", "พรรณนิกา มีสุข", "พรรณทิพย์ รักษาดี", "พรชัย เลิศมณี", "พรเทพ ชัยพานิช",
     "นพดล เจริญพงศ์", "นพคุณ สถิตดี", "นพพร แสนสุข", "นพรัตน์ แสงเจริญ", "นภัสวรรณ รุ่งเรือง",
-    "ธนัญชัย อัศวเทพ", "ธนัท มีเสน่ห์", "ธนิก แสงคำ", "ธนิก แสงคำ", "ธนิสร ยมนา", "ธนิน ศักดิ์ดา"
+    "ธนัญชัย อัศวเทพ", "ธนัท มีเสน่ห์", "ธนิก แสงคำ", "ธนิสร ยมนา", "ธนิน ศักดิ์ดา"
   ];
 
   function getQueryParam(param) {
@@ -270,7 +268,6 @@
     return urlParams.get(param);
   }
 
-  // Normalizes the relative path to resolve correctly under th subfolder
   function normalizeImageUrl(url) {
     if (!url) return "";
     const cleanUrl = String(url).trim();
@@ -298,7 +295,6 @@
     return aliases[key] || key;
   }
 
-  // Dynamic loading of members from centralized members.json database
   async function loadMembersJson() {
     try {
       const response = await fetch('/data/members.json?v=' + Date.now(), {
@@ -457,7 +453,6 @@
     }
   }
 
-  // Real-Time Notification system for Toast Updates
   let toastRegistrantQueue = [];
   let lastToastRegistrantName = '';
 
@@ -515,7 +510,7 @@
     return selectedName;
   }
 
-  // Custom weighted randomization: 80% Starter, 20% others (Premium, Advanced, Signature)
+  /* 80% Starter Probability Weight Distribution */
   function getRandomPackageName() {
     const rand = Math.random();
     if (rand < 0.80) { // 80% probability
