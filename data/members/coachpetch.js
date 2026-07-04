@@ -1,0 +1,9 @@
+{
+   "coachpetch": {
+    "name_th": "โค้ชเพ็ชร",
+    "name_en": "Coach Petch",
+    "phone": "Contact me via line",
+    "line_url": "https://line.me/ti/p/6adHlDYIDR",
+    "register_link": "https://everest-media.co/register?ref=E000771",
+    "image_url": "/en/images/coachpetch.jpg
+  }
