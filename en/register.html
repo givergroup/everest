@@ -32,46 +32,44 @@
 <body>
 
 <div class="form-container">
-    <!-- แก้ไขพาธรูปภาพให้ชี้ไปที่ /en/images/ อ้างอิงจากโฟลเดอร์จริงใน GitHub -->
     <div class="logo-container">
-        <img src="/en/images/everest191eng.png" alt="Everest 191 Logo">
+        <img src="/en/images/everest191thai.png" alt="Everest 191 Logo">
     </div>
 
-    <!-- เปลี่ยนข้อความท้ายแบนเนอร์แจ้งเตือนเป็น Everest191 Team -->
     <h2>Welcome to Everest 191 Team</h2>
     <div class="notice-banner">
-        This information system is for internal use within the specific team line only. Reserved exclusively for members of Everest191 Team.
+        This registration system is internal and exclusively reserved for members of Coach Pol's team.
     </div>
 
     <form id="regForm">
         <div class="form-group">
-            <label for="username">Username (Lowercase English letters & numbers only)</label>
-            <input type="text" id="username" placeholder="e.g. coachwin" required pattern="^[a-z0-9]+$">
-            <div class="note">No spaces, no special characters. (Used for your link: ?ref=username)</div>
+            <label for="username">Username (Lowercase letters and numbers only)</label>
+            <input type="text" id="username" placeholder="e.g., coachwin" required pattern="^[a-z0-9]+$">
+            <div class="note">No spaces, no special characters. Used for your referral link (?ref=username)</div>
         </div>
 
         <div class="form-group">
-            <label for="name_th">Name (Your own language)</label>
-            <input type="text" id="name_th" placeholder="e.g. Your name in local language" required>
+            <label for="name_th">Full Name (Thai)</label>
+            <input type="text" id="name_th" placeholder="e.g., โค้ชวิน" required>
         </div>
         
         <div class="form-group">
-            <label for="name_en">Name (English)</label>
-            <input type="text" id="name_en" placeholder="e.g. Coach Win" required>
+            <label for="name_en">Full Name (English)</label>
+            <input type="text" id="name_en" placeholder="e.g., Coach Win" required>
         </div>
         
         <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="e.g. +66817346398" required>
+            <input type="tel" id="phone" placeholder="e.g., 0817346398" required>
         </div>
         
         <div class="form-group">
-            <label for="line_url">Line URL or Chat Contact Link</label>
+            <label for="line_url">Personal Line Link or Line OA</label>
             <input type="url" id="line_url" placeholder="https://line.me/ti/p/..." required>
         </div>
         
         <div class="form-group">
-            <label for="register_link">Your Main Website Affiliate Link</label>
+            <label for="register_link">Your Main Website Registration Link</label>
             <input type="url" id="register_link" placeholder="https://everest-media.co/register?ref=..." required>
         </div>
 
@@ -89,19 +87,21 @@
         const msgDiv = document.getElementById('message');
         
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Saving information...';
+        submitBtn.innerText = 'Saving Data...';
         msgDiv.style.display = 'none';
 
         const username = document.getElementById('username').value.trim().toLowerCase();
 
         try {
+            // รวบรวมข้อมูลพร้อมระบุตัวแปรภาษาอังกฤษส่งไปที่ API หลังบ้าน
             const formData = {
                 username: username,
                 name_th: document.getElementById('name_th').value.trim(),
                 name_en: document.getElementById('name_en').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 line_url: document.getElementById('line_url').value.trim(),
-                register_link: document.getElementById('register_link').value.trim()
+                register_link: document.getElementById('register_link').value.trim(),
+                lang: 'en' // 💡 เพิ่มแท็กภาษาอังกฤษตรงนี้ เพื่อให้หลังบ้านตอบรับลิงก์ /en/
             };
 
             const response = await fetch('/api/register', {
