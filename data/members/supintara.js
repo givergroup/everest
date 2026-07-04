@@ -1,0 +1,9 @@
+ }
+  "supintara": {
+    "name_th": "ศุภินทรา",
+    "name_en": "Supintara",
+    "phone": "0824556414",
+    "line_url": "https://line.me/ti/p/klic4L83Cz",
+    "register_link": "https://everest-media.co/register?ref=E000943",
+    "image_url": "/en/images/supintara.jpg"
+  }
