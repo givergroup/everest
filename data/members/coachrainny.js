@@ -1,0 +1,9 @@
+}
+  "coachrainny": {
+    "name_th": "โค้ชเรนนี่",
+    "name_en": "Sikarin Wichainchi",
+    "phone": "095-4966942",
+    "line_url": "https://line.me/ti/p/2mCxJwgFsh",
+    "register_link": "https://everest-media.co/register?ref=E000834",
+    "image_url": "/en/images/coachrainny.jpg"
+  }
