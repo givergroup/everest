@@ -57,6 +57,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -138,10 +141,29 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #c59544;
         }
+
+        /* Metric cards for Live Stats */
+        .metric-card {
+            background: linear-gradient(145deg, rgba(11, 19, 41, 0.95), rgba(30, 41, 59, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+        
+        .metric-card-green {
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .metric-card-gold {
+            border-color: rgba(197, 149, 68, 0.25);
+        }
+
+        .mobile-safe-bottom {
+            padding-bottom: calc(84px + env(safe-area-inset-bottom));
+        }
     </style>
 </head>
 
-<body class="bg-gradient-navy-dark antialiased text-lg"> <!-- Base font expanded to text-lg for easier senior reading -->
+<body class="bg-gradient-navy-dark antialiased text-lg mobile-safe-bottom sm:pb-0">
 
     <!-- REAL-TIME LIVE REGISTRATION TICKER (50 RANDOMIZED ELITE ENGLISH USERS) -->
     <div class="fixed top-0 left-0 right-0 z-[60] bg-[#050b14] text-white border-b border-gold-500/20 py-2.5 overflow-hidden shadow-md">
@@ -237,13 +259,48 @@
             </p>
 
             <!-- Conversion Action Buttons -->
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-12 max-w-2xl mx-auto">
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-10 max-w-2xl mx-auto">
                 <a href="#packages" class="luxury-dynamic-btn w-full sm:w-auto px-10 py-5 text-white font-black rounded-full shadow-lg text-center tracking-wider uppercase text-base">
                     Access Premium Packages
                 </a>
                 <a href="#academy" class="w-full sm:w-auto px-10 py-5 bg-navy-900 hover:bg-navy-950 text-white font-black rounded-full border border-white/10 shadow-sm transition-all text-center text-base hover:border-gold-500/50">
                     Explore 9 Academies
                 </a>
+            </div>
+
+            <!-- STYLISH SOCIAL PROOF AVATAR BLOCK (Exactly ported from the Thai Layout and customized for Screenshot_20260704-225427.jpg) -->
+            <div class="pt-6 mb-12 border-t border-white/5 flex flex-col md:flex-row items-center gap-6 justify-center max-w-3xl mx-auto">
+                <div class="flex items-center gap-4 text-left">
+                    <div class="flex -space-x-3 shrink-0">
+                        <!-- Avatar 1: Asian Middle-Aged Man (Smiling, Black Hair, ~45 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 1">
+                        <!-- Avatar 2: Asian Elegant Woman (Black Hair, ~50 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 2">
+                        <!-- Avatar 3: Asian Professional Gentleman (Black Hair, ~40 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1544168190-79c17527004f?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 3">
+                        <!-- Avatar 4: Asian Executive Business Woman (Black Hair, ~45 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 4">
+                        <!-- Avatar 5: Asian Active Businessman (Black Hair, ~55 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 5">
+                        <!-- Avatar 6: Asian Smiling Professional Woman (Black Hair, ~40 yrs) -->
+                        <img class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120" alt="Everest Elite Member 6">
+                    </div>
+                    <p class="text-sm text-slate-300 leading-snug">
+                        Over <span data-realtime-students class="text-gradient-emerald font-extrabold text-2xl tracking-wider inline-block">5,282</span> active users<br>
+                        are already in our global network
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2.5 bg-emeraldGlow-500/5 border border-emeraldGlow-500/15 px-4.5 py-2.5 rounded-2xl text-left">
+                    <span class="flex h-2.5 w-2.5 relative shrink-0">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                    </span>
+                    <p class="text-xs text-slate-300 leading-normal">
+                        <strong class="text-emeraldGlow-500 font-extrabold block uppercase tracking-wider text-[10px]">Everest CEO Talk Live</strong>
+                        Over <span class="text-white font-black text-sm">722 members</span> attended our latest live seminar!
+                    </p>
+                </div>
             </div>
 
             <!-- Floating Verified Advisor Card -->
@@ -295,6 +352,77 @@
             <p class="text-slate-400 text-sm sm:text-base mt-4 font-medium italic">
                 💡 Watch this quick overview to see the power of Project Everest in action before exploring the academies below.
             </p>
+        </div>
+    </section>
+
+    <!-- OFFICIAL LIVE METRICS SECTION (Beautifully translated and styled based on Screenshot_20260704-225501.jpg) -->
+    <section id="official-live-metrics" class="py-16 relative overflow-hidden z-10 bg-navy-950/70 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="inline-flex items-center gap-2 text-emeraldGlow-500 text-xs sm:text-sm uppercase font-black tracking-widest bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 px-4 py-2 rounded-full">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldGlow-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emeraldGlow-500"></span>
+                    </span>
+                    LIVE METRICS
+                </span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 leading-tight">
+                    Real-time Data from <span class="text-gradient-gold">Everest Database</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-lg mt-3 leading-relaxed">
+                    Our platform integrates actual live success metrics and participant statistics directly, reflecting high community trust and exponential system growth every single day.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                
+                <!-- Live Students Card -->
+                <div class="metric-card metric-card-green rounded-[2.5rem] p-8 relative overflow-hidden transition-all duration-300 hover:scale-102">
+                    <div class="absolute -top-12 -right-12 w-44 h-44 bg-emeraldGlow-500/5 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
+                        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 flex items-center justify-center shrink-0 text-4xl text-emeraldGlow-500 shadow-emerald-glow/10">
+                            <i class="fas fa-users-viewfinder animate-pulse"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] uppercase tracking-[0.25em] font-black text-emeraldGlow-500">Live Active Members</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emeraldGlow-500 animate-ping"></span>
+                            </div>
+                            <div data-realtime-students class="text-5xl sm:text-6xl font-black text-white tracking-tight leading-none">5,282</div>
+                            <p class="text-slate-300 font-bold text-base mt-2.5">Total registered active members utilizing our software tools</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Satisfaction Card -->
+                <div class="metric-card metric-card-gold rounded-[2.5rem] p-8 relative overflow-hidden transition-all duration-300 hover:scale-102">
+                    <div class="absolute -top-12 -right-12 w-44 h-44 bg-gold-500/5 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
+                        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center shrink-0 text-4xl text-gold-400 shadow-luxury-gold">
+                            <i class="fas fa-star animate-spin-slow animate-pulse" style="animation-duration: 12s"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] uppercase tracking-[0.25em] font-black text-gold-400">Total Satisfaction Score</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping"></span>
+                            </div>
+                            <div data-realtime-satisfaction class="text-5xl sm:text-6xl font-black text-white tracking-tight leading-none">95%</div>
+                            <p class="text-slate-300 font-bold text-base mt-2.5">Combined overall student feedback evaluation rating</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Live Synced Status Bar (Styled exactly like the Thai one with dynamic output) -->
+            <div class="mt-8 text-center">
+                <p id="officialMetricsStatus" class="inline-flex items-center justify-center gap-2.5 text-xs sm:text-sm text-slate-300 bg-navy-900/80 border border-white/10 rounded-full px-5 py-2.5 shadow-md font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emeraldGlow-500 animate-pulse"></span>
+                    Connecting with master database API nodes...
+                </p>
+            </div>
+
         </div>
     </section>
 
@@ -970,7 +1098,7 @@
     </section>
 
     <!-- FOOTER SECTION & LEGAL DISCLAIMER -->
-    <footer class="bg-[#040811] text-slate-400 pt-12 pb-16 border-t border-white/5 relative z-10">
+    <footer class="bg-[#040811] text-slate-400 pt-12 pb-26 sm:pb-16 border-t border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
 
@@ -1040,6 +1168,47 @@
         </div>
     </footer>
 
+    <!-- MOBILE BOTTOM FIXED MENU NAVIGATION (For perfect cross-device responsiveness) -->
+    <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-navy-950/95 border-t border-white/10 backdrop-blur-lg px-4.5 py-3.5 flex items-center justify-between gap-4 shadow-premium">
+        <div class="flex items-center space-x-2.5">
+            <div class="relative w-11 h-11">
+                <img id="mobileSponsorThumb" src="" alt="Coach mobile avatar" class="w-full h-full rounded-full object-cover border border-gold-500/20">
+                <span class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ring-2 ring-navy-950 bg-emerald-500 animate-pulse"></span>
+            </div>
+            <div class="text-left">
+                <span class="text-[9px] text-slate-300 block leading-none font-medium uppercase tracking-widest">Advisor</span>
+                <span id="mobileSponsorName" class="text-xs font-black text-white block mt-1">Coach</span>
+            </div>
+        </div>
+
+        <div class="flex space-x-2 flex-grow justify-end max-w-[65%]">
+            <a id="mobileSponsorLineBtn" href="#" target="_blank" class="px-3.5 py-2.5 rounded-full bg-navy-900 text-neutral-200 flex items-center justify-center border border-white/5">
+                <i class="fab fa-line text-[#06C755] text-xl"></i>
+            </a>
+            <a id="mobileSponsorRegisterBtn" href="#" target="_blank" class="luxury-dynamic-btn flex-grow px-4.5 py-2.5 rounded-full font-black text-xs text-center block">
+                <span>Join Now</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- DYNAMIC REGISTRATION TOAST NOTIFICATION POPUP (Sliding bottom-left layout to prevent hidden overlay behind mobile navigations) -->
+    <div id="reg-toast" class="fixed bottom-[90px] sm:bottom-6 left-4 sm:left-6 z-[9999] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full">
+        <div class="bg-navy-950 border border-emeraldGlow-500/30 p-4.5 rounded-2xl flex items-center space-x-3.5 shadow-luxury-gold backdrop-blur-lg">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-emeraldGlow-500 to-teal-400 flex items-center justify-center text-navy-950 font-black flex-shrink-0">
+                <i class="fas fa-user-plus text-base animate-pulse"></i>
+            </div>
+            <div class="flex-1 min-w-0 text-left">
+                <span class="text-[9px] text-emeraldGlow-500 uppercase tracking-widest font-black block">New Platform Enrollment</span>
+                <span id="toast-name" class="text-sm sm:text-base font-bold text-white block truncate">...</span>
+                <span id="toast-action" class="text-xs sm:text-sm text-slate-200 block truncate">...</span>
+            </div>
+            <button onclick="dismissToast()" class="text-slate-400 hover:text-white ml-auto flex-shrink-0">
+                <i class="fas fa-xmark text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LAYER -->
     <script>
         // Elite replicated system data modeled from members.json
         const fallbackMembersData = {
@@ -1070,6 +1239,11 @@
         };
 
         let membersData = {};
+
+        const latestKnownMetrics = {
+            students: 5282,
+            satisfaction: 95
+        };
 
         // EXACTLY 50 REALISTIC REGISTRATION DATA (Indefinitely cycling)
         const liveRegistrations = [
@@ -1153,6 +1327,128 @@
             }, 300);
         }
 
+        // Real-Time Notification Toast Popup
+        function showRegistrationToast() {
+            const toast = document.getElementById('reg-toast');
+            const nameEl = document.getElementById('toast-name');
+            const actionEl = document.getElementById('toast-action');
+
+            if (!toast || !nameEl || !actionEl) return;
+
+            const randomReg = liveRegistrations[Math.floor(Math.random() * liveRegistrations.length)];
+
+            nameEl.textContent = `${randomReg.name} (${randomReg.country})`;
+            actionEl.textContent = `Unlocked the ${randomReg.package} successfully!`;
+
+            toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => dismissToast(), 4500);
+        }
+
+        function dismissToast() {
+            const toast = document.getElementById('reg-toast');
+            if (!toast) return;
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+        }
+
+        function scheduleNextRegistrationToast() {
+            setTimeout(() => {
+                showRegistrationToast();
+                scheduleNextRegistrationToast();
+            }, Math.floor(Math.random() * (14000 - 8000 + 1)) + 8000);
+        }
+
+        // Live stats database sync scripts
+        function formatIntegerMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return latestKnownMetrics.students.toLocaleString('en-US');
+            return Math.round(number).toLocaleString('en-US');
+        }
+
+        function formatPercentMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return latestKnownMetrics.satisfaction + '%';
+            return Math.round(number) + '%';
+        }
+
+        function setMetricsStatus(message, isLive = false) {
+            const status = document.getElementById('officialMetricsStatus');
+            if (!status) return;
+
+            status.innerHTML = `
+                <span class="w-2 h-2 rounded-full ${isLive ? 'bg-emeraldGlow-500' : 'bg-amber-500'} animate-pulse"></span>
+                <span>${message}</span>
+            `;
+        }
+
+        function renderOfficialMetrics(metrics, isLive = false) {
+            const studentsValue = formatIntegerMetric(metrics.students);
+            const satisfactionValue = formatPercentMetric(metrics.satisfaction);
+
+            document.querySelectorAll('[data-realtime-students]').forEach(el => {
+                el.textContent = studentsValue;
+            });
+
+            document.querySelectorAll('[data-realtime-satisfaction]').forEach(el => {
+                el.textContent = satisfactionValue;
+            });
+
+            const updatedTime = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+
+            setMetricsStatus(
+                isLive
+                    ? `Synced live with everest-media.co master database • ${updatedTime}`
+                    : `Backup server online • Waiting for metrics stream`,
+                isLive
+            );
+        }
+
+        async function fetchOfficialMetricsFromLocalApi() {
+            const response = await fetch('/api/everest-stats?ts=' + Date.now(), {
+                cache: 'no-store'
+            });
+
+            if (!response.ok) {
+                throw new Error(`Metrics API HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.ok !== true) {
+                throw new Error(data.error || 'Metrics API returned ok:false');
+            }
+
+            const students = Number(data.students);
+            const satisfaction = Number(data.satisfaction);
+
+            if (!Number.isFinite(students) || students <= 0) {
+                throw new Error('Metrics API returned invalid students count.');
+            }
+
+            return {
+                students,
+                satisfaction: Number.isFinite(satisfaction) && satisfaction > 0 ? satisfaction : latestKnownMetrics.satisfaction,
+                ok: true,
+                updatedAt: data.updatedAt
+            };
+        }
+
+        async function syncOfficialEverestMetrics() {
+            try {
+                const metrics = await fetchOfficialMetricsFromLocalApi();
+                renderOfficialMetrics(metrics, true);
+            } catch (error) {
+                console.warn('Live metrics API unavailable. Showing latest fallback values.', error);
+                renderOfficialMetrics(latestKnownMetrics, false);
+            }
+        }
+
         // Standard Utility helpers
         function normalizeKey(value) {
             return String(value || '').toLowerCase().trim().replace(/^@/, '').replace(/\s+/g, '');
@@ -1161,6 +1457,20 @@
         function setText(id, value) {
             const el = document.getElementById(id);
             if (el) el.innerText = value || '';
+        }
+
+        // Normalizes the relative path to resolve correctly under th subfolder
+        function normalizeImageUrl(url) {
+            if (!url) return "";
+            const cleanUrl = String(url).trim();
+            if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://") || cleanUrl.startsWith("data:")) return cleanUrl;
+            
+            let filename = cleanUrl;
+            if (cleanUrl.includes("/")) {
+                const parts = cleanUrl.split("/");
+                filename = parts[parts.length - 1];
+            }
+            return `../en/images/${filename}`;
         }
 
         function setHref(id, value) {
@@ -1181,7 +1491,7 @@
         }
 
         function getImageUrl(sponsor) {
-            return safeUrl(sponsor.image_url || sponsor.image || sponsor.photo, 'https://placehold.co/150x150/0b1329/f1f5f9?text=Everest');
+            return safeUrl(normalizeImageUrl(sponsor.image_url || sponsor.image || sponsor.photo), 'https://placehold.co/150x150/0b1329/f1f5f9?text=Everest');
         }
 
         function getRegisterLink(sponsor) {
@@ -1254,6 +1564,7 @@
             setText('sponsorTaglineName', sponsorName);
             setText('sponsorCardName', sponsorName);
             setText('footerSponsorName', sponsorName);
+            setText('mobileSponsorName', sponsorName);
             setText('metaSponsorName', sponsorName);
             setText('metaSponsorRefCode', referralCode);
 
@@ -1261,10 +1572,14 @@
             if (cardImg) { cardImg.src = sponsorImage; cardImg.alt = sponsorName; }
             const footerThumb = document.getElementById('footerSponsorThumb');
             if (footerThumb) { footerThumb.src = sponsorImage; footerThumb.alt = sponsorName; }
+            const mobileThumb = document.getElementById('mobileSponsorThumb');
+            if (mobileThumb) { mobileThumb.src = sponsorImage; mobileThumb.alt = sponsorName; }
 
             setHref('sponsorLineLink', lineUrl);
             setHref('sponsorRegisterLink', registerLink);
             setHref('bigPrimaryRegisterBtn', registerLink);
+            setHref('mobileSponsorLineBtn', lineUrl);
+            setHref('mobileSponsorRegisterBtn', registerLink);
             
             // Soft CTA consult buttons binding
             setHref('softCtaLineBtn', lineUrl);
@@ -1289,9 +1604,22 @@
             const activeSponsor = getSponsorFromUrl(membersData);
             applySponsor(activeSponsor);
 
+            // Active metrics sync execution
+            renderOfficialMetrics(latestKnownMetrics, false);
+            await syncOfficialEverestMetrics();
+            setInterval(syncOfficialEverestMetrics, 30000);
+
+            // Notification Loops activation
             updateLiveTicker();
             setInterval(updateLiveTicker, 4000);
+
+            setTimeout(() => {
+                showRegistrationToast();
+                scheduleNextRegistrationToast();
+            }, 1500);
         });
     </script>
 </body>
 </html>
+```
+ eof
