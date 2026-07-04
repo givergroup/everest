@@ -199,15 +199,15 @@
             </nav>
 
             <!-- Dynamic Sponsor Label & Language Toggle -->
-            <div class="flex items-center space-x-3">
-                <div id="sponsorActiveBadge" class="bg-navy-950 text-white text-xs sm:text-sm rounded-full py-2 px-4 border border-white/10 shadow-sm font-bold flex items-center space-x-1.5">
+            <div class="flex items-center space-x-1 sm:space-x-3">
+                <div id="sponsorActiveBadge" class="bg-navy-950 text-white text-[10px] sm:text-sm rounded-full py-1.5 px-2 sm:px-4 border border-white/10 shadow-sm font-bold flex items-center space-x-1.5">
                     <span>🇺🇸</span>
-                    <span id="navbarSponsorName" class="tracking-wide">Loading Sponsor...</span>
-                    <span class="text-gold-400 font-medium">(EN)</span>
+                    <span id="navbarSponsorName" class="tracking-wide truncate max-w-[80px] sm:max-w-[120px]">Loading Sponsor...</span>
+                    <span class="text-gold-400 font-medium hidden sm:inline">(EN)</span>
                 </div>
 
                 <!-- Thai Language Switcher pointing dynamically to: https://everest191.com/th/?ref={member_key} -->
-                <a id="thaiLanguageToggle" href="#" target="_blank" title="Switch to Thai Language" class="flex items-center space-x-2 bg-gradient-to-r from-emeraldGlow-600 to-emerald-500 hover:brightness-110 text-white rounded-full px-5 py-2 text-sm font-black shadow-md shadow-emeraldGlow-500/10 hover:shadow-emerald-glow transition-all">
+                <a id="thaiLanguageToggle" href="#" target="_blank" title="Switch to Thai Language" class="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-emeraldGlow-600 to-emerald-500 hover:brightness-110 text-white rounded-full px-3 py-1.5 sm:px-5 sm:py-2 text-[10px] sm:text-sm font-black shadow-md shadow-emeraldGlow-500/10 hover:shadow-emerald-glow transition-all">
                     <span>🇹🇭</span>
                     <span class="hidden sm:inline">ภาษาไทย</span>
                     <span class="sm:hidden">TH</span>
@@ -1169,23 +1169,23 @@
     </footer>
 
     <!-- MOBILE BOTTOM FIXED MENU NAVIGATION (For perfect cross-device responsiveness) -->
-    <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-navy-950/95 border-t border-white/10 backdrop-blur-lg px-4.5 py-3.5 flex items-center justify-between gap-4 shadow-premium">
-        <div class="flex items-center space-x-2.5">
-            <div class="relative w-11 h-11">
+    <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-navy-950/95 border-t border-white/10 backdrop-blur-lg px-3 py-3 flex items-center justify-between gap-2 shadow-premium">
+        <div class="flex items-center space-x-2">
+            <div class="relative w-10 h-10 flex-shrink-0">
                 <img id="mobileSponsorThumb" src="" alt="Coach mobile avatar" class="w-full h-full rounded-full object-cover border border-gold-500/20">
-                <span class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ring-2 ring-navy-950 bg-emerald-500 animate-pulse"></span>
+                <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-navy-950 bg-emerald-500 animate-pulse"></span>
             </div>
-            <div class="text-left">
+            <div class="text-left overflow-hidden">
                 <span class="text-[9px] text-slate-300 block leading-none font-medium uppercase tracking-widest">Advisor</span>
-                <span id="mobileSponsorName" class="text-xs font-black text-white block mt-1">Coach</span>
+                <span id="mobileSponsorName" class="text-[11px] font-black text-white block mt-1 truncate max-w-[70px]">Coach</span>
             </div>
         </div>
 
-        <div class="flex space-x-2 flex-grow justify-end max-w-[65%]">
-            <a id="mobileSponsorLineBtn" href="#" target="_blank" class="px-3.5 py-2.5 rounded-full bg-navy-900 text-neutral-200 flex items-center justify-center border border-white/5">
-                <i class="fab fa-line text-[#06C755] text-xl"></i>
+        <div class="flex space-x-2 flex-grow justify-end items-center">
+            <a id="mobileSponsorLineBtn" href="#" target="_blank" class="px-3 py-2 rounded-full bg-navy-900 text-neutral-200 flex items-center justify-center border border-white/5 flex-shrink-0">
+                <i class="fab fa-line text-[#06C755] text-lg"></i>
             </a>
-            <a id="mobileSponsorRegisterBtn" href="#" target="_blank" class="luxury-dynamic-btn flex-grow px-4.5 py-2.5 rounded-full font-black text-xs text-center block">
+            <a id="mobileSponsorRegisterBtn" href="#" target="_blank" class="luxury-dynamic-btn px-4 py-2.5 rounded-full font-black text-[11px] text-center block flex-shrink-0">
                 <span>Join Now</span>
             </a>
         </div>
