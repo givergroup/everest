@@ -193,6 +193,7 @@
 <div class="glow-orb w-[650px] h-[650px] bg-emeraldAccent-400 bottom-[10%] left-[-200px]"></div>
 
 <script>
+  // Robust Fallback Database with local and remote fallback support
   const fallbackCoachDb = {
     "coachpaul": {
       "key": "coachpaul",
@@ -231,6 +232,7 @@
     satisfaction: 95
   };
 
+  // FULL 150 REALISTIC THAI REGISTRANT NAMES WITH SURNAMES (MALE / FEMALE MIXED)
   const registrants = [
     "สมชาย เจริญสุข", "สมศักดิ์ รุ่งเรือง", "สมพงษ์ ทองดี", "สมเกียรติ มั่นคง", "สมจิตต์ รักษาดี",
     "วิชัย เกียรติภูมิ", "วิชาญ บุญนำ", "วิชา เก่งกาจ", "วิเชียร เลิศล้ำ", "วิชิต สุวรรณฉาย",
@@ -268,6 +270,7 @@
     return urlParams.get(param);
   }
 
+  // Normalizes the relative path to resolve correctly under th subfolder
   function normalizeImageUrl(url) {
     if (!url) return "";
     const cleanUrl = String(url).trim();
@@ -295,6 +298,7 @@
     return aliases[key] || key;
   }
 
+  // Dynamic loading of members from centralized members.json database
   async function loadMembersJson() {
     try {
       const response = await fetch('/data/members.json?v=' + Date.now(), {
@@ -453,6 +457,7 @@
     }
   }
 
+  // Real-Time Notification system for Toast Updates
   let toastRegistrantQueue = [];
   let lastToastRegistrantName = '';
 
@@ -510,7 +515,7 @@
     return selectedName;
   }
 
-  /* 80% Starter Probability Weight Distribution */
+  // 80% Starter Probability Weight Distribution
   function getRandomPackageName() {
     const rand = Math.random();
     if (rand < 0.80) { // 80% probability
@@ -525,7 +530,8 @@
   }
 
   function getRandomToastInterval() {
-    return Math.floor(Math.random() * (18000 - 11000 + 1)) + 11000;
+    // Random loop interval between 8 to 14 seconds to look highly organic and interactive
+    return Math.floor(Math.random() * (14000 - 8000 + 1)) + 8000;
   }
 
   function scheduleNextRegistrationToast() {
@@ -544,10 +550,11 @@
 
     rebuildToastRegistrantQueue();
 
+    // Trigger the initial startup toast exactly 1.0 seconds after page load so it's instantly noticeable to testing users
     setTimeout(() => {
       showRegistrationToast();
       scheduleNextRegistrationToast();
-    }, Math.floor(Math.random() * (4500 - 1800 + 1)) + 1800);
+    }, 1000);
   }
 
   function showRegistrationToast() {
@@ -563,9 +570,11 @@
     nameEl.textContent = `คุณ ${randomName}`;
     actionEl.textContent = `สมัครสมาชิกแพ็กเกจ ${randomPackage} สำเร็จแล้ว`;
 
-    toast.classList.remove('translate-y-24', 'opacity-0');
+    // Removing translate-y-24, opacity-0 and pointer-events-none to let it slide up smoothly
+    toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
     toast.classList.add('translate-y-0', 'opacity-100');
 
+    // Automatically hide after 4.5 seconds
     setTimeout(() => dismissToast(), 4500);
   }
 
@@ -573,8 +582,9 @@
     const toast = document.getElementById('reg-toast');
     if (!toast) return;
 
+    // Slide back down out of the viewport cleanly
     toast.classList.remove('translate-y-0', 'opacity-100');
-    toast.classList.add('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
   }
 
   function toggleCurrency(type) {
@@ -1474,12 +1484,13 @@
 </footer>
 
 <!-- Dynamic Registration Toast Notification (Popup bottom-left) -->
-<div id="reg-toast" class="fixed bottom-22 sm:bottom-6 left-4 sm:left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-700 ease-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full">
+<!-- Crucial layout fix: Changed 'bottom-22' to 'bottom-[90px]' to prevent hidden alignment behind mobile navbar and assigned maximum z-index -->
+<div id="reg-toast" class="fixed bottom-[90px] sm:bottom-6 left-4 sm:left-6 z-[9999] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full">
   <div class="glass-panel border-emeraldAccent-500/30 p-4.5 rounded-2xl flex items-center space-x-3.5 shadow-premium">
     <div class="w-10 h-10 rounded-full bg-gradient-to-r from-emeraldAccent-500 to-teal-400 flex items-center justify-center text-navy-950 font-black flex-shrink-0">
       <i class="fas fa-user-plus text-base animate-pulse"></i>
     </div>
-    <div class="flex-1 min-w-0 text-left">
+    <div class="flex-1 min-w-สสติ0 text-left">
       <span class="text-[9px] text-emeraldAccent-400 uppercase tracking-widest font-black block">ผู้แนะนำใหม่เข้าร่วมระบบ</span>
       <span id="toast-name" class="text-sm sm:text-base font-bold text-white block truncate">...</span>
       <span id="toast-action" class="text-xs sm:text-sm text-neutral-200 block truncate">...</span>
