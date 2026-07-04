@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Everest - แพลตฟอร์มยกระดับทักษะและการสร้างรายได้ระดับพรีเมียม</title>
 
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Google Fonts: Inter & Kanit -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script>
@@ -49,30 +53,33 @@
       font-family: 'Kanit', 'Inter', sans-serif;
     }
 
+    /* Glassmorphism panel styling resembling everest-platform.base44.app */
     .glass-panel {
-      background: rgba(8, 18, 37, 0.92);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(8, 18, 37, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    /* Premium Text Gradient styling */
     .text-gradient-gold {
       background: linear-gradient(135deg, #ffffff 10%, #e1c667 55%, #d4af37 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
+    /* Luxury Shine button effect */
     .luxury-shine-trigger {
       position: relative;
       overflow: hidden;
       isolation: isolate;
       -webkit-tap-highlight-color: transparent;
-      border: 2px solid rgba(212, 175, 55, 0.42);
-      background: linear-gradient(135deg, rgba(8,18,37,0.98), rgba(14,30,56,0.96));
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: linear-gradient(135deg, rgba(8,18,37,0.95), rgba(14,30,56,0.92));
       color: #f4ebd2 !important;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 26px rgba(0,0,0,0.35);
-      transform: translateY(0) scale(0.985);
-      transition: all 0.45s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 10px 24px rgba(0,0,0,0.4);
+      transform: translateY(0) scale(0.99);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .luxury-shine-trigger::before {
@@ -87,13 +94,13 @@
       background: linear-gradient(
         105deg,
         transparent 0%,
-        rgba(255,255,255,0.05) 20%,
-        rgba(255,255,255,0.85) 48%,
-        rgba(255,255,255,0.08) 75%,
+        rgba(255,255,255,0.03) 20%,
+        rgba(255,255,255,0.7) 48%,
+        rgba(255,255,255,0.05) 75%,
         transparent 100%
       );
-      transform: skewX(-24deg);
-      animation: cta-shine-loop 4.2s ease-in-out infinite;
+      transform: skewX(-20deg);
+      animation: cta-shine-loop 4.5s ease-in-out infinite;
     }
 
     .luxury-shine-trigger span,
@@ -103,37 +110,36 @@
     }
 
     .luxury-shine-trigger:hover {
-      transform: translateY(-2px) scale(1.04);
-      background: linear-gradient(125deg, #fff1aa 0%, #facc15 28%, #d4af37 58%, #b8860b 100%);
+      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(125deg, #fff1aa 0%, #facc15 30%, #d4af37 60%, #b8860b 100%);
       color: #040914 !important;
-      box-shadow: 0 14px 36px rgba(212,175,55,0.45), 0 0 44px rgba(212,175,55,0.24);
+      box-shadow: 0 12px 30px rgba(212,175,55,0.35), 0 0 30px rgba(212,175,55,0.15);
+      border-color: #fff1aa;
     }
 
     @keyframes cta-shine-loop {
       0% { left: -160%; opacity: 0; }
-      8% { opacity: 1; }
-      28% { left: 175%; opacity: 0; }
-      100% { left: 175%; opacity: 0; }
+      10% { opacity: 1; }
+      30% { left: 160%; opacity: 0; }
+      100% { left: 160%; opacity: 0; }
     }
 
     .metric-card {
-      background: linear-gradient(145deg, rgba(8,18,37,0.96), rgba(14,30,56,0.86));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+      background: linear-gradient(145deg, rgba(8,18,37,0.95), rgba(12,26,50,0.9));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     }
 
     .metric-card-green {
-      border-color: rgba(52, 211, 153, 0.28);
-      box-shadow: 0 24px 70px rgba(16, 185, 129, 0.10);
+      border-color: rgba(52, 211, 153, 0.2);
     }
 
     .metric-card-gold {
-      border-color: rgba(212, 175, 55, 0.30);
-      box-shadow: 0 24px 70px rgba(212, 175, 55, 0.10);
+      border-color: rgba(212, 175, 55, 0.25);
     }
 
     .mobile-safe-bottom {
-      padding-bottom: calc(88px + env(safe-area-inset-bottom));
+      padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
   </style>
 </head>
@@ -141,10 +147,6 @@
 <body class="bg-navy-950 text-neutral-100 antialiased selection:bg-gold-500 selection:text-navy-950 mobile-safe-bottom sm:pb-0">
 
 <script>
-  /*
-    ✅ Project Everest Thai Index - Real-Time Fixed Version
-  */
-
   const fallbackCoachDb = {
     "coachpaul": {
       "key": "coachpaul",
@@ -187,8 +189,7 @@
     "ธนพล เลิศวิจิตร", "วิภาดา รุ่งเรือง", "สมชาย ทรัพย์สิน", "ณัฐพงษ์ ศรีสุวรรณ", "ชลดา เกียรติไพศาล",
     "อภิสิทธิ์ วัฒนพงศ์", "พัชราภา ตั้งใจเด็ด", "พงศธร บุญมี", "อรุณี เจริญพร", "จิรายุ สมบูรณ์",
     "ปกรณ์ สุวรรณฉาย", "กิตติพงษ์ ทรัพย์ทวี", "รัตนา ปัญญาเลิศ", "ธีรเดช ศักดิ์เจริญ", "จารุวรรณ สุขใจ",
-    "สุพจน์ สุริยา", "วรรณภา บูรณะ", "เจษฎา แสนสุข", "เอกชัย ทองดี", "พัชรินทร์ มีทรัพย์",
-    "สมเกียรติ พูนพล", "ยุทธนา ปิยพันธุ์", "เมธี สุนทรารักษ์", "สิทธิชัย ศักดิ์เจริญ", "รังสรรค์ รัตนวิชัย"
+    "สุพจน์ สุริยา", "วรรณภา บูรณะ", "เจษฎา แสนสุข", "เอกชัย ทองดี", "พัชรินทร์ มีทรัพย์"
   ];
 
   const packageNames = ["Starter", "Premium", "Advanced", "Signature"];
@@ -203,13 +204,14 @@
     const cleanUrl = String(url).trim();
     if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://") || cleanUrl.startsWith("data:")) return cleanUrl;
     
+    // Extract filename if a path exists
     let filename = cleanUrl;
     if (cleanUrl.includes("/")) {
       const parts = cleanUrl.split("/");
       filename = parts[parts.length - 1];
     }
+    // Resolve to en/images folder relativized for the th directory
     return `../en/images/${filename}`;
-  }`;
   }
 
   function normalizeMemberKey(ref) {
@@ -282,6 +284,7 @@
     });
 
     document.querySelectorAll("[data-coach-img]").forEach(el => {
+      // Direct assignment or fallback placeholder if failed to load
       el.src = activeCoach.image_url || "";
       el.onerror = () => {
         el.src = "https://placehold.co/400x400/081225/d4af37?text=" + encodeURIComponent(activeCoach.name_en || "Everest");
@@ -389,12 +392,10 @@
 
   function shuffleArray(array) {
     const copy = Array.isArray(array) ? [...array] : [];
-
     for (let i = copy.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [copy[i], copy[j]] = [copy[j], copy[i]];
     }
-
     return copy;
   }
 
@@ -444,10 +445,6 @@
   }
 
   function getRandomPackageName() {
-    if (!Array.isArray(packageNames) || packageNames.length === 0) {
-      return "Everest";
-    }
-
     return packageNames[Math.floor(Math.random() * packageNames.length)];
   }
 
@@ -552,6 +549,7 @@
     }
   }
 
+  // Triggering primary loaders on load
   window.addEventListener('DOMContentLoaded', async () => {
     await initializeCoachProfile();
 
@@ -578,10 +576,12 @@
     </a>
 
     <div class="flex items-center space-x-3">
+      <!-- Language toggle preserving ref code -->
       <div class="bg-navy-900/90 rounded-full p-1 border border-white/10 flex items-center text-xs">
         <a id="lang-switcher-th" class="bg-gradient-to-r from-gold-500 to-amber-400 text-navy-950 font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer">TH</a>
         <a id="lang-switcher-en" class="text-neutral-300 hover:text-white px-3.5 py-1.5 rounded-full transition-all cursor-pointer">EN</a>
       </div>
+      <!-- Quick chat link -->
       <a data-coach-line-btn target="_blank" class="hidden sm:flex items-center space-x-2 bg-navy-900 hover:bg-navy-800 border border-white/10 px-4 py-2 rounded-full text-sm font-semibold text-neutral-200 hover:text-gold-400 transition-all duration-300">
         <span class="relative flex h-2.5 w-2.5 mr-1">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -593,9 +593,9 @@
   </div>
 </header>
 
-<div class="w-full flex justify-center pt-6 pb-2 px-4 relative z-20">
-  <div class="max-w-[120px] sm:max-w-[160px] md:max-w-[180px] drop-shadow-[0_4px_20px_rgba(212,175,55,0.25)] transition-transform duration-300 hover:scale-105">
-    <img src="en/images/everest191thai.png" alt="คอร์สเรียนออนไลน์ EVEREST 191" class="w-full h-auto object-contain">
+<div class="w-full flex justify-center pt-6 pb-2 px-4 relative z-20 bg-navy-950">
+  <div class="max-w-[130px] sm:max-w-[170px] md:max-w-[200px] drop-shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-transform duration-300 hover:scale-105">
+    <img src="../en/images/everest191thai.png" alt="คอร์สเรียนออนไลน์ EVEREST 191" class="w-full h-auto object-contain" onerror="this.src='en/images/everest191thai.png'">
   </div>
 </div>
 
@@ -662,7 +662,6 @@
             </p>
           </div>
 
-          <!-- บล็อกเสริม Active Social Proof (ห้องเรียนแตก 700+ คน) ที่คุยกันไว้ -->
           <div class="hidden sm:flex items-center gap-2 bg-gold-500/5 border border-gold-500/20 px-3 py-1.5 rounded-2xl">
             <span class="flex h-2 w-2 relative">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -735,7 +734,7 @@
 
 <div class="w-full flex justify-center py-8 px-4 relative z-20 bg-navy-950">
   <div class="max-w-[150px] sm:max-w-[200px] md:max-w-[240px] drop-shadow-[0_4px_25px_rgba(212,175,55,0.3)] transition-transform duration-300 hover:scale-105">
-    <img src="en/images/everest191thai.png" alt="คอร์สเรียนออนไลน์ EVEREST 191" class="w-full h-auto object-contain">
+    <img src="../en/images/everest191thai.png" alt="คอร์สเรียนออนไลน์ EVEREST 191" class="w-full h-auto object-contain" onerror="this.src='en/images/everest191thai.png'">
   </div>
 </div>
 
@@ -805,12 +804,10 @@
   </div>
 </section>
 
-<!-- เซกชันใหม่: Active Community Social Proof (แสดงรูปห้องประชุม Mockup เอียงรับดีไซน์) -->
 <section class="py-16 bg-gradient-to-b from-navy-950 to-navy-900 border-b border-white/5 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-12 gap-12 items-center">
       
-      <!-- ฝั่งข้อความ Copywriting ปลุกใจ -->
       <div class="lg:col-span-7 text-center lg:text-left space-y-6">
         <div class="inline-flex items-center space-x-2 bg-red-500/10 border border-red-500/20 px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-red-400">
           <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
@@ -831,13 +828,12 @@
         </div>
       </div>
 
-      <!-- ฝั่งรูป Mockup สมาร์ตโฟนโมเดิร์น วางเอียงรับดีไซน์ -->
       <div class="lg:col-span-5 flex justify-center relative">
         <div class="absolute -inset-4 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="relative w-full max-w-[320px] transition-transform duration-500 hover:scale-105 sm:rotate-3">
           <div class="absolute -inset-1 bg-gradient-to-tr from-gold-500/40 to-transparent rounded-[2.5rem] blur opacity-75"></div>
           <div class="relative bg-navy-950 p-2 rounded-[2.5rem] border border-white/10 shadow-2xl">
-            <img src="en/images/socialproof.png" alt="Everest CEO Talk Live Room 722 Active Listeners" class="w-full h-auto rounded-[2.2rem] object-cover">
+            <img src="../en/images/socialproof.png" alt="Everest CEO Talk Live Room 722 Active Listeners" class="w-full h-auto rounded-[2.2rem] object-cover" onerror="this.src='en/images/socialproof.png'">
           </div>
         </div>
       </div>
@@ -970,7 +966,7 @@
       <div class="glass-panel border-gold-500/50 p-5 rounded-3xl flex flex-col justify-between relative"><span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-500 to-amber-400 text-navy-950 font-extrabold text-[9px] tracking-widest px-3 py-1 rounded-full uppercase">Recommended</span><div><span class="text-xs text-gold-400 font-extrabold tracking-wider uppercase">Signature</span><div class="mt-3 flex items-baseline"><span id="price-signature" class="text-3xl font-extrabold text-gold-400">7,490</span><span id="unit-signature" class="text-xs text-neutral-200 ml-1">บาท + VAT</span></div><p class="text-xs text-neutral-200 mt-2 font-medium">คุ้มค่าสูงสุด ครอบคลุมระบบ</p></div><div class="mt-4"><a data-coach-register-btn target="_blank" class="luxury-shine-trigger w-full py-2.5 rounded-full text-center text-xs sm:text-sm block font-extrabold cursor-pointer"><span>เลือกแพ็กเกจสูงสุด</span></a></div></div>
     </div>
 
-    <div class="mt-6 max-w-4xl mx-auto p-5 bg-navy-900 border border-white/10 rounded-3xl">
+    <div class="mt-6 max-w-4xl mx-auto p-5 bg-navy-900/60 border border-white/10 rounded-3xl">
       <h5 class="text-sm sm:text-base font-bold text-white mb-1">
         <i class="fas fa-shield-alt text-gold-500 mr-2"></i>
         หมายเหตุเกี่ยวกับธุรกรรม USDT
@@ -1003,6 +999,48 @@
   </div>
 </section>
 
+<section class="py-12 bg-navy-900/10 border-t border-white/5">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">คำถามที่พบบ่อย (FAQ)</h2>
+      <p class="text-sm text-neutral-400 mt-2">รวบรวมข้อสงสัยเบื้องหลังความสำเร็จและการทำงานของแพลตฟอร์ม</p>
+    </div>
+
+    <div class="space-y-3">
+      <div class="glass-panel rounded-2xl overflow-hidden">
+        <button onclick="toggleFaq(1)" class="w-full px-5 py-4 text-left flex items-center justify-between text-white font-bold hover:bg-white/5 transition-all">
+          <span>Project Everest เป็นแชร์ลูกโซ่หรือไม่?</span>
+          <i id="faq-icon-1" class="fas fa-chevron-down text-gold-400 transition-transform duration-300"></i>
+        </button>
+        <div id="faq-ans-1" class="hidden px-5 pb-5 text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3">
+          ไม่ใช่แชร์ลูกโซ่แน่นอนครับ เนื่องจากแพลตฟอร์มมีสินค้าดิจิทัลเป็นสื่อการสอนคอร์สเรียนทักษะวิชาชีพ 9 สายอาชีพที่มีเนื้อหาอัดแน่นและสามารถนำไปใช้งานจริงเพื่อสร้างงานได้จริง ระบบปันผลเป็นลักษณะ Affiliate Marketing ที่ถูกต้องตามกฎหมายของการแบ่งปันผลกำไรจากการขายบริการด้านการศึกษา
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl overflow-hidden">
+        <button onclick="toggleFaq(2)" class="w-full px-5 py-4 text-left flex items-center justify-between text-white font-bold hover:bg-white/5 transition-all">
+          <span>มีค่าใช้จ่ายเพิ่มเติมหลังการสมัครหรือไม่?</span>
+          <i id="faq-icon-2" class="fas fa-chevron-down text-gold-400 transition-transform duration-300"></i>
+        </button>
+        <div id="faq-ans-2" class="hidden px-5 pb-5 text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3">
+          ไม่มีค่าธรรมเนียมแอบแฝงแต่อย่างใด คุณจ่ายเฉพาะค่าบริการแพ็กเกจที่คุณเลือกเริ่มต้นครั้งเดียวเพื่อรับสิทธิ์เข้าเรียนคอร์สสอนออนไลน์ตามเงื่อนไขของระดับแพ็กเกจ และสิทธิ์การใช้งานเครื่องมือทำเงินของที่นี่ได้ทันที
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl overflow-hidden">
+        <button onclick="toggleFaq(3)" class="w-full px-5 py-4 text-left flex items-center justify-between text-white font-bold hover:bg-white/5 transition-all">
+          <span>ถอนรายได้ปันผลออกจากระบบอย่างไร?</span>
+          <i id="faq-icon-3" class="fas fa-chevron-down text-gold-400 transition-transform duration-300"></i>
+        </button>
+        <div id="faq-ans-3" class="hidden px-5 pb-5 text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3">
+          สมาชิกสามารถทำธุรกรรมถอนรายได้ปันผลผ่านระบบสมาชิกหลังบ้านได้อย่างง่ายดาย โดยรองรับช่องทางหลักอย่างการโอนเงินผ่านระบบธนาคารไทย หรือเลือกรับเป็นเหรียญสกุลเงินดิจิทัล USDT ซึ่งดำเนินการได้อย่างรวดเร็วและปลอดภัยสูง
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile bottom navigation bar matching the base44 style -->
 <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-navy-900/95 border-t border-white/10 backdrop-blur-lg px-4 py-3 flex items-center justify-between gap-4 shadow-2xl">
   <div class="flex items-center space-x-2">
     <div class="relative w-10 h-10">
@@ -1042,6 +1080,7 @@
   </div>
 </footer>
 
+<!-- Real-Time registration toast block -->
 <div id="reg-toast" class="fixed bottom-20 sm:bottom-6 left-4 sm:left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-700 ease-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full">
   <div class="glass-panel border-gold-500/30 p-4 rounded-2xl flex items-center space-x-3 shadow-2xl">
     <div class="w-10 h-10 rounded-full bg-gradient-to-r from-gold-500 to-amber-400 flex items-center justify-center text-navy-950 font-extrabold flex-shrink-0">
