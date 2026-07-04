@@ -1,0 +1,9 @@
+}
+  "coachying": {
+    "name_th": "รตี วุฑฒวิภาต",
+    "name_en": "Coach YING",
+    "phone": "081-6144294",
+    "line_url": "https://line.me/ti/p/E8fefsqcBK",
+    "register_link": "https://everest-media.co/register?ref=E002959",
+    "image_url": "/en/images/coachying.jpg"
+  }
