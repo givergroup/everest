@@ -1509,6 +1509,65 @@
     </button>
   </div>
 </div>
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    // 1. ดึงพารามิเตอร์ ?ref= จาก URL (เช่น ?ref=coachpaul)
+    const urlParams = new URLSearchParams(window.location.search);
+    const refUser = urlParams.get('ref');
 
+    // ถ้าไม่มีการแนบลิงก์พารามิเตอร์มา ให้ระบบใช้หน้าเว็บปกติ (Default) ไม่ต้องรันต่อ
+    if (!refUser) return;
+
+    try {
+      // 2. วิ่งไปดึงข้อมูลจากไฟล์ .json ของสมาชิกคนนั้นโดยตรงจากโฟลเดอร์ data/members/
+      // ใช้ .toLowerCase() เพื่อป้องกันกรณีที่พิมพ์ตัวพิมพ์เล็ก-ใหญ่ไม่ตรงกัน
+      const response = await fetch(`/data/members/${refUser.toLowerCase()}.json`);
+      
+      if (!response.ok) {
+        console.warn(`ไม่พบข้อมูลสมาชิกของรหัส: ${refUser}`);
+        return;
+      }
+
+      const memberData = await response.json();
+
+      // 3. เริ่มทำการเปลี่ยนข้อมูลผู้แนะนำบนหน้าเว็บตามไฟล์ .json
+      
+      // เปลี่ยนลิงก์ปุ่มสมัครสมาชิกส่วนตัว (ถ้าในหน้าเว็บมีปุ่ม id นี้)
+      const regBtn = document.getElementById('member_reg_btn');
+      if (regBtn && memberData.register_link) {
+        regBtn.href = memberData.register_link;
+      }
+
+      // เปลี่ยนลิงก์ปุ่มติดต่อทาง Line ส่วนตัว
+      const lineBtn = document.getElementById('member_line_btn');
+      if (lineBtn && memberData.line_url) {
+        lineBtn.href = memberData.line_url;
+      }
+
+      // เปลี่ยนลิงก์เบอร์โทรศัพท์ (ถ้ามีปุ่มโทรในหน้าเว็บ)
+      const phoneBtn = document.getElementById('member_phone_btn');
+      if (phoneBtn && memberData.phone) {
+        phoneBtn.href = `tel:${memberData.phone}`;
+      }
+
+      // เปลี่ยนรูปภาพโปรไฟล์ผู้แนะนำ
+      const profileImg = document.getElementById('member_profile_img');
+      if (profileImg && memberData.image_url) {
+        profileImg.src = memberData.image_url;
+      }
+
+      // เปลี่ยนข้อความชื่อผู้แนะนำ (ถ้าต้องการให้แสดงชื่อบนหน้าเว็บ)
+      const nameText = document.getElementById('member_name_text');
+      if (nameText && memberData.name_th) {
+        nameText.innerText = `ผู้แนะนำของคุณ: ${memberData.name_th}`;
+      }
+
+      console.log(`Successfully loaded personalization data for: ${refUser}`);
+
+    } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการดึงข้อมูลสมาชิก:", error);
+    }
+  });
+</script>
 </body>
 </html>
