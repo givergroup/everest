@@ -224,11 +224,11 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
 
-            <!-- High-Impact Luxury Centered Brand Emblem -->
-            <div class="flex justify-center mb-8">
-                <div class="p-[1.5px] rounded-3xl bg-gradient-to-tr from-gold-600 via-gold-400 to-emeraldGlow-500 shadow-luxury-gold transform hover:rotate-2 transition-transform duration-300">
-                    <div class="bg-navy-950 rounded-3xl px-8 py-5 flex items-center justify-center">
-                        <img src="images/everest191eng.png" alt="Project Everest Logo" onerror="this.src='https://placehold.co/150x45/0b1329/fdfbf7?text=EVEREST'" class="h-16 sm:h-20 w-auto object-contain">
+            <!-- High-Impact Luxury Centered Brand Emblem (EXCELLENT SCALING - RESOLVING SCREENSHOT_20260704-230410.JPG) -->
+            <div class="flex justify-center mb-10">
+                <div class="p-[2px] rounded-3xl bg-gradient-to-tr from-gold-600 via-gold-400 to-emeraldGlow-500 shadow-luxury-gold transform hover:scale-105 transition-all duration-300">
+                    <div class="bg-navy-950 rounded-3xl px-12 py-8 flex items-center justify-center">
+                        <img src="images/everest191eng.png" alt="Project Everest Logo" onerror="this.src='https://placehold.co/240x240/0b1329/fdfbf7?text=EVEREST+191'" class="h-28 sm:h-40 w-auto object-contain">
                     </div>
                 </div>
             </div>
@@ -1192,6 +1192,7 @@
     </div>
 
     <!-- DYNAMIC REGISTRATION TOAST NOTIFICATION POPUP (Sliding bottom-left layout to prevent hidden overlay behind mobile navigations) -->
+    <!-- RESOLVING SCREENSHOT_20260704-230543.JPG BY REMOVING USDT PRICE PACKAGES -->
     <div id="reg-toast" class="fixed bottom-[90px] sm:bottom-6 left-4 sm:left-6 z-[9999] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full">
         <div class="bg-navy-950 border border-emeraldGlow-500/30 p-4.5 rounded-2xl flex items-center space-x-3.5 shadow-luxury-gold backdrop-blur-lg">
             <div class="w-10 h-10 rounded-full bg-gradient-to-r from-emeraldGlow-500 to-teal-400 flex items-center justify-center text-navy-950 font-black flex-shrink-0">
@@ -1246,57 +1247,58 @@
         };
 
         // EXACTLY 50 REALISTIC REGISTRATION DATA (Indefinitely cycling)
+        // REMOVED ALL USDT PRICE INSTRUCTIONS TO FULFILL SCREENSHOT_20260704-230543.JPG REQUIREMENTS
         const liveRegistrations = [
-            { name: "Alexander K.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Emily R.", package: "Premium Package (56 USDT)", country: "🇬🇧 UK" },
-            { name: "David L.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
-            { name: "Sophia M.", package: "Advanced Package (111 USDT)", country: "🇨🇦 Canada" },
-            { name: "Jessica W.", package: "Starter Package (19 USDT)", country: "🇳🇿 New Zealand" },
-            { name: "Daniel K.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
-            { name: "Olivia H.", package: "Signature Package (259 USDT)", country: "🇬🇧 UK" },
-            { name: "Alexander G.", package: "Signature Package (259 USDT)", country: "🇨🇭 Switzerland" },
-            { name: "Sarah P.", package: "Advanced Package (111 USDT)", country: "🇸🇬 Singapore" },
-            { name: "Matthew C.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
-            { name: "Isabella T.", package: "Signature Package (259 USDT)", country: "🇫🇷 France" },
-            { name: "James F.", package: "Starter Package (19 USDT)", country: "🇮🇪 Ireland" },
-            { name: "Charlotte N.", package: "Signature Package (259 USDT)", country: "🇳🇱 Netherlands" },
-            { name: "Robert M.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
-            { name: "Abigail D.", package: "Advanced Package (111 USDT)", country: "🇬🇧 UK" },
-            { name: "William J.", package: "Premium Package (56 USDT)", country: "🇨🇦 Canada" },
-            { name: "Madison O.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Joseph V.", package: "Signature Package (259 USDT)", country: "🇮🇹 Italy" },
-            { name: "Elizabeth Y.", package: "Starter Package (19 USDT)", country: "🇸🇪 Sweden" },
-            { name: "Andrew Q.", package: "Signature Package (259 USDT)", country: "🇩🇰 Denmark" },
-            { name: "Chloe R.", package: "Advanced Package (111 USDT)", country: "🇳🇴 Norway" },
-            { name: "Christopher S.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
-            { name: "Mia L.", package: "Signature Package (259 USDT)", country: "🇬🇧 UK" },
-            { name: "Daniel A.", package: "Signature Package (259 USDT)", country: "🇫🇮 Finland" },
-            { name: "Evelyn T.", package: "Advanced Package (111 USDT)", country: "🇦🇺 Australia" },
-            { name: "Anthony C.", package: "Signature Package (259 USDT)", country: "🇨🇭 Switzerland" },
-            { name: "Harper G.", package: "Starter Package (19 USDT)", country: "🇨🇦 Canada" },
-            { name: "Ethan F.", package: "Premium Package (56 USDT)", country: "🇺🇸 USA" },
-            { name: "Sofia B.", package: "Signature Package (259 USDT)", country: "🇪🇸 Spain" },
-            { name: "Ryan W.", package: "Signature Package (259 USDT)", country: "🇬🇧 UK" },
-            { name: "Grace H.", package: "Signature Package (259 USDT)", country: "🇳🇿 New Zealand" },
-            { name: "Nicholas P.", package: "Advanced Package (111 USDT)", country: "🇦🇹 Austria" },
-            { name: "Natalie D.", package: "Premium Package (56 USDT)", country: "🇸🇬 Singapore" },
-            { name: "Christian J.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Lily M.", package: "Signature Package (259 USDT)", country: "🇮🇪 Ireland" },
-            { name: "Tyler S.", package: "Starter Package (19 USDT)", country: "🇨🇦 Canada" },
-            { name: "Victoria K.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
-            { name: "Brandon L.", package: "Advanced Package (111 USDT)", country: "🇺🇸 USA" },
-            { name: "Emily O.", package: "Premium Package (56 USDT)", country: "🇬🇧 UK" },
-            { name: "Samuel N.", package: "Signature Package (259 USDT)", country: "🇫🇷 France" },
-            { name: "Zoey A.", package: "Signature Package (259 USDT)", country: "🇦🇺 Australia" },
-            { name: "Benjamin R.", package: "Starter Package (19 USDT)", country: "🇨🇭 Switzerland" },
-            { name: "Penelope V.", package: "Signature Package (259 USDT)", country: "🇳🇱 Netherlands" },
-            { name: "Dylan Y.", package: "Advanced Package (111 USDT)", country: "🇺🇸 USA" },
-            { name: "Layla H.", package: "Premium Package (56 USDT)", country: "🇳🇿 New Zealand" },
-            { name: "Gabriel S.", package: "Signature Package (259 USDT)", country: "🇬🇧 UK" },
-            { name: "Anna T.", package: "Signature Package (259 USDT)", country: "🇩🇪 Germany" },
-            { name: "Logan M.", package: "Advanced Package (111 USDT)", country: "🇨🇦 Canada" },
-            { name: "Stella P.", package: "Signature Package (259 USDT)", country: "🇺🇸 USA" },
-            { name: "Jonathan B.", package: "Starter Package (19 USDT)", country: "🇦🇺 Australia" }
+            { name: "Alexander K.", package: "Signature Package", country: "🇺🇸 USA" },
+            { name: "Emily R.", package: "Premium Package", country: "🇬🇧 UK" },
+            { name: "David L.", package: "Signature Package", country: "🇦🇺 Australia" },
+            { name: "Sophia M.", package: "Advanced Package", country: "🇨🇦 Canada" },
+            { name: "Jessica W.", package: "Starter Package", country: "🇳🇿 New Zealand" },
+            { name: "Daniel K.", package: "Signature Package", country: "🇩🇪 Germany" },
+            { name: "Olivia H.", package: "Signature Package", country: "🇬🇧 UK" },
+            { name: "Alexander G.", package: "Signature Package", country: "🇨🇭 Switzerland" },
+            { name: "Sarah P.", package: "Advanced Package", country: "🇸🇬 Singapore" },
+            { name: "Matthew C.", package: "Premium Package", country: "🇺🇸 USA" },
+            { name: "Isabella T.", package: "Signature Package", country: "🇫🇷 France" },
+            { name: "James F.", package: "Starter Package", country: "🇮🇪 Ireland" },
+            { name: "Charlotte N.", package: "Signature Package", country: "🇳🇱 Netherlands" },
+            { name: "Robert M.", package: "Signature Package", country: "🇦🇺 Australia" },
+            { name: "Abigail D.", package: "Advanced Package", country: "🇬🇧 UK" },
+            { name: "William J.", package: "Premium Package", country: "🇨🇦 Canada" },
+            { name: "Madison O.", package: "Signature Package", country: "🇺🇸 USA" },
+            { name: "Joseph V.", package: "Signature Package", country: "🇮🇹 Italy" },
+            { name: "Elizabeth Y.", package: "Starter Package", country: "🇸🇪 Sweden" },
+            { name: "Andrew Q.", package: "Signature Package", country: "🇩🇰 Denmark" },
+            { name: "Chloe R.", package: "Advanced Package", country: "🇳🇴 Norway" },
+            { name: "Christopher S.", package: "Premium Package", country: "🇺🇸 USA" },
+            { name: "Mia L.", package: "Signature Package", country: "🇬🇧 UK" },
+            { name: "Daniel A.", package: "Signature Package", country: "🇫🇮 Finland" },
+            { name: "Evelyn T.", package: "Advanced Package", country: "🇦🇺 Australia" },
+            { name: "Anthony C.", package: "Signature Package", country: "🇨🇭 Switzerland" },
+            { name: "Harper G.", package: "Starter Package", country: "🇨🇦 Canada" },
+            { name: "Ethan F.", package: "Premium Package", country: "🇺🇸 USA" },
+            { name: "Sofia B.", package: "Signature Package", country: "🇪🇸 Spain" },
+            { name: "Ryan W.", package: "Signature Package", country: "🇬🇧 UK" },
+            { name: "Grace H.", package: "Signature Package", country: "🇳🇿 New Zealand" },
+            { name: "Nicholas P.", package: "Advanced Package", country: "🇦🇹 Austria" },
+            { name: "Natalie D.", package: "Premium Package", country: "🇸🇬 Singapore" },
+            { name: "Christian J.", package: "Signature Package", country: "🇺🇸 USA" },
+            { name: "Lily M.", package: "Signature Package", country: "🇮🇪 Ireland" },
+            { name: "Tyler S.", package: "Starter Package", country: "🇨🇦 Canada" },
+            { name: "Victoria K.", package: "Signature Package", country: "🇩🇪 Germany" },
+            { name: "Brandon L.", package: "Advanced Package", country: "🇺🇸 USA" },
+            { name: "Emily O.", package: "Premium Package", country: "🇬🇧 UK" },
+            { name: "Samuel N.", package: "Signature Package", country: "🇫🇷 France" },
+            { name: "Zoey A.", package: "Signature Package", country: "🇦🇺 Australia" },
+            { name: "Benjamin R.", package: "Starter Package", country: "🇨🇭 Switzerland" },
+            { name: "Penelope V.", package: "Signature Package", country: "🇳🇱 Netherlands" },
+            { name: "Dylan Y.", package: "Advanced Package", country: "🇺🇸 USA" },
+            { name: "Layla H.", package: "Premium Package", country: "🇳🇿 New Zealand" },
+            { name: "Gabriel S.", package: "Signature Package", country: "🇬🇧 UK" },
+            { name: "Anna T.", package: "Signature Package", country: "🇩🇪 Germany" },
+            { name: "Logan M.", package: "Advanced Package", country: "🇨🇦 Canada" },
+            { name: "Stella P.", package: "Signature Package", country: "🇺🇸 USA" },
+            { name: "Jonathan B.", package: "Starter Package", country: "🇦🇺 Australia" }
         ];
 
         let lastTickerIndex = -1;
@@ -1327,7 +1329,7 @@
             }, 300);
         }
 
-        // Real-Time Notification Toast Popup
+        // Real-Time Notification Toast Popup (USDT PRICINGS CLEANED UP SUCCESSFULLY)
         function showRegistrationToast() {
             const toast = document.getElementById('reg-toast');
             const nameEl = document.getElementById('toast-name');
@@ -1622,4 +1624,4 @@
 </body>
 </html>
 ```
- eof
+eof
