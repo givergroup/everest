@@ -12,12 +12,13 @@ export async function onRequestPost(context) {
     const register_link = payload.register_link || '';
     const image_ext = payload.image_ext || 'jpg';
     const image_data = payload.image_data || null;
+    const lang = payload.lang || ''; // 💡 ดึงค่าภาษาที่ส่งมาจากหน้าบ้าน
 
     const GITHUB_TOKEN = env.GITHUB_TOKEN; 
     const REPO_OWNER = 'givergroup';
     const REPO_NAME = 'everest';
     
-    // 💡 [แก้ไขจุดที่ 1] เปลี่ยนพาธเซฟไฟล์แยกตาม username ของแต่ละคน
+    // 💡 เปลี่ยนพาธเซฟไฟล์แยกตาม username ของแต่ละคน
     const MEMBER_FILE_PATH = `data/members/${username}.json`;
     const IMAGE_FILE_PATH = `en/images/${username}.${image_ext}`;
 
@@ -27,7 +28,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 💡 [แก้ไขจุดที่ 2] เช็คว่ามีไฟล์ username นี้อยู่บน GitHub หรือยัง (ป้องกันการสมัครชื่อซ้ำ)
+    // 💡 เช็คว่ามีไฟล์ username นี้อยู่บน GitHub หรือยัง (ป้องกันการสมัครชื่อซ้ำ)
     const checkUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${MEMBER_FILE_PATH}`;
     const checkRes = await fetch(checkUrl, {
       method: 'GET',
@@ -45,7 +46,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub (คงเดิม) ---
+    // --- ส่วนที่ 2: บันทึกไฟล์รูปภาพขึ้น GitHub ---
     if (image_data && typeof image_data === 'string') {
       try {
         let cleanImageData = image_data;
@@ -71,7 +72,7 @@ export async function onRequestPost(context) {
       }
     }
 
-    // 💡 [แก้ไขจุดที่ 3] เตรียมโครงสร้างข้อมูลของสมาชิกคนนี้คนเดียว (ไม่ต้องไปดึงของคนอื่นมาปน)
+    // 💡 เตรียมโครงสร้างข้อมูลของสมาชิกคนนี้คนเดียว
     const newMemberData = {
       username,
       name_th,
@@ -91,7 +92,7 @@ export async function onRequestPost(context) {
     }
     const base64JsonContent = btoa(binaryStr);
 
-    // 💡 [แก้ไขจุดที่ 4] ยิง API ไปสร้างไฟล์ใหม่แยกชิ้น (ไม่ต้องใส่ค่า sha เพราะเป็นการสร้างไฟล์ใหม่แกะกล่อง)
+    // 💡 ยิง API ไปสร้างไฟล์ใหม่แยกชิ้น
     const createJsonRes = await fetch(checkUrl, {
       method: 'PUT',
       headers: {
@@ -102,7 +103,6 @@ export async function onRequestPost(context) {
       body: JSON.stringify({
         message: `🤖 บอทระบบ: สร้างไฟล์รายชื่อสมาชิกใหม่คุณ ${name_en} (${username})`,
         content: base64JsonContent
-        // ลบ sha ออก เพราะเราสร้างไฟล์ใหม่แยกชิ้น
       })
     });
 
@@ -112,10 +112,18 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 💡 [แก้ไขจุดที่ 5] ส่ง URL รูปแบบ Query String กลับตามที่คุณเลือก
+    // 💡 ตรวจเช็คค่า lang เพื่อสร้างลิงก์ตอบกลับให้ถูกต้องตรงตามภาษา
+    let finalWebUrl = `https://everest191.com/?ref=${username}`; // ค่าเริ่มต้นหากไม่มีระบุภาษา
+    if (lang === 'th') {
+      finalWebUrl = `https://everest191.com/th/?ref=${username}`;
+    } else if (lang === 'en') {
+      finalWebUrl = `https://everest191.com/en/?ref=${username}`;
+    }
+
+    // ส่ง URL รูปแบบ Query String ที่แยกภาษาถูกต้องกลับไปให้หน้าบ้านแสดงผล
     return new Response(JSON.stringify({
       message: 'ลงทะเบียนสำเร็จ',
-      web_url: `https://everest191.com/en/?ref=${username}`
+      web_url: finalWebUrl
     }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
