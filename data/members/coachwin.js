@@ -1,0 +1,9 @@
+{
+   "coachwin": {
+    "name_th": "โค้ชวิน",
+    "name_en": "Coach Win",
+    "phone": "081-734-6398",
+    "line_url": "https://line.me/ti/p/PKJ48PW53g",
+    "register_link": "https://everest-media.co/register?ref=E000732",
+    "image_url": "/en/images/coachwin.jpg"
+  }
