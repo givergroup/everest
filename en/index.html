@@ -184,7 +184,7 @@
                     <span class="text-gold-400 font-medium">(EN)</span>
                 </div>
 
-                <!-- Thai Language Switcher pointing dynamically to: https://everest191.pages.dev/?ref={member_key} -->
+                <!-- Thai Language Switcher pointing dynamically to: https://everest191.com/th/?ref={member_key} -->
                 <a id="thaiLanguageToggle" href="#" target="_blank" title="Switch to Thai Language" class="flex items-center space-x-2 bg-gradient-to-r from-emeraldGlow-600 to-emerald-500 hover:brightness-110 text-white rounded-full px-5 py-2 text-sm font-black shadow-md shadow-emeraldGlow-500/10 hover:shadow-emerald-glow transition-all">
                     <span>🇹🇭</span>
                     <span class="hidden sm:inline">ภาษาไทย</span>
@@ -206,7 +206,7 @@
             <div class="flex justify-center mb-8">
                 <div class="p-[1.5px] rounded-3xl bg-gradient-to-tr from-gold-600 via-gold-400 to-emeraldGlow-500 shadow-luxury-gold transform hover:rotate-2 transition-transform duration-300">
                     <div class="bg-navy-950 rounded-3xl px-8 py-5 flex items-center justify-center">
-                        <img src="images/everest191eng.png" alt="Project Everest Emblem" onerror="this.src='https://placehold.co/240x70/0b1329/fdfbf7?text=EVEREST'" class="h-16 sm:h-20 w-auto object-contain">
+                        <img src="images/everest191eng.png" alt="Project Everest Logo" onerror="this.src='https://placehold.co/150x45/0b1329/fdfbf7?text=EVEREST'" class="h-16 sm:h-20 w-auto object-contain">
                     </div>
                 </div>
             </div>
@@ -221,7 +221,7 @@
 
             <!-- Primary Large Headlines -->
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white leading-tight">
-                <span class="block">LEARN. APPLY.</span>
+                <span class="block">LEARN. APPLY. EARN.</span>
                 <span class="text-gradient-gold block mt-2">BUILD GLOBAL SUCCESS</span>
             </h1>
 
@@ -1278,8 +1278,8 @@
 
             document.querySelectorAll('.package-cta-btn').forEach(btn => { btn.href = registerLink; });
 
-            // Dynamic Thai Redirect target: https://everest191.pages.dev/?ref={member_key}
-            const dynamicThaiUrl = `https://everest191.pages.dev/?ref=${encodeURIComponent(sponsorKey)}`;
+            // Dynamic Thai Redirect target: https://everest191.com/th/?ref={member_key}
+            const dynamicThaiUrl = `https://everest191.com/th/?ref=${encodeURIComponent(sponsorKey)}`;
             setHref('thaiLanguageToggle', dynamicThaiUrl);
             setHref('thaiLanguageToggleFooter', dynamicThaiUrl);
         }
