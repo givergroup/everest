@@ -193,39 +193,18 @@
 <div class="glow-orb w-[650px] h-[650px] bg-emeraldAccent-400 bottom-[10%] left-[-200px]"></div>
 
 <script>
-  // Robust Fallback Database with local and remote fallback support
-  const fallbackCoachDb = {
-    "coachpaul": {
-      "key": "coachpaul",
-      "name_th": "โค้ชพล",
-      "name_en": "Coach Paul",
-      "phone": "+66952539634",
-      "line_url": "https://lin.ee/ScFhI5r",
-      "register_link": "https://everest-media.co/register?ref=E000694",
-      "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpaul.png"
-    },
-    "coachpetch": {
-      "key": "coachpetch",
-      "name_th": "โค้ชเพ็ชร",
-      "name_en": "Coach Petch",
-      "phone": "ติดต่อสอบถามผ่าน Line",
-      "line_url": "https://line.me/ti/p/6adHlDYIDR",
-      "register_link": "https://everest-media.co/register?ref=E000771",
-      "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpetch.jpg"
-    },
-    "coachwin": {
-      "key": "coachwin",
-      "name_th": "โค้ชวิน",
-      "name_en": "Coach Win",
-      "phone": "081-734-6398",
-      "line_url": "https://line.me/ti/p/PKJ48PW53g",
-      "register_link": "https://everest-media.co/register?ref=E001394",
-      "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachwin.jpg"
-    }
+  // Robust Default Fallback Profile
+  const defaultCoach = {
+    "key": "coachpaul",
+    "name_th": "โค้ชพล",
+    "name_en": "Coach Paul",
+    "phone": "+66952539634",
+    "line_url": "https://lin.ee/ScFhI5r",
+    "register_link": "https://everest-media.co/register?ref=E000694",
+    "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpaul.png"
   };
 
-  let coachDb = { ...fallbackCoachDb };
-  let activeCoach = coachDb["coachpaul"];
+  let activeCoach = { ...defaultCoach };
 
   const latestKnownMetrics = {
     students: 5282,
@@ -284,66 +263,46 @@
     return `../en/images/${filename}`;
   }
 
-  function normalizeMemberKey(ref) {
-    const key = String(ref || "coachpaul").trim().toLowerCase();
-    const aliases = {
-      "paul": "coachpaul",
-      "coachpaul": "coachpaul",
-      "petch": "coachpetch",
-      "coachpetch": "coachpetch",
-      "phet": "coachpetch",
-      "win": "coachwin",
-      "coachwin": "coachwin"
-    };
-    return aliases[key] || key;
-  }
+  // Pure Single Isolated JSON File Loader System
+  async function initializeCoachProfile() {
+    const ref = getQueryParam("ref") || "coachpaul";
+    const requestedKey = ref.trim().toLowerCase();
 
-  // Dynamic loading of members from centralized members.json database
-  async function loadMembersJson() {
     try {
-      const response = await fetch('/data/members.json?v=' + Date.now(), {
+      // วิ่งไปดาวน์โหลดข้อมูลจากไฟล์เดี่ยวแยกเฉพาะรายบุคคลโดยตรง 
+      const response = await fetch(`/data/members/${requestedKey}.json?v=` + Date.now(), {
         cache: "no-store"
       });
 
-      if (!response.ok) throw new Error("Cannot load members.json: " + response.status);
+      if (!response.ok) throw new Error("ไม่พบข้อมูลสมาชิกในโฟลเดอร์แยก");
 
-      const members = await response.json();
-      const normalizedMembers = {};
-
-      Object.entries(members).forEach(([key, member]) => {
-        const cleanKey = String(key).trim().toLowerCase();
-        normalizedMembers[cleanKey] = {
-          ...member,
-          key: cleanKey,
-          image_url: normalizeImageUrl(member.image_url)
-        };
-      });
-
-      coachDb = {
-        ...fallbackCoachDb,
-        ...normalizedMembers
+      const memberData = await response.json();
+      
+      // ดึงค่าใส่ตัวแปรใช้งาน
+      activeCoach = {
+        key: requestedKey,
+        name_th: memberData.name_th || "",
+        name_en: memberData.name_en || "",
+        phone: memberData.phone || "",
+        line_url: memberData.line_url || "",
+        register_link: memberData.register_link || "",
+        image_url: normalizeImageUrl(memberData.image_url)
       };
+
+      console.log(`Successfully loaded single file database for: ${requestedKey}`);
     } catch (error) {
-      console.warn("ใช้ข้อมูลสมาชิกสำรอง เพราะโหลด /data/members.json ไม่สำเร็จ:", error);
-      coachDb = { ...fallbackCoachDb };
+      console.warn("สลับมาใช้โปรไฟล์สำรองเนื่องจากดึงข้อมูลไฟล์แยกล้มเหลว:", error);
+      // หากดึงไฟล์แยกไม่สำเร็จ ระบบจะดึงโปรไฟล์พื้นฐานของโค้ชพลขึ้นมาทำงานแทนทันที
+      activeCoach = { ...defaultCoach };
     }
-  }
 
-  async function initializeCoachProfile() {
-    await loadMembersJson();
-
-    const ref = getQueryParam("ref") || "coachpaul";
-    const requestedKey = normalizeMemberKey(ref);
-    const memberKey = coachDb[requestedKey] ? requestedKey : "coachpaul";
-
-    activeCoach = coachDb[memberKey];
-
+    // ทำการแมปข้อมูลเข้าสู่ชิ้นส่วนต่าง ๆ บนหน้า Landing Page ทั้งหมด
     document.querySelectorAll("[data-coach-name]").forEach(el => {
       el.textContent = activeCoach.name_th || activeCoach.name_en || "โค้ช";
     });
 
     document.querySelectorAll("[data-coach-phone]").forEach(el => {
-      el.textContent = activeCoach.phone || activeCoach.WhatsApp || activeCoach.whatsapp || "ติดต่อสอบถามผ่าน Line";
+      el.textContent = activeCoach.phone || "ติดต่อสอบถามผ่าน Line";
     });
 
     document.querySelectorAll("[data-coach-line-btn]").forEach(el => {
@@ -364,10 +323,10 @@
     const origin = window.location.origin;
 
     const enSwitcher = document.getElementById("lang-switcher-en");
-    if (enSwitcher) enSwitcher.href = `${origin}/en/?ref=${encodeURIComponent(memberKey)}`;
+    if (enSwitcher) enSwitcher.href = `${origin}/en/?ref=${encodeURIComponent(activeCoach.key)}`;
 
     const thSwitcher = document.getElementById("lang-switcher-th");
-    if (thSwitcher) thSwitcher.href = `${origin}/?ref=${encodeURIComponent(memberKey)}`;
+    if (thSwitcher) thSwitcher.href = `${origin}/?ref=${encodeURIComponent(activeCoach.key)}`;
   }
 
   function formatIntegerMetric(value) {
@@ -985,7 +944,7 @@
           ห้องเรียนสดถล่มสถิติทุกสัปดาห์!<br>
           เรียนรู้ร่วมคอมมูนิตี้ <span class="text-gradient-emerald">700+ ชีวิต</span>
         </h3>
-        <p class="text-base sm:text-lg text-neutral-300 font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
+        <p class="text-base sm:text-lg text-neutral-300 font-light leading-relaxed max-w-xl mx-auto lg:mx-0 Bay">
           ความต่างคือเรามีคอมมูนิตี้ที่พร้อมเรียนรู้ตลอดเวลา ไม่ใช่คอร์สแห้งเหงาซึมเซา สมาชิกทั่วโลกเฝ้าคอยเข้าวิเคราะห์ข่าวความคืบหน้าแบบคมชัดสูงสุดในห้อง <strong class="text-emeraldAccent-400 font-bold">Everest CEO Talk</strong> สด ๆ คอนเฟิร์มการมีอยู่จริงของระบบสนับสนุนและบุคลากรทรงคุณค่ามากมาย
         </p>
         <div class="pt-2">
@@ -1509,65 +1468,6 @@
     </button>
   </div>
 </div>
-<script>
-  window.addEventListener('DOMContentLoaded', async () => {
-    // 1. ดึงพารามิเตอร์ ?ref= จาก URL (เช่น ?ref=coachpaul)
-    const urlParams = new URLSearchParams(window.location.search);
-    const refUser = urlParams.get('ref');
 
-    // ถ้าไม่มีการแนบลิงก์พารามิเตอร์มา ให้ระบบใช้หน้าเว็บปกติ (Default) ไม่ต้องรันต่อ
-    if (!refUser) return;
-
-    try {
-      // 2. วิ่งไปดึงข้อมูลจากไฟล์ .json ของสมาชิกคนนั้นโดยตรงจากโฟลเดอร์ data/members/
-      // ใช้ .toLowerCase() เพื่อป้องกันกรณีที่พิมพ์ตัวพิมพ์เล็ก-ใหญ่ไม่ตรงกัน
-      const response = await fetch(`/data/members/${refUser.toLowerCase()}.json`);
-      
-      if (!response.ok) {
-        console.warn(`ไม่พบข้อมูลสมาชิกของรหัส: ${refUser}`);
-        return;
-      }
-
-      const memberData = await response.json();
-
-      // 3. เริ่มทำการเปลี่ยนข้อมูลผู้แนะนำบนหน้าเว็บตามไฟล์ .json
-      
-      // เปลี่ยนลิงก์ปุ่มสมัครสมาชิกส่วนตัว (ถ้าในหน้าเว็บมีปุ่ม id นี้)
-      const regBtn = document.getElementById('member_reg_btn');
-      if (regBtn && memberData.register_link) {
-        regBtn.href = memberData.register_link;
-      }
-
-      // เปลี่ยนลิงก์ปุ่มติดต่อทาง Line ส่วนตัว
-      const lineBtn = document.getElementById('member_line_btn');
-      if (lineBtn && memberData.line_url) {
-        lineBtn.href = memberData.line_url;
-      }
-
-      // เปลี่ยนลิงก์เบอร์โทรศัพท์ (ถ้ามีปุ่มโทรในหน้าเว็บ)
-      const phoneBtn = document.getElementById('member_phone_btn');
-      if (phoneBtn && memberData.phone) {
-        phoneBtn.href = `tel:${memberData.phone}`;
-      }
-
-      // เปลี่ยนรูปภาพโปรไฟล์ผู้แนะนำ
-      const profileImg = document.getElementById('member_profile_img');
-      if (profileImg && memberData.image_url) {
-        profileImg.src = memberData.image_url;
-      }
-
-      // เปลี่ยนข้อความชื่อผู้แนะนำ (ถ้าต้องการให้แสดงชื่อบนหน้าเว็บ)
-      const nameText = document.getElementById('member_name_text');
-      if (nameText && memberData.name_th) {
-        nameText.innerText = `ผู้แนะนำของคุณ: ${memberData.name_th}`;
-      }
-
-      console.log(`Successfully loaded personalization data for: ${refUser}`);
-
-    } catch (error) {
-      console.error("เกิดข้อผิดพลาดในการดึงข้อมูลสมาชิก:", error);
-    }
-  });
-</script>
 </body>
 </html>
