@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            <label for="name_th">Full Name (Thai)</label>
+            <label for="name_th">Full Name (Local Language)</label>
             <input type="text" id="name_th" placeholder="e.g., โค้ชวิน" required>
         </div>
         
@@ -93,7 +93,6 @@
         const username = document.getElementById('username').value.trim().toLowerCase();
 
         try {
-            // รวบรวมข้อมูลพร้อมระบุตัวแปรภาษาอังกฤษส่งไปที่ API หลังบ้าน
             const formData = {
                 username: username,
                 name_th: document.getElementById('name_th').value.trim(),
@@ -101,7 +100,7 @@
                 phone: document.getElementById('phone').value.trim(),
                 line_url: document.getElementById('line_url').value.trim(),
                 register_link: document.getElementById('register_link').value.trim(),
-                lang: 'en' // 💡 เพิ่มแท็กภาษาอังกฤษตรงนี้ เพื่อให้หลังบ้านตอบรับลิงก์ /en/
+                lang: 'en'
             };
 
             const response = await fetch('/api/register', {
