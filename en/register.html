@@ -113,7 +113,8 @@
 
             if (response.ok) {
                 msgDiv.className = 'success';
-                msgDiv.innerHTML = `🎉 Registration Successful!<br>Your personal website is ready to use:<br><br><a href="${result.web_url}" target="_blank" style="color: #2b6cb0; word-break: break-all; font-size: 18px;">${result.web_url}</a>`;
+                // แก้ไขข้อความการแจ้งเตือนสำเร็จตรงนี้ตามที่ระบุ
+                msgDiv.innerHTML = `🎉 Registration Successful!<br>Your personal website is ready to use. (Please refresh the page in a few seconds if your link does not display immediately.)<br><br><a href="${result.web_url}" target="_blank" style="color: #2b6cb0; word-break: break-all; font-size: 18px;">${result.web_url}</a>`;
                 msgDiv.style.display = 'block';
                 document.getElementById('regForm').reset();
             } else {
