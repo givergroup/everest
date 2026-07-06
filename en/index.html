@@ -217,6 +217,13 @@
                     <span class="hidden sm:inline">ภาษาไทย</span>
                     <span class="sm:hidden">TH</span>
                 </a>
+
+                <!-- Chinese Language Switcher pointing dynamically -->
+                <a id="chineseLanguageToggle" href="#" target="_blank" title="Switch to Chinese Language" class="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-gold-600 to-gold-400 hover:brightness-110 text-navy-950 rounded-full px-3 py-1.5 sm:px-5 sm:py-2 text-[10px] sm:text-sm font-black shadow-md shadow-gold-500/10 hover:shadow-gold-glow transition-all">
+                    <span>🇨🇳</span>
+                    <span class="hidden sm:inline">中文</span>
+                    <span class="sm:hidden">ZH</span>
+                </a>
             </div>
         </div>
     </header>
@@ -1157,6 +1164,7 @@
                     <span>© 2026 Project Everest Ecosystem. Developed with luxury replicate technology. All Rights Reserved.</span>
                     <div class="flex space-x-4">
                         <a id="thaiLanguageToggleFooter" href="#" target="_blank" class="text-emeraldGlow-500 hover:text-emeraldGlow-600 transition-colors font-black text-sm">🇹🇭 สลับเป็นภาษาไทย</a>
+                        <a id="chineseLanguageToggleFooter" href="#" target="_blank" class="text-gold-400 hover:text-gold-300 transition-colors font-black text-sm">🇨🇳 中文</a>
                         <a href="#" class="hover:text-gold-400 transition-colors">Privacy Policy</a>
                         <a href="#" class="hover:text-gold-400 transition-colors">Terms of Service</a>
                     </div>
@@ -1412,8 +1420,11 @@
 
             // Replicated target switch URLs
             const dynamicThaiUrl = `https://everest191.com/th/?ref=${encodeURIComponent(coach.key)}`;
+            const dynamicChineseUrl = `https://everest191.com/zh/?ref=${encodeURIComponent(coach.key)}`;
             setHref('thaiLanguageToggle', dynamicThaiUrl);
             setHref('thaiLanguageToggleFooter', dynamicThaiUrl);
+            setHref('chineseLanguageToggle', dynamicChineseUrl);
+            setHref('chineseLanguageToggleFooter', dynamicChineseUrl);
         }
 
         // Live stats database sync mechanics
