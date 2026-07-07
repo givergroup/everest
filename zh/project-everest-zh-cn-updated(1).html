@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Everest｜高峰数字学习与商业生态系统</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdfbf7',
+                            100: '#fbf7ed',
+                            200: '#f4e9cf',
+                            300: '#ebd6a7',
+                            400: '#dab66d',
+                            500: '#c59544',
+                            600: '#b48135',
+                            700: '#96662a',
+                            800: '#795022',
+                            900: '#62411e',
+                        },
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                            950: '#0b1329',
+                        },
+                        emeraldGlow: {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'luxury-gold': '0 12px 40px -10px rgba(197, 149, 68, 0.35)',
+                        'gold-glow': '0 0 25px rgba(197, 149, 68, 0.4)',
+                        'emerald-glow': '0 0 20px rgba(16, 185, 129, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            background-color: #0b1329; /* Deep Navy Base for Royal Luxury */
+            color: #f1f5f9; /* Bright Silver White text for supreme senior legibility */
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fdfbf7 0%, #ebd6a7 50%, #c59544 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-emerald {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gradient-navy-dark {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b1329 100%);
+        }
+
+        .bg-luxury-glass {
+            background: rgba(11, 19, 41, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .border-luxury-gold {
+            border: 1px solid rgba(197, 149, 68, 0.4);
+        }
+
+        .hover-gold-glow:hover {
+            box-shadow: 0 12px 35px rgba(197, 149, 68, 0.35);
+            border-color: rgba(197, 149, 68, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* 10-Second Dynamic Color Shift for Ultimate Conversion Buttons */
+        @keyframes dynamicColorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .luxury-dynamic-btn {
+            background: linear-gradient(270deg, #10b981, #c59544, #1e3a8a, #059669);
+            background-size: 600% 600%;
+            animation: dynamicColorShift 10s ease infinite;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .luxury-dynamic-btn:hover {
+            background-size: 200% 200%;
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.45), 0 0 15px rgba(197, 149, 68, 0.35);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0b1329;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c59544;
+        }
+
+        /* Metric cards for Live Stats */
+        .metric-card {
+            background: linear-gradient(145deg, rgba(11, 19, 41, 0.95), rgba(30, 41, 59, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+        
+        .metric-card-green {
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .metric-card-gold {
+            border-color: rgba(197, 149, 68, 0.25);
+        }
+
+        .mobile-safe-bottom {
+            padding-bottom: calc(84px + env(safe-area-inset-bottom));
+        }
+    </style>
+</head>
+<body class="bg-gradient-navy-dark antialiased text-lg mobile-safe-bottom sm:pb-0">
+<!-- REAL-TIME LIVE REGISTRATION TICKER (50 RANDOMIZED ELITE ENGLISH USERS) -->
+<div class="fixed top-0 left-0 right-0 z-[60] bg-[#050b14] text-white border-b border-gold-500/20 py-2.5 overflow-hidden shadow-md">
+<div class="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-3 text-center">
+<span class="inline-flex items-center space-x-1.5 bg-emeraldGlow-600 text-white text-[10px] uppercase font-black px-2.5 py-1 rounded-full animate-pulse shrink-0 tracking-wider">
+<span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+<span>实时动态</span>
+</span>
+<div class="overflow-hidden h-6 relative flex-1 max-w-lg">
+<div class="absolute w-full transition-all duration-500 transform translate-y-0 text-sm font-semibold text-gold-300" id="liveTickerContainer">
+                    正在加载最新注册动态...
+                </div>
+</div>
+</div>
+</div>
+<!-- MAIN NAVBAR -->
+<header class="fixed top-11 left-0 right-0 z-50 bg-luxury-glass border-b border-white/5 shadow-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-22 flex items-center justify-between py-2.5">
+<!-- Brand Logo -->
+<a class="flex items-center group" href="#">
+<img alt="Project Everest 标志" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://placehold.co/150x45/0b1329/fdfbf7?text=EVEREST'" src="https://everest191.com/en/images/everest191eng.png"/>
+</a>
+<!-- Navigation Links -->
+<nav class="hidden lg:flex items-center space-x-8 text-base font-bold text-slate-300">
+<a class="hover:text-gold-400 transition-colors" href="#concept">核心概念</a>
+<a class="hover:text-gold-400 transition-colors" href="#academy">学院课程</a>
+<a class="hover:text-gold-400 transition-colors" href="#matrix">系统计划</a>
+<a class="hover:text-gold-400 transition-colors text-emeraldGlow-500 font-extrabold" href="#packages">配套方案</a>
+<a class="hover:text-gold-400 transition-colors" href="#strengths">为什么选择 Everest</a>
+</nav>
+<!-- Dynamic Sponsor Label & Language Toggle -->
+<div class="flex items-center space-x-1 sm:space-x-3">
+<div class="bg-navy-950 text-white text-[10px] sm:text-sm rounded-full py-1.5 px-2 sm:px-4 border border-white/10 shadow-sm font-bold flex items-center space-x-1.5" id="sponsorActiveBadge">
+<span>🇨🇳</span>
+<span class="tracking-wide truncate max-w-[80px] sm:max-w-[120px]" id="navbarSponsorName">正在加载推荐人...</span>
+<span class="text-gold-400 font-medium hidden sm:inline">(CN)</span>
+</div>
+<!-- Thai Language Switcher pointing dynamically -->
+<a class="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-emeraldGlow-600 to-emerald-500 hover:brightness-110 text-white rounded-full px-3 py-1.5 sm:px-5 sm:py-2 text-[10px] sm:text-sm font-black shadow-md shadow-emeraldGlow-500/10 hover:shadow-emerald-glow transition-all" href="#" id="thaiLanguageToggle" target="_blank" title="Switch to English Language">
+<span>🇺🇸</span>
+<span class="hidden sm:inline">English</span>
+<span class="sm:hidden">EN</span>
+</a>
+</div>
+</div>
+</header>
+<!-- HERO SECTION -->
+<section class="relative pt-44 pb-16 md:pt-48 md:pb-24 overflow-hidden">
+<!-- Visual Accent Lights -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emeraldGlow-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute top-1/4 left-10 w-[400px] h-[400px] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+<!-- High-Impact Luxury Centered Brand Emblem -->
+<div class="flex justify-center mb-10">
+<div class="p-[2px] rounded-[2.5rem] bg-gradient-to-tr from-gold-600 via-gold-400 to-emeraldGlow-500 shadow-luxury-gold transform hover:scale-105 transition-all duration-300">
+<div class="bg-navy-950 rounded-[2.4rem] p-3 sm:p-4 flex items-center justify-center">
+<img alt="Project Everest 标志" class="h-36 w-36 sm:h-52 sm:w-52 object-contain" onerror="this.src='https://placehold.co/240x240/0b1329/fdfbf7?text=EVEREST+191'" src="https://everest191.com/en/images/everest191eng.png"/>
+</div>
+</div>
+</div>
+<!-- Verified Sponsor Banner -->
+<div class="inline-flex items-center space-x-2 bg-emeraldGlow-500/10 border border-emeraldGlow-500/30 rounded-full px-5 py-2 mb-6">
+<span class="w-3 h-3 rounded-full bg-gold-400 animate-ping"></span>
+<span class="text-sm uppercase font-black tracking-widest text-emeraldGlow-500">
+                    认证推荐人： <span class="text-white font-black" id="sponsorTaglineName">加载中...</span>
+</span>
+</div>
+<!-- Primary Large Headlines -->
+<h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white leading-tight">
+<span class="block">学习 应用 创收</span>
+<span class="text-gradient-gold block mt-2">打造全球化成功</span>
+</h1>
+<p class="max-w-3xl mx-auto text-slate-300 text-lg sm:text-2xl leading-relaxed mb-8 font-light">
+                Project Everest 是一个高端数字商业生态系统，整合精英技能课程、推荐引擎与动态软件系统。参考文件
+                <span class="relative group inline-block">
+<a class="font-black text-white hover:text-gold-400 transition-colors underline decoration-dotted decoration-gold-500 underline-offset-4" download="projecteverest.pdf" href="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest.pdf" target="_blank">projecteverest.pdf</a>
+<span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-navy-900 text-white text-xs py-2.5 px-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-2xl text-center z-50 leading-relaxed font-semibold">
+                        📥 点击下载 Project Everest 官方演示 PDF
+                    </span>
+</span>.
+            </p>
+<!-- Conversion Action Buttons -->
+<div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-10 max-w-2xl mx-auto">
+<a class="luxury-dynamic-btn w-full sm:w-auto px-10 py-5 text-white font-black rounded-full shadow-lg text-center tracking-wider uppercase text-base" href="#packages">
+                    查看高级配套方案
+                </a>
+<a class="w-full sm:w-auto px-10 py-5 bg-navy-900 hover:bg-navy-950 text-white font-black rounded-full border border-white/10 shadow-sm transition-all text-center text-base hover:border-gold-500/50" href="#academy">
+                    探索 9 大学院课程
+                </a>
+</div>
+<!-- STYLISH SOCIAL PROOF AVATAR BLOCK -->
+<div class="pt-6 mb-12 border-t border-white/5 flex flex-col md:flex-row items-center gap-6 justify-center max-w-3xl mx-auto">
+<div class="flex items-center gap-4 text-left">
+<div class="flex -space-x-3 shrink-0">
+<img alt="Everest 精英会员 1" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+<img alt="Everest 精英会员 2" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+<img alt="Everest 精英会员 3" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1544168190-79c17527004f?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+<img alt="Everest 精英会员 4" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+<img alt="Everest 精英会员 5" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+<img alt="Everest 精英会员 6" class="w-11 h-11 rounded-full border-2 border-navy-950 object-cover shadow-md" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;q=80&amp;w=120"/>
+</div>
+<p class="text-sm text-slate-300 leading-snug">
+                        超过 <span class="text-gradient-emerald font-extrabold text-2xl tracking-wider inline-block" data-realtime-students="">5,282</span> 活跃用户<br/>
+                        已加入我们的全球网络
+                    </p>
+</div>
+<div class="flex items-center gap-2.5 bg-emeraldGlow-500/5 border border-emeraldGlow-500/15 px-4.5 py-2.5 rounded-2xl text-left">
+<span class="flex h-2.5 w-2.5 relative shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+</span>
+<p class="text-xs text-slate-300 leading-normal">
+<strong class="text-emeraldGlow-500 font-extrabold block uppercase tracking-wider text-[10px]">Everest CEO 直播分享会</strong>
+                        超过 <span class="text-white font-black text-sm">722 名成员</span> 参加了我们最新的线上研讨会！
+                    </p>
+</div>
+</div>
+<!-- Floating Verified Advisor Card -->
+<div class="max-w-md mx-auto bg-luxury-glass p-5 rounded-3xl border border-gold-500/20 shadow-luxury-gold text-left relative overflow-hidden transform hover:scale-[1.01] transition-transform">
+<div class="absolute top-0 right-0 bg-gold-500/10 text-gold-300 text-xs uppercase font-black tracking-widest px-4 py-2 rounded-bl-2xl border-l border-b border-gold-500/15">
+                    您的顾问
+                </div>
+<div class="flex items-center space-x-5">
+<div class="relative">
+<img alt="推荐人头像" class="w-20 h-20 rounded-2xl object-cover border-2 border-gold-500/40 shadow-md" id="sponsorCardImage" src="https://everest191.com/en/images/coachpaul.png" onerror="this.src='https://placehold.co/150x150/0b1329/f1f5f9?text=Everest'"/>
+<span class="absolute -bottom-1.5 -right-1.5 flex h-5 w-5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldGlow-500 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-5 w-5 bg-emeraldGlow-500 border-2 border-navy-950"></span>
+</span>
+</div>
+<div>
+<h4 class="text-white font-black text-2xl leading-none mb-1" id="sponsorCardName">加载中...</h4>
+<p class="text-gradient-gold text-sm font-bold tracking-wider uppercase mb-1">Everest 精英顾问</p>
+<p class="text-slate-300 text-sm font-medium">当前在线，随时协助您成长。</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3 mt-5 pt-4 border-t border-white/5">
+<a class="flex flex-col items-center justify-center py-3 bg-[#06C755]/10 hover:bg-[#06C755]/20 text-[#06C755] border border-[#06C755]/20 rounded-xl transition-all text-center font-extrabold text-sm" href="#" id="sponsorLineLink" target="_blank">
+                        LINE 咨询
+                    </a>
+<a class="flex flex-col items-center justify-center py-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/20 rounded-xl transition-all text-center font-extrabold text-sm" href="#" id="sponsorWhatsAppLink" target="_blank">
+                        WhatsApp
+                    </a>
+<a class="col-span-1 flex flex-col items-center justify-center py-3 bg-gradient-to-r from-emeraldGlow-600 to-emerald-500 text-white border border-emeraldGlow-600/20 rounded-xl transition-all text-center font-black text-sm shadow-md hover:shadow-emerald-glow" href="#" id="sponsorRegisterLink" target="_blank">
+                        立即注册
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<!-- INTRODUCTORY OVERVIEW VIDEO -->
+<section class="py-12 bg-[#050b14] border-t border-b border-white/5 relative">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<span class="text-gold-400 text-xs sm:text-sm uppercase font-black tracking-widest block mb-3">生态系统介绍</span>
+<h2 class="text-2xl sm:text-4xl font-extrabold text-white mb-6">了解我们如何打造高价值成功系统</h2>
+<!-- Premium YouTube Video Container -->
+<div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-gold-500/30 aspect-video bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="absolute top-0 left-0 w-full h-full" frameborder="0" src="https://www.youtube.com/embed/afwht6mvVNs?autoplay=0&amp;mute=1&amp;loop=1&amp;playlist=afwht6mvVNs" title="生态系统介绍视频"></iframe>
+</div>
+<p class="text-slate-400 text-sm sm:text-base mt-4 font-medium italic">
+                💡 在浏览下方学院课程之前，先观看这段快速介绍，了解 Project Everest 的实际运作力量。
+            </p>
+</div>
+</section>
+<!-- OFFICIAL LIVE METRICS SECTION -->
+<section class="py-16 relative overflow-hidden z-10 bg-navy-950/70 border-b border-white/5" id="official-live-metrics">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-10">
+<span class="inline-flex items-center gap-2 text-emeraldGlow-500 text-xs sm:text-sm uppercase font-black tracking-widest bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 px-4 py-2 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldGlow-500 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emeraldGlow-500"></span>
+</span>
+                    实时数据
+                </span>
+<h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 leading-tight">
+                    来自 <span class="text-gradient-gold">Everest 数据库的实时数据</span>
+</h2>
+<p class="text-slate-300 text-sm sm:text-lg mt-3 leading-relaxed">
+                    我们的平台直接整合真实的实时成果指标与参与者统计，呈现高度社区信任与每日指数级系统增长。
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+<!-- Live Students Card -->
+<div class="metric-card metric-card-green rounded-[2.5rem] p-8 relative overflow-hidden transition-all duration-300 hover:scale-102">
+<div class="absolute -top-12 -right-12 w-44 h-44 bg-emeraldGlow-500/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
+<div class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-emeraldGlow-500/10 border border-emeraldGlow-500/20 flex items-center justify-center shrink-0 text-4xl text-emeraldGlow-500 shadow-emerald-glow/10">
+<i class="fas fa-users-viewfinder animate-pulse"></i>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] uppercase tracking-[0.25em] font-black text-emeraldGlow-500">实时活跃会员</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emeraldGlow-500 animate-ping"></span>
+</div>
+<div class="text-5xl sm:text-6xl font-black text-white tracking-tight leading-none" data-realtime-students="">5,282</div>
+<p class="text-slate-300 font-bold text-base mt-2.5">使用我们软件工具的注册活跃会员总数</p>
+</div>
+</div>
+</div>
+<!-- Satisfaction Card -->
+<div class="metric-card metric-card-gold rounded-[2.5rem] p-8 relative overflow-hidden transition-all duration-300 hover:scale-102">
+<div class="absolute -top-12 -right-12 w-44 h-44 bg-gold-500/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
+<div class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center shrink-0 text-4xl text-gold-400 shadow-luxury-gold">
+<i class="fas fa-star animate-spin-slow animate-pulse" style="animation-duration: 12s"></i>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] uppercase tracking-[0.25em] font-black text-gold-400">整体满意度评分</span>
+<span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping"></span>
+</div>
+<div class="text-5xl sm:text-6xl font-black text-white tracking-tight leading-none" data-realtime-satisfaction="">95%</div>
+<p class="text-slate-300 font-bold text-base mt-2.5">综合学员反馈评估评分</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Synced Status Bar -->
+<div class="mt-8 text-center">
+<p class="inline-flex items-center justify-center gap-2.5 text-xs sm:text-sm text-slate-300 bg-navy-900/80 border border-white/10 rounded-full px-5 py-2.5 shadow-md font-semibold" id="officialMetricsStatus">
+<span class="w-2 h-2 rounded-full bg-emeraldGlow-500 animate-pulse"></span>
+                    正在连接主数据库 API 节点...
+                </p>
+</div>
+</div>
+</section>
+<!-- HIGH-CONVERSION CONTEXT: PAIN POINTS & GAIN POINTS -->
+<section class="py-16 relative bg-[#090f1d] border-b border-white/5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<span class="text-gold-400 text-xs uppercase font-extrabold tracking-widest">现实与机会</span>
+<h2 class="text-3xl sm:text-5xl font-bold text-white mt-2">现代创业者为何失败，以及我们如何取胜</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+<!-- Pain Points Box -->
+<div class="bg-red-950/20 rounded-3xl p-8 border border-red-500/20 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-400 font-bold mb-6 text-xl">✗</div>
+<h3 class="text-red-300 font-extrabold text-2xl mb-4">真正的问题（痛点）</h3>
+<p class="text-slate-300 text-base leading-relaxed mb-6">
+                            许多人都梦想拥有高价值事业，却常因现实中的关键阻力而失败：
+                        </p>
+<ul class="space-y-4 text-slate-300 text-base">
+<li class="flex items-start space-x-3">
+<span class="text-red-400 font-bold shrink-0">⚠️</span>
+<span><strong>成本飙升：</strong> 生活成本持续上涨，但本地薪资却增长缓慢。</span>
+</li>
+<li class="flex items-start space-x-3">
+<span class="text-red-400 font-bold shrink-0">⚠️</span>
+<span><strong>传统教育过时：</strong> 大学与传统课程通常不会教授真正可变现的 AI、TikTok 或现代线上扩展方法。</span>
+</li>
+<li class="flex items-start space-x-3">
+<span class="text-red-400 font-bold shrink-0">⚠️</span>
+<span><strong>缺乏导师支持：</strong> 独自摸索广告漏斗，往往造成预算浪费与方向混乱。</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Gain Points Box -->
+<div class="bg-emerald-950/20 rounded-3xl p-8 border border-emeraldGlow-600/30 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 bg-emeraldGlow-600/10 rounded-2xl flex items-center justify-center text-emeraldGlow-500 font-bold mb-6 text-xl">✓</div>
+<h3 class="text-emeraldGlow-500 font-extrabold text-2xl mb-4">Everest 解决方案（收益点）</h3>
+<p class="text-slate-300 text-base leading-relaxed mb-6">
+                            Project Everest 通过以下方式降低传统运营负担：
+                        </p>
+<ul class="space-y-4 text-slate-300 text-base">
+<li class="flex items-start space-x-3">
+<span class="text-emeraldGlow-500 font-bold shrink-0">💎</span>
+<span><strong>9 大实用学院：</strong> 掌握 AI、TikTok 营销、视频剪辑与英语能力，立即开启全球化创收机会。</span>
+</li>
+<li class="flex items-start space-x-3">
+<span class="text-emeraldGlow-500 font-bold shrink-0">💎</span>
+<span><strong>联盟生态系统：</strong> 运用现成软件与复制网站，无需库存即可拓展被动佣金机会。</span>
+</li>
+<li class="flex items-start space-x-3">
+<span class="text-emeraldGlow-500 font-bold shrink-0">💎</span>
+<span><strong>被动矩阵奖励：</strong> 通过 70%/20%/10% 全球结构，以 USDT 实现自动化分配。</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CORE CONCEPT SECTION -->
+<section class="py-14 border-t border-white/5 bg-navy-950/40 relative" id="concept">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Details Column -->
+<div class="lg:col-span-5 space-y-5">
+<div class="text-gold-400 text-sm uppercase font-black tracking-widest">全球教育新范式</div>
+<h2 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
+                        什么是 <br/><span class="text-gradient-emerald">Project Everest？</span>
+</h2>
+<p class="text-slate-300 text-lg leading-relaxed">
+                        Project Everest 是一个高端前沿数字平台，将关键线上课程、优质教育媒体与高收入技能训练整合为一个完整系统。
+                    </p>
+<p class="text-slate-400 text-base leading-relaxed">
+                        我们的核心目标是让学习更容易触达。您可以随时随地按照自己的节奏学习，把高收入技能应用到现代市场，并通过先进的商业架构建立被动推荐流量。
+                    </p>
+<!-- Key Pillars -->
+<div class="space-y-4 pt-4 border-t border-white/5">
+<div class="flex items-start space-x-3">
+<span class="w-8 h-8 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-base font-bold shrink-0">✓</span>
+<div>
+<h4 class="text-white font-extrabold text-lg">学习：专业数字技能组合</h4>
+<p class="text-slate-400 text-sm">解锁 9 大高需求现代行业技能类别。</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<span class="w-8 h-8 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-base font-bold shrink-0">✓</span>
+<div>
+<h4 class="text-white font-extrabold text-lg">应用：把知识转化为现金流</h4>
+<p class="text-slate-400 text-sm">以结果为导向的实用执行框架，帮助您立即行动。</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<span class="w-8 h-8 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-base font-bold shrink-0">✓</span>
+<div>
+<h4 class="text-white font-extrabold text-lg">构建：多渠道推荐收入</h4>
+<p class="text-slate-400 text-sm">运用联盟网络与自动矩阵算法，实现被动增长。</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Visual Column -->
+<div class="lg:col-span-7 relative">
+<div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-gold-500/10 to-transparent blur-xl opacity-70 pointer-events-none"></div>
+<div class="relative bg-navy-900 border border-white/10 p-2 rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Project Everest 战略蓝图" class="w-full rounded-2xl object-cover hover:scale-[1.01] transition-transform duration-500" src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/everest-eng.png"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 9 PROFESSIONAL LEARNING CATEGORIES -->
+<section class="py-16 relative border-t border-white/5 bg-[#0b1329]" id="academy">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<span class="text-emeraldGlow-500 text-sm uppercase font-black tracking-widest bg-emeraldGlow-500/10 px-4 py-2 rounded-full">Everest 学院</span>
+<h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                    9 大专业学习 <span class="text-gradient-emerald">能力中心</span>
+</h2>
+<p class="text-slate-300 text-base mt-3">
+                    精心设计的技能体系，面向快速变现、全球远程职业、品牌定位与动态创业。
+                </p>
+</div>
+<!-- Academies Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Academy 1 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">01</div>
+<h3 class="text-white font-extrabold text-xl mb-2">职场与沟通英语</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">培养日常生活、工作、客户沟通所需的实用英语能力，并在国际环境中提升自信。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">专业人士</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">创业者</span>
+</div>
+</div>
+</div>
+<!-- Academy 2 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">02</div>
+<h3 class="text-white font-extrabold text-xl mb-2">Facebook 与主页营销</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">学习创建 Facebook 页面、制作内容、提升点赞与粉丝，并把 Facebook 主页作为品牌建设工具。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">销售者</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">品牌主</span>
+</div>
+</div>
+</div>
+<!-- Academy 3 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">03</div>
+<h3 class="text-white font-extrabold text-xl mb-2">商业与现代营销 AI</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">学习使用 AI 工具辅助工作、规划营销策略、分析数据、创作内容并提升商业效率。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-emeraldGlow-600 text-white font-extrabold">前沿技能</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">适合所有阶段</span>
+</div>
+</div>
+</div>
+<!-- Academy 4 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">04</div>
+<h3 class="text-white font-extrabold text-xl mb-2">塔罗解读与预测</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">学习牌卡解读基础、牌义分析逻辑、能量解读与结构化预测方法，发展为服务型职业。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">特色技能</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">服务型事业</span>
+</div>
+</div>
+</div>
+<!-- Academy 5 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">05</div>
+<h3 class="text-white font-extrabold text-xl mb-2">烹饪大师课程</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">学习简单食谱、成本控制技巧、品质管理流程，以及启动线上餐饮销售或餐饮品牌的扩展框架。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">餐饮品牌</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">实用职业</span>
+</div>
+</div>
+</div>
+<!-- Academy 6 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">06</div>
+<h3 class="text-white font-extrabold text-xl mb-2">TikTok 爆款营销</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">学习制作高吸引力短视频内容、增加粉丝、建立强曝光，并将视觉流量转化为真实买家。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-emeraldGlow-600 text-white font-extrabold">热门赛道</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">创作者</span>
+</div>
+</div>
+</div>
+<!-- Academy 7 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">07</div>
+<h3 class="text-white font-extrabold text-xl mb-2">线上营销生态系统</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">建立现代线上营销、活动策略、目标受众触达，以及适合中小企业扩展的高效文案流程。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">中小企业成长</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">代理/团队打造者</span>
+</div>
+</div>
+</div>
+<!-- Academy 8 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">08</div>
+<h3 class="text-white font-extrabold text-xl mb-2">专业视频剪辑</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">掌握高级叙事流程，打造动态剪辑、调色技巧、声音设计，并快速提升观众留存。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">Reels 与 TikTok</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">专业剪辑师</span>
+</div>
+</div>
+</div>
+<!-- Academy 9 -->
+<div class="bg-navy-950/60 p-6 rounded-3xl border border-white/5 shadow-sm hover-gold-glow transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 mb-5 font-black text-xl">09</div>
+<h3 class="text-white font-extrabold text-xl mb-2">平面设计与媒体创作</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">设计精美版式、高端品牌横幅、高转化视觉广告，并打造强视觉沟通作品。</p>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">设计师</span>
+<span class="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-navy-800 text-slate-300">内容营销人</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CORE BUSINESS MODEL & ALL SALES INFO -->
+<section class="py-14 relative bg-navy-950">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-navy-900 rounded-3xl p-8 border border-white/5 shadow-xl relative overflow-hidden">
+<div class="absolute right-0 bottom-0 w-80 h-80 bg-gold-500/5 rounded-full blur-[90px] pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Column -->
+<div class="lg:col-span-6 space-y-5">
+<div class="text-gold-400 text-sm uppercase font-black tracking-widest">架构协同</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+                            Project Everest <br/>
+<span class="text-gradient-gold">混合商业模式</span>
+</h2>
+<p class="text-slate-300 text-base leading-relaxed font-light">
+                            通过结合高需求 <strong>数字产品</strong>、低阻力 <strong>联盟营销</strong>，以及现代化 <strong>推荐系统</strong>，我们建立了一个高度稳健的财务结构。
+                        </p>
+<div class="space-y-3 pt-2">
+<div class="flex items-center space-x-3 text-slate-300">
+<span class="w-7 h-7 rounded-md bg-navy-850 text-gold-400 font-bold flex items-center justify-center text-sm">1</span>
+<span class="text-sm font-semibold">选择符合您目标的学院教育配套方案。</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-300">
+<span class="w-7 h-7 rounded-md bg-navy-850 text-gold-400 font-bold flex items-center justify-center text-sm">2</span>
+<span class="text-sm font-semibold">使用数字工具学习、实践并发展您的职业能力。</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-300">
+<span class="w-7 h-7 rounded-md bg-navy-850 text-gold-400 font-bold flex items-center justify-center text-sm">3</span>
+<span class="text-sm font-semibold">通过整合的复制网站推荐其他用户。</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-300">
+<span class="w-7 h-7 rounded-md bg-gold-500/20 text-gold-300 font-bold flex items-center justify-center text-sm">4</span>
+<span class="text-sm font-bold text-gold-400">即时获得矩阵奖励与推荐奖励。</span>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="lg:col-span-6">
+<div class="relative bg-navy-950 p-2 rounded-2xl border border-white/5 shadow-2xl">
+<img alt="生态增长蓝图" class="w-full rounded-xl object-cover hover:scale-[1.01] transition-transform" src="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest-eng.png"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PREMIUM MEMBERSHIP PACKAGES -->
+<section class="py-16 relative border-t border-white/5 bg-[#080e1c]" id="packages">
+<div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-emeraldGlow-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<span class="text-gold-400 text-sm uppercase font-black tracking-widest bg-gold-500/10 px-4 py-2 rounded-full">定价策略</span>
+<h2 class="text-4xl sm:text-6xl font-extrabold text-white mt-4 leading-tight">
+                    选择您的 <span class="text-gradient-emerald">专业等级</span>
+</h2>
+<p class="text-slate-300 text-lg sm:text-xl mt-3 font-medium">
+                    解锁强大的培训资源、结构化矩阵奖励能力与完整联盟资格，并以 USDT 区块链体量即时体现。
+                </p>
+</div>
+<!-- Custom Distinct Colors for each of the 4 Packages -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+<!-- Tier 1: Starter -->
+<div class="bg-[#12221b] rounded-3xl p-6 border border-emeraldGlow-500/20 shadow-md flex flex-col justify-between hover:scale-[1.02] hover:shadow-lg transition-all relative">
+<div>
+<div class="text-xs uppercase font-black tracking-widest text-emeraldGlow-500 mb-2">等级 1</div>
+<h4 class="text-white font-extrabold text-2xl mb-1">入门版</h4>
+<p class="text-slate-300 text-sm font-medium mb-4">适合初学者了解基础系统。</p>
+<div class="mb-6 pt-2">
+<span class="text-4xl font-black text-white">19</span>
+<span class="text-emeraldGlow-500 font-black text-lg tracking-wider ml-1">USDT</span>
+</div>
+<ul class="text-sm text-slate-300 space-y-3.5 border-t border-white/10 pt-4">
+<li class="flex items-center space-x-2">
+<span class="text-emeraldGlow-500 font-bold text-lg">✓</span>
+<span class="font-medium">基础系统访问权限</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="text-emeraldGlow-500 font-bold text-lg">✓</span>
+<span class="font-medium">基础动态矩阵资格</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<a class="package-cta-btn w-full block text-center py-3.5 rounded-xl bg-navy-950 text-white hover:bg-gold-500 hover:text-navy-950 transition-all text-sm font-black uppercase tracking-wider" href="#" target="_blank">
+                            选择入门版
+                        </a>
+</div>
+</div>
+<!-- Tier 2: Premium -->
+<div class="bg-[#101b2e] rounded-3xl p-6 border border-blue-500/20 shadow-md flex flex-col justify-between hover:scale-[1.02] hover:shadow-lg transition-all relative">
+<div>
+<div class="text-xs uppercase font-black tracking-widest text-blue-400 mb-2">等级 2</div>
+<h4 class="text-white font-extrabold text-2xl mb-1">高级版</h4>
+<p class="text-slate-300 text-sm font-medium mb-4">深化技能并提升杠杆机会。</p>
+<div class="mb-6 pt-2">
+<span class="text-4xl font-black text-white">56</span>
+<span class="text-emeraldGlow-500 font-black text-lg tracking-wider ml-1">USDT</span>
+</div>
+<ul class="text-sm text-slate-300 space-y-3.5 border-t border-white/10 pt-4">
+<li class="flex items-center space-x-2">
+<span class="text-blue-400 font-bold text-lg">✓</span>
+<span class="font-medium">进阶学院内容</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="text-blue-400 font-bold text-lg">✓</span>
+<span class="font-medium">中级矩阵循环奖励</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<a class="package-cta-btn w-full block text-center py-3.5 rounded-xl bg-navy-950 text-white hover:bg-gold-500 hover:text-navy-950 transition-all text-sm font-black uppercase tracking-wider" href="#" target="_blank">
+                            选择高级版
+                        </a>
+</div>
+</div>
+<!-- Tier 3: Advanced -->
+<div class="bg-[#112423] rounded-3xl p-6 border border-emeraldGlow-500/20 shadow-md flex flex-col justify-between hover:scale-[1.02] hover:shadow-lg transition-all relative">
+<div>
+<div class="text-xs uppercase font-black tracking-widest text-teal-400 mb-2">等级 3</div>
+<h4 class="text-white font-extrabold text-2xl mb-1">进阶版</h4>
+<p class="text-slate-300 text-sm font-medium mb-4">适合认真发展自我的用户。</p>
+<div class="mb-6 pt-2">
+<span class="text-4xl font-black text-white">111</span>
+<span class="text-emeraldGlow-500 font-black text-lg tracking-wider ml-1">USDT</span>
+</div>
+<ul class="text-sm text-slate-300 space-y-3.5 border-t border-white/10 pt-4">
+<li class="flex items-center space-x-2">
+<span class="text-teal-400 font-bold text-lg">✓</span>
+<span class="font-medium">完整高收入技能内容</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="text-teal-400 font-bold text-lg">✓</span>
+<span class="font-medium">增强推荐权益</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<a class="package-cta-btn w-full block text-center py-3.5 rounded-xl bg-navy-950 text-white hover:bg-gold-500 hover:text-navy-950 transition-all text-sm font-black uppercase tracking-wider" href="#" target="_blank">
+                            选择进阶版
+                        </a>
+</div>
+</div>
+<!-- Tier 4: Signature -->
+<div class="bg-gradient-to-b from-[#0b1b1a] to-[#041212] rounded-3xl p-6 border-2 border-gold-500 shadow-luxury-gold flex flex-col justify-between hover:scale-[1.03] transition-all relative transform lg:-translate-y-2 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-600 to-gold-400 text-navy-950 text-xs font-black tracking-widest py-1.5 px-6 rounded-full shadow-md whitespace-nowrap border border-white/20 uppercase">
+                        ★ 推荐选择 ★
+                    </div>
+<div>
+<div class="text-xs uppercase font-black tracking-widest text-gold-400 mb-2 mt-2">等级 4</div>
+<h4 class="text-white font-black text-3xl mb-1">旗舰版</h4>
+<p class="text-slate-200 text-sm font-medium mb-4">为扩展型领导者提供最高级平台访问权限。</p>
+<div class="mb-6 pt-2">
+<span class="text-4xl font-black text-gold-300">259</span>
+<span class="text-gold-400 font-black text-lg tracking-wider ml-1">USDT</span>
+</div>
+<ul class="text-sm text-slate-100 space-y-3.5 border-t border-white/10 pt-4">
+<li class="flex items-center space-x-2">
+<span class="text-gold-400 font-bold">✓</span>
+<span class="font-semibold">解锁全部 9 大学院</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="text-gold-400 font-bold">✓</span>
+<span class="font-semibold">VIP 商业支持通道</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="text-gold-400 font-bold">✓</span>
+<span class="font-semibold">最高矩阵动能容量</span>
+</li>
+</ul>
+</div>
+<div class="pt-6">
+<a class="package-cta-btn luxury-dynamic-btn w-full block text-center py-4 rounded-xl font-black uppercase tracking-wider text-sm" href="#" target="_blank">
+                            选择旗舰版
+                        </a>
+</div>
+</div>
+</div>
+<!-- SOFT CTA CALLOUT -->
+<div class="mt-12 bg-luxury-glass p-8 rounded-3xl border border-emeraldGlow-500/20 text-center max-w-3xl mx-auto">
+<span class="text-gold-400 text-xs uppercase font-extrabold tracking-widest block mb-2">不确定哪个等级最适合您？</span>
+<h3 class="text-2xl font-bold text-white mb-4">获取个性化职业咨询蓝图</h3>
+<p class="text-slate-300 text-base leading-relaxed mb-6">
+                    我们的顾问将根据您的当前目标，为您选择更适合的发展路径。完全免费，无压力，只提供可执行方案。
+                </p>
+<div class="flex flex-wrap justify-center gap-4">
+<a class="px-6 py-3 bg-[#06C755] hover:bg-[#06C755]/85 text-white font-black rounded-full text-sm transition-all shadow-md" href="#" id="softCtaLineBtn" target="_blank">
+                        💬 通过 LINE 咨询
+                    </a>
+<a class="px-6 py-3 bg-[#25D366] hover:bg-[#25D366]/85 text-white font-black rounded-full text-sm transition-all shadow-md" href="#" id="softCtaWhatsAppBtn" target="_blank">
+                        📞 通过 WhatsApp 咨询
+                    </a>
+</div>
+</div>
+<!-- Pricing Disclaimers -->
+<div class="mt-10 bg-[#060b14] p-6 rounded-2xl border border-white/5 max-w-4xl mx-auto">
+<h5 class="text-white font-black text-base uppercase tracking-wider mb-2">⚠️ 重要价格说明</h5>
+<p class="text-slate-300 text-sm leading-relaxed mb-2">
+                    配套价格会动态更新，并以 <strong>USDT</strong>计价。最终支付金额可能会因实时加密货币汇率参数、区块链网络验证费用，以及支付网关界面提供的参数而略有波动。请直接参考以下文件中的说明：
+                    <span class="relative group inline-block">
+<a class="font-black text-white hover:text-gold-400 transition-colors underline decoration-dotted decoration-gold-500 underline-offset-2" download="projecteverest.pdf" href="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest.pdf" target="_blank">projecteverest.pdf</a>
+<span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-navy-900 text-white text-xs py-2.5 px-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-2xl text-center z-50 leading-relaxed font-semibold">
+                            📥 点击下载 Project Everest 官方演示 PDF
+                        </span>
+</span>.
+                </p>
+<p class="text-gold-400 text-sm font-bold leading-relaxed">
+                    请注意：基础价格预计在近期将有约 5% 至 10% 的调整。如需实时更新或个性化协助，请直接咨询您的个人推荐人。
+                </p>
+</div>
+</div>
+</section>
+<!-- MATRIX REWARDS ENGINE & MOMENTUM ALLOCATION -->
+<section class="py-16 relative overflow-hidden bg-[#050b14] border-t border-white/5" id="matrix">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<span class="text-gold-400 text-sm uppercase font-black tracking-widest bg-gold-500/10 px-4 py-2 rounded-full">金融科技</span>
+<h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                    高级自动矩阵与 <br/>
+<span class="text-gradient-emerald">动能分配</span>
+</h2>
+<p class="text-slate-300 text-base mt-2 font-medium">
+                    旨在促进领导者主动支持、团队直接协作，以及被动网络的指数级增长。
+                </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+<div class="lg:col-span-7 bg-navy-950/60 p-6 md:p-8 rounded-3xl border border-white/5 flex flex-col justify-between">
+<div>
+<div class="flex items-center space-x-3 mb-4">
+<span class="px-3 py-1 bg-emeraldGlow-600/10 text-emeraldGlow-500 border border-emeraldGlow-500/20 text-xs font-black uppercase rounded-full tracking-wider">新结构</span>
+<span class="text-slate-400 text-sm font-semibold">动能协同</span>
+</div>
+<h3 class="text-white font-extrabold text-2xl mb-3">70% / 20% / 10% 矩阵革新</h3>
+<p class="text-slate-300 text-base leading-relaxed mb-4">
+                            不同于传统营销模式把 100% 矩阵奖励集中到单一节点，Project Everest 将奖励分配到 3 个关键层级，以激励领导支持：
+                        </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+<div class="bg-navy-900/50 p-4 rounded-2xl border border-white/5">
+<div class="text-3xl font-black text-white mb-1">70%</div>
+<div class="text-gold-400 text-xs font-bold mb-1">原始会员</div>
+<p class="text-slate-400 text-xs">矩阵直接位置的主要奖励。</p>
+</div>
+<div class="bg-navy-900/50 p-4 rounded-2xl border border-white/5">
+<div class="text-3xl font-black text-emeraldGlow-500 mb-1">20%</div>
+<div class="text-white text-xs font-bold mb-1">直接推荐人</div>
+<p class="text-slate-400 text-xs">激励直接指导您的个人导师。</p>
+</div>
+<div class="bg-navy-900/50 p-4 rounded-2xl border border-white/5">
+<div class="text-3xl font-black text-gold-400 mb-1">10%</div>
+<div class="text-gold-300 text-xs font-bold mb-1">推荐人的推荐人</div>
+<p class="text-slate-400 text-xs">赋能上层领导，提供更强结构支持。</p>
+</div>
+</div>
+<p class="text-slate-400 text-sm leading-relaxed italic border-l-4 border-gold-500 pl-4">
+                            💡 示例：无论是 259 USDT 旗舰版，还是 19 USDT 入门版，奖励都会按照安全的 70%/20%/10% 比例分配。
+                        </p>
+</div>
+<div class="mt-6 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-emeraldGlow-600/10 flex items-center justify-center text-emeraldGlow-500 text-lg">🔄</div>
+<div>
+<h4 class="text-white font-extrabold text-sm uppercase tracking-wider">无限 Reborn 循环</h4>
+<p class="text-slate-400 text-xs">自动矩阵循环会重新生成您的活跃收益区块。</p>
+</div>
+</div>
+<a class="text-sm text-emeraldGlow-500 font-black uppercase tracking-widest hover:text-emerald-500" href="#packages">立即激活 →</a>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="bg-navy-950/60 p-5 rounded-3xl border border-white/5 flex-1 flex flex-col justify-between">
+<div>
+<div class="text-xs text-gold-400 uppercase font-bold tracking-widest mb-1">矩阵结构奖励</div>
+<h3 class="text-white font-bold text-lg mb-2">2 层级 • 2 条线 • 6 个位置</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-3">根据清晰参数即时计算，优化您的回流周期：</p>
+<div class="space-y-2">
+<div class="flex justify-between items-center p-3.5 bg-navy-900/50 rounded-xl border border-white/5">
+<span class="text-sm font-bold text-slate-300">第 1 层矩阵奖励</span>
+<span class="text-sm font-black text-emeraldGlow-500">10% 奖励 <span class="text-xs text-slate-400 font-normal">（7% Reborn）</span></span>
+</div>
+<div class="flex justify-between items-center p-3.5 bg-navy-900/50 rounded-xl border border-white/5">
+<span class="text-sm font-bold text-slate-300">第 2 层矩阵奖励</span>
+<span class="text-sm font-black text-emeraldGlow-500">50% 奖励 <span class="text-xs text-slate-400 font-normal">（50% Reborn）</span></span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-navy-950/60 p-5 rounded-3xl border border-white/5 flex-1 flex flex-col justify-between">
+<div>
+<div class="text-xs text-emeraldGlow-500 uppercase font-black tracking-widest mb-1">全球销售分润</div>
+<h3 class="text-white font-bold text-lg mb-2">推广总销售</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-3">
+                                从全球系统销售中获得奖励。您活跃矩阵下每个位置可获得 1%，覆盖 2 条线，最多 10 层深度。
+                            </p>
+<span class="text-xs bg-emeraldGlow-600/10 text-emeraldGlow-500 border border-emeraldGlow-500/20 px-3 py-1.5 rounded-md font-bold uppercase tracking-wider block text-center">根据业绩资格按月发放</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- IMMERSIVE VIDEO PRESENTATION SECTION -->
+<section class="py-16 relative bg-navy-950 text-white overflow-hidden">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gold-500/5 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+<div class="max-w-2xl mx-auto mb-10">
+<span class="text-gold-400 text-xs uppercase font-extrabold tracking-widest block mb-3">电影级演示</span>
+<h2 class="text-3xl sm:text-5xl font-extrabold text-white">体验 <span class="text-gradient-gold">Project Everest</span></h2>
+<p class="text-slate-300 text-sm mt-3">观看这段备受期待的高清演示，了解数字生态系统、高级课程与先进收益结构。</p>
+</div>
+<!-- YouTube Custom Embed Container -->
+<div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gold-500/30 max-w-4xl mx-auto aspect-video bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="absolute top-0 left-0 w-full h-full" frameborder="0" src="https://www.youtube.com/embed/xGTa7TuRMZA?autoplay=0&amp;mute=1&amp;loop=1&amp;playlist=xGTa7TuRMZA" title="Project Everest 视频演示"></iframe>
+</div>
+<div class="mt-8 flex justify-center">
+<a class="inline-flex items-center space-x-2 bg-gold-500/10 border border-gold-400/30 text-gold-300 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-950 transition-all font-semibold text-xs" href="#packages">
+<span>立即锁定您的配套方案</span>
+<span class="text-base">→</span>
+</a>
+</div>
+</div>
+</section>
+<!-- KEY STRENGTHS SECTION -->
+<section class="py-16 border-t border-white/5 relative bg-[#050b14]" id="strengths">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-5 space-y-5">
+<div class="text-gold-400 text-sm uppercase font-black tracking-widest">为什么加入我们</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+                        生态系统核心 <span class="text-gradient-emerald">优势</span>
+</h2>
+<p class="text-slate-300 text-base leading-relaxed">
+                        Project Everest 不只是数字教材库，更是一个完整独立的运营枢纽，让会员无需实体店负担，也能开启可持续的现代事业。
+                    </p>
+<div class="space-y-4">
+<div class="p-4 bg-navy-900 border border-white/5 rounded-2xl">
+<h4 class="text-white font-extrabold text-base mb-1">💻 100% 线上运营</h4>
+<p class="text-slate-400 text-sm font-medium">只需电脑或手机，即可在全球开展业务，不受实体空间限制。</p>
+</div>
+<div class="p-4 bg-navy-900 border border-white/5 rounded-2xl">
+<h4 class="text-white font-extrabold text-base mb-1">📦 无库存知识产品</h4>
+<p class="text-slate-400 text-sm font-medium">数字交付即时处理，免除供应链与生产延迟。</p>
+</div>
+<div class="p-4 bg-navy-900 border border-white/5 rounded-2xl">
+<h4 class="text-white font-extrabold text-base mb-1">🗺️ 多种入门等级</h4>
+<p class="text-slate-400 text-sm font-medium">从基础入门版到顶级旗舰模块，匹配不同预算需求。</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 bg-gradient-to-b from-navy-900 to-navy-950 p-8 md:p-12 rounded-3xl shadow-xl text-center space-y-6 relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,#c5954415,transparent_50%)] pointer-events-none"></div>
+<span class="text-xs uppercase font-black tracking-widest text-gold-400 bg-white/5 px-4 py-1.5 rounded-full border border-white/10 inline-block">EVEREST 学院复制中心</span>
+<h3 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                        一个平台。<br/> 多种高价值职业路径。
+                    </h3>
+<p class="text-slate-300 text-sm max-w-lg mx-auto leading-relaxed font-light">
+                        准备加入我们正在成长的精英团队了吗？点击下方按钮，即可通过您的动态推荐人注册，并立即建立属于自己的数字学习商业门户。
+                    </p>
+<div class="pt-4 max-w-sm mx-auto">
+<a class="luxury-dynamic-btn w-full block py-5 font-black rounded-full text-base uppercase tracking-wider text-center" href="#" id="bigPrimaryRegisterBtn" target="_blank">
+                            立即注册并开始
+                        </a>
+</div>
+<div class="flex items-center justify-center space-x-3 text-left bg-white/5 p-3 rounded-2xl border border-white/10 max-w-xs mx-auto">
+<img alt="推荐人" class="w-10 h-10 rounded-full object-cover border border-gold-400/50" id="footerSponsorThumb" src="https://everest191.com/en/images/coachpaul.png"/>
+<div class="text-[11px]">
+<span class="text-slate-400 block leading-none">您的直接向导</span>
+<span class="text-white font-bold tracking-wide" id="footerSponsorName">加载中...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FOOTER SECTION & LEGAL DISCLAIMER -->
+<footer class="bg-[#040811] text-slate-400 pt-12 pb-26 sm:pb-16 border-t border-white/5 relative z-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+<div class="md:col-span-5 space-y-4">
+<div class="flex items-center space-x-3">
+<img alt="Project Everest" class="h-8 sm:h-9 w-auto object-contain" onerror="this.src='https://placehold.co/130x40/0b1329/fdfbf7?text=EVEREST'" src="https://everest191.com/en/images/everest191eng.png"/>
+</div>
+<p class="text-sm text-slate-300 max-w-sm leading-relaxed">
+                        打造下一代数字技能系统，结合精英软件工具、先进系统模型与高端教育资源。参考文件
+                        <span class="relative group inline-block">
+<a class="font-semibold text-white hover:text-gold-400 transition-colors underline decoration-dotted decoration-gold-400 underline-offset-2" download="projecteverest.pdf" href="https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/projecteverest.pdf" target="_blank">projecteverest.pdf</a>
+<span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-navy-900 text-white text-xs py-2.5 px-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-2xl text-center z-50 leading-relaxed font-semibold">
+                                📥 点击下载 Project Everest 官方演示 PDF
+                            </span>
+</span>.
+                    </p>
+</div>
+<div class="md:col-span-3 space-y-3">
+<h4 class="text-sm uppercase font-black text-white tracking-widest">网站导航</h4>
+<ul class="text-sm space-y-2.5">
+<li><a class="hover:text-gold-400 transition-colors font-medium" href="#concept">核心概念</a></li>
+<li><a class="hover:text-gold-400 transition-colors font-medium" href="#academy">9 大学院</a></li>
+<li><a class="hover:text-gold-400 transition-colors font-medium" href="#matrix">自动矩阵计划</a></li>
+<li><a class="hover:text-gold-400 transition-colors font-medium" href="#packages">等级与配套方案</a></li>
+</ul>
+</div>
+<div class="md:col-span-4 space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
+<h4 class="text-sm uppercase font-black text-gold-400 tracking-widest">您的专属推荐人</h4>
+<div class="space-y-3 text-sm">
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-slate-300 font-medium">推荐人姓名：</span>
+<span class="text-white font-black" id="metaSponsorName">加载中...</span>
+</div>
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-slate-300 font-medium">直接联系渠道：</span>
+<span class="text-gold-400 font-black" id="metaSponsorChannel">LINE 应用</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-300 font-medium">推荐代码：</span>
+<span class="text-white font-mono font-black text-gradient-gold text-base" id="metaSponsorRefCode">加载中...</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-white/5 pt-6 text-center md:text-left space-y-4">
+<div class="p-6 bg-black/40 rounded-2xl border border-white/5">
+<h5 class="text-xs uppercase font-black text-white tracking-widest mb-2">⚠️ 重要法律与收入免责声明</h5>
+<p class="text-xs text-slate-400 leading-relaxed font-medium">
+                        个人表现指标、网络扩展与被动收益分配，完全取决于个人学习投入、持续行动、运营能力、投入时间，以及在系统条款内的执行情况。Project Everest 不提供自动化收入保证、绝对每日利润比例，也不承诺未来财务回报。页面所示系统指标仅代表架构设计，不应被理解为投资招揽参数。
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-4 pt-4 font-semibold">
+<span>© 2026 Project Everest 生态系统。采用高端复制技术开发。保留所有权利。</span>
+<div class="flex space-x-4">
+<a class="text-emeraldGlow-500 hover:text-emeraldGlow-600 transition-colors font-black text-sm" href="#" id="thaiLanguageToggleFooter" target="_blank" title="Switch to English Language">🇺🇸 Switch to English</a>
+<a class="hover:text-gold-400 transition-colors" href="#">隐私政策</a>
+<a class="hover:text-gold-400 transition-colors" href="#">服务条款</a>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- MOBILE BOTTOM FIXED MENU NAVIGATION -->
+<div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-navy-950/95 border-t border-white/10 backdrop-blur-lg px-3 py-3 flex items-center justify-between gap-2 shadow-premium">
+<div class="flex items-center space-x-2">
+<div class="relative w-10 h-10 flex-shrink-0">
+<img alt="教练移动端头像" class="w-full h-full rounded-full object-cover border border-gold-500/20" id="mobileSponsorThumb" src="https://everest191.com/en/images/coachpaul.png"/>
+<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-navy-950 bg-emerald-500 animate-pulse"></span>
+</div>
+<div class="text-left overflow-hidden">
+<span class="text-[9px] text-slate-300 block leading-none font-medium uppercase tracking-widest">顾问</span>
+<span class="text-[11px] font-black text-white block mt-1 truncate max-w-[70px]" id="mobileSponsorName">教练</span>
+</div>
+</div>
+<div class="flex space-x-2 flex-grow justify-end items-center">
+<a class="px-3 py-2 rounded-full bg-navy-900 text-neutral-200 flex items-center justify-center border border-white/5 flex-shrink-0" href="#" id="mobileSponsorLineBtn" target="_blank">
+<i class="fab fa-line text-[#06C755] text-lg"></i>
+</a>
+<a class="luxury-dynamic-btn px-4 py-2.5 rounded-full font-black text-[11px] text-center block flex-shrink-0" href="#" id="mobileSponsorRegisterBtn" target="_blank">
+<span>立即加入</span>
+</a>
+</div>
+</div>
+<!-- DYNAMIC REGISTRATION TOAST NOTIFICATION POPUP -->
+<div class="fixed bottom-[90px] sm:bottom-6 left-4 sm:left-6 z-[9999] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-full" id="reg-toast">
+<div class="bg-navy-950 border border-emeraldGlow-500/30 p-4.5 rounded-2xl flex items-center space-x-3.5 shadow-luxury-gold backdrop-blur-lg">
+<div class="w-10 h-10 rounded-full bg-gradient-to-r from-emeraldGlow-500 to-teal-400 flex items-center justify-center text-navy-950 font-black flex-shrink-0">
+<i class="fas fa-user-plus text-base animate-pulse"></i>
+</div>
+<div class="flex-1 min-w-0 text-left">
+<span class="text-[9px] text-emeraldGlow-500 uppercase tracking-widest font-black block">新平台注册</span>
+<span class="text-sm sm:text-base font-bold text-white block truncate" id="toast-name">...</span>
+<span class="text-xs sm:text-sm text-slate-200 block truncate" id="toast-action">...</span>
+</div>
+<button class="text-slate-400 hover:text-white ml-auto flex-shrink-0" onclick="dismissToast()">
+<i class="fas fa-xmark text-xs"></i>
+</button>
+</div>
+</div>
+<!-- MAIN JAVASCRIPT LAYER -->
+<script>
+        // Global Fallback Coach Profile
+        const fallbackCoachProfile = {
+            "key": "coachpaul",
+            "name_th": "โค้ชพล",
+            "name_en": "Coach Paul",
+            "phone": "+66952539634",
+            "line_url": "https://lin.ee/ScFhI5r",
+            "register_link": "https://everest-media.co/register?ref=E000694",
+            "image_url": "https://raw.githubusercontent.com/givergroup/everest/refs/heads/main/en/images/coachpaul.png"
+        };
+
+        let activeCoach = { ...fallbackCoachProfile };
+
+        const latestKnownMetrics = {
+            students: 5282,
+            satisfaction: 95
+        };
+
+        // Live enrollments pipeline data
+        const liveRegistrations = [
+            { name: "Alexander K.", package: "旗舰版配套", country: "🇺🇸 美国" },
+            { name: "Emily R.", package: "高级版配套", country: "🇬🇧 英国" },
+            { name: "David L.", package: "旗舰版配套", country: "🇦🇺 澳大利亚" },
+            { name: "Sophia M.", package: "进阶版配套", country: "🇨🇦 加拿大" },
+            { name: "Jessica W.", package: "入门版配套", country: "🇳🇿 新西兰" },
+            { name: "Daniel K.", package: "旗舰版配套", country: "🇩🇪 德国" },
+            { name: "Olivia H.", package: "旗舰版配套", country: "🇬🇧 英国" },
+            { name: "Alexander G.", package: "旗舰版配套", country: "🇨🇭 瑞士" },
+            { name: "Sarah P.", package: "进阶版配套", country: "🇸🇬 新加坡" },
+            { name: "Matthew C.", package: "高级版配套", country: "🇺🇸 美国" },
+            { name: "Isabella T.", package: "旗舰版配套", country: "🇫🇷 法国" },
+            { name: "James F.", package: "入门版配套", country: "🇮🇪 爱尔兰" },
+            { name: "Charlotte N.", package: "旗舰版配套", country: "🇳🇱 荷兰" },
+            { name: "Robert M.", package: "旗舰版配套", country: "🇦🇺 澳大利亚" },
+            { name: "Abigail D.", package: "进阶版配套", country: "🇬🇧 英国" },
+            { name: "William J.", package: "高级版配套", country: "🇨🇦 加拿大" },
+            { name: "Madison O.", package: "旗舰版配套", country: "🇺🇸 美国" },
+            { name: "Joseph V.", package: "旗舰版配套", country: "🇮🇹 意大利" },
+            { name: "Elizabeth Y.", package: "入门版配套", country: "🇸🇪 瑞典" },
+            { name: "Andrew Q.", package: "旗舰版配套", country: "🇩🇰 丹麦" },
+            { name: "Chloe R.", package: "进阶版配套", country: "🇳🇴 挪威" },
+            { name: "Christopher S.", package: "高级版配套", country: "🇺🇸 美国" },
+            { name: "Mia L.", package: "旗舰版配套", country: "🇬🇧 英国" },
+            { name: "Daniel A.", package: "旗舰版配套", country: "🇫🇮 芬兰" },
+            { name: "Evelyn T.", package: "进阶版配套", country: "🇦🇺 澳大利亚" },
+            { name: "Anthony C.", package: "旗舰版配套", country: "🇨🇭 瑞士" },
+            { name: "Harper G.", package: "入门版配套", country: "🇨🇦 加拿大" },
+            { name: "Ethan F.", package: "高级版配套", country: "🇺🇸 美国" },
+            { name: "Sofia B.", package: "旗舰版配套", country: "🇪🇸 西班牙" },
+            { name: "Ryan W.", package: "旗舰版配套", country: "🇬🇧 英国" },
+            { name: "Grace H.", package: "旗舰版配套", country: "🇳🇿 新西兰" },
+            { name: "Nicholas P.", package: "进阶版配套", country: "🇦🇹 奥地利" },
+            { name: "Natalie D.", package: "高级版配套", country: "🇸🇬 新加坡" },
+            { name: "Christian J.", package: "旗舰版配套", country: "🇺🇸 美国" },
+            { name: "Lily M.", package: "旗舰版配套", country: "🇮🇪 爱尔兰" },
+            { name: "Tyler S.", package: "入门版配套", country: "🇨🇦 加拿大" },
+            { name: "Victoria K.", package: "旗舰版配套", country: "🇩🇪 德国" },
+            { name: "Brandon L.", package: "进阶版配套", country: "🇺🇸 美国" },
+            { name: "Emily O.", package: "高级版配套", country: "🇬🇧 英国" },
+            { name: "Samuel N.", package: "旗舰版配套", country: "🇫🇷 法国" },
+            { name: "Zoey A.", package: "旗舰版配套", country: "🇦🇺 澳大利亚" },
+            { name: "Benjamin R.", package: "入门版配套", country: "🇨🇭 瑞士" },
+            { name: "Penelope V.", package: "旗舰版配套", country: "🇳🇱 荷兰" },
+            { name: "Dylan Y.", package: "进阶版配套", country: "🇺🇸 美国" },
+            { name: "Layla H.", package: "高级版配套", country: "🇳🇿 新西兰" },
+            { name: "Gabriel S.", package: "旗舰版配套", country: "🇬🇧 英国" },
+            { name: "Anna T.", package: "旗舰版配套", country: "🇩🇪 德国" },
+            { name: "Logan M.", package: "进阶版配套", country: "🇨🇦 加拿大" },
+            { name: "Stella P.", package: "旗舰版配套", country: "🇺🇸 美国" },
+            { name: "Jonathan B.", package: "入门版配套", country: "🇦🇺 澳大利亚" }
+        ];
+
+        let lastTickerIndex = -1;
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function normalizeImageUrl(url) {
+            if (!url) return "";
+            const cleanUrl = String(url).trim();
+            if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://") || cleanUrl.startsWith("data:")) return cleanUrl;
+            
+            let filename = cleanUrl;
+            if (cleanUrl.includes("/")) {
+                const parts = cleanUrl.split("/");
+                filename = parts[parts.length - 1];
+            }
+            return `https://everest191.com/en/images/${filename}`;
+        }
+
+        function normalizeKey(value) {
+            return String(value || '').toLowerCase().trim().replace(/^@/, '').replace(/\s+/g, '');
+        }
+
+        function getReferralCode(registerLink) {
+            try {
+                const parsedUrl = new URL(registerLink, window.location.origin);
+                return parsedUrl.searchParams.get('ref') || 'N/A';
+            } catch (error) {
+                return 'N/A';
+            }
+        }
+
+        function toWhatsAppUrl(phoneValue, fallbackLineUrl) {
+            const raw = String(phoneValue || '').trim();
+            if (!raw || /line|contact/i.test(raw)) return fallbackLineUrl || '#';
+            let digits = raw.replace(/[^\d+]/g, '');
+            if (digits.startsWith('+')) digits = digits.slice(1);
+            else if (digits.startsWith('0')) digits = '66' + digits.slice(1);
+            return digits ? `https://wa.me/${digits}` : (fallbackLineUrl || '#');
+        }
+
+        function setText(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = value || '';
+        }
+
+        function setHref(id, value) {
+            const el = document.getElementById(id);
+            if (el && value) el.href = value;
+        }
+
+        // Core dynamic fetch initialization
+        async function initializeCoachProfile() {
+            const refParam = getQueryParam("ref") || getQueryParam("sponsor") || getQueryParam("member") || getQueryParam("code") || "coachpaul";
+            const requestedKey = normalizeKey(refParam);
+
+            try {
+                // Direct fetch call to dedicated individual .json file
+                const response = await fetch(`/data/members/${requestedKey}.json?v=${Date.now()}`, {
+                    cache: "no-store"
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Unable to fetch individual member file: ${requestedKey}.json`);
+                }
+
+                const data = await response.json();
+
+                activeCoach = {
+                    key: requestedKey,
+                    name_th: data.name_th || "",
+                    name_en: data.name_en || "",
+                    phone: data.phone || data.Phone || "",
+                    line_url: data.line_url || data.line || data.Line || "",
+                    register_link: data.register_link || data.register_url || data.signup_url || "",
+                    image_url: normalizeImageUrl(data.image_url || data.image || data.photo)
+                };
+                console.log(`已成功加载单一 JSON 配置：${requestedKey}`);
+            } catch (error) {
+                console.warn("正在切换到全局备用 Coach Paul 推荐人资料：", error);
+                activeCoach = { ...fallbackCoachProfile, key: requestedKey || fallbackCoachProfile.key };
+            }
+
+            // Execute precision dynamic mapping across templates
+            applyCoachProfile(activeCoach);
+        }
+
+        function applyCoachProfile(coach) {
+            const coachName = coach.name_en || coach.name_th || "Coach Paul";
+            const referralCode = getReferralCode(coach.register_link);
+            const whatsappUrl = toWhatsAppUrl(coach.phone, coach.line_url);
+            const imgUrl = coach.image_url || 'https://placehold.co/150x150/0b1329/f1f5f9?text=Everest';
+
+            // DOM Text updates
+            setText('navbarSponsorName', coachName);
+            setText('sponsorTaglineName', coachName);
+            setText('sponsorCardName', coachName);
+            setText('footerSponsorName', coachName);
+            setText('mobileSponsorName', coachName);
+            setText('metaSponsorName', coachName);
+            setText('metaSponsorRefCode', referralCode);
+
+            // DOM Image updates
+            const cardImg = document.getElementById('sponsorCardImage');
+            if (cardImg) { cardImg.src = imgUrl; cardImg.alt = coachName; }
+            const footerThumb = document.getElementById('footerSponsorThumb');
+            if (footerThumb) { footerThumb.src = imgUrl; footerThumb.alt = coachName; }
+            const mobileThumb = document.getElementById('mobileSponsorThumb');
+            if (mobileThumb) { mobileThumb.src = imgUrl; mobileThumb.alt = coachName; }
+
+            // Link updates
+            setHref('sponsorLineLink', coach.line_url);
+            setHref('sponsorRegisterLink', coach.register_link);
+            setHref('bigPrimaryRegisterBtn', coach.register_link);
+            setHref('mobileSponsorLineBtn', coach.line_url);
+            setHref('mobileSponsorRegisterBtn', coach.register_link);
+            setHref('softCtaLineBtn', coach.line_url);
+            setHref('softCtaWhatsAppBtn', whatsappUrl);
+
+            const waBtn = document.getElementById('sponsorWhatsAppLink');
+            if (waBtn) {
+                waBtn.href = whatsappUrl;
+                waBtn.innerText = (whatsappUrl === coach.line_url) ? 'LINE 咨询' : 'WhatsApp';
+            }
+
+            document.querySelectorAll('.package-cta-btn').forEach(btn => { 
+                btn.href = coach.register_link; 
+            });
+
+            // Replicated target switch URLs
+            const dynamicEnglishUrl = `https://everest191.com/en/?ref=${encodeURIComponent(coach.key)}`;
+            setHref('thaiLanguageToggle', dynamicEnglishUrl);
+            setHref('thaiLanguageToggleFooter', dynamicEnglishUrl);
+        }
+
+        // Live stats database sync mechanics
+        function formatIntegerMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return latestKnownMetrics.students.toLocaleString('en-US');
+            return Math.round(number).toLocaleString('en-US');
+        }
+
+        function formatPercentMetric(value) {
+            const number = Number(String(value || '').replace(/[^\d.-]/g, ''));
+            if (!Number.isFinite(number)) return latestKnownMetrics.satisfaction + '%';
+            return Math.round(number) + '%';
+        }
+
+        function setMetricsStatus(message, isLive = false) {
+            const status = document.getElementById('officialMetricsStatus');
+            if (!status) return;
+
+            status.innerHTML = `
+                <span class="w-2 h-2 rounded-full ${isLive ? 'bg-emeraldGlow-500' : 'bg-amber-500'} animate-pulse"></span>
+                <span>${message}</span>
+            `;
+        }
+
+        function renderOfficialMetrics(metrics, isLive = false) {
+            const studentsValue = formatIntegerMetric(metrics.students);
+            const satisfactionValue = formatPercentMetric(metrics.satisfaction);
+
+            document.querySelectorAll('[data-realtime-students]').forEach(el => {
+                el.textContent = studentsValue;
+            });
+
+            document.querySelectorAll('[data-realtime-satisfaction]').forEach(el => {
+                el.textContent = satisfactionValue;
+            });
+
+            const updatedTime = new Date().toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+
+            setMetricsStatus(
+                isLive
+                    ? `已与 everest-media.co 主数据库实时同步 • ${updatedTime}`
+                    : `备用服务器在线 • 正在等待数据流`,
+                isLive
+            );
+        }
+
+        async function fetchOfficialMetricsFromLocalApi() {
+            const response = await fetch('/api/everest-stats?ts=' + Date.now(), {
+                cache: 'no-store'
+            });
+
+            if (!response.ok) {
+                throw new Error(`Metrics API HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.ok !== true) {
+                throw new Error(data.error || 'Metrics API returned ok:false');
+            }
+
+            const students = Number(data.students);
+            const satisfaction = Number(data.satisfaction);
+
+            if (!Number.isFinite(students) || students <= 0) {
+                throw new Error('指标 API 返回无效会员数量。');
+            }
+
+            return {
+                students,
+                satisfaction: Number.isFinite(satisfaction) && satisfaction > 0 ? satisfaction : latestKnownMetrics.satisfaction,
+                ok: true,
+                updatedAt: data.updatedAt
+            };
+        }
+
+        async function syncOfficialEverestMetrics() {
+            try {
+                const metrics = await fetchOfficialMetricsFromLocalApi();
+                renderOfficialMetrics(metrics, true);
+            } catch (error) {
+                console.warn('实时数据 API 暂不可用，正在显示最新备用数据。', error);
+                renderOfficialMetrics(latestKnownMetrics, false);
+            }
+        }
+
+        // Interactive Live Ticker pipeline loops
+        function getRandomTickerIndex() {
+            if (!Array.isArray(liveRegistrations) || liveRegistrations.length === 0) return -1;
+            if (liveRegistrations.length === 1) { lastTickerIndex = 0; return 0; }
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * liveRegistrations.length);
+            } while (randomIndex === lastTickerIndex);
+            lastTickerIndex = randomIndex;
+            return randomIndex;
+        }
+
+        function updateLiveTicker() {
+            const container = document.getElementById('liveTickerContainer');
+            if (!container) return;
+            const randomIndex = getRandomTickerIndex();
+            if (randomIndex === -1) return;
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                const reg = liveRegistrations[randomIndex];
+                container.innerHTML = `🔥 <span class="text-white">${reg.name}</span>（${reg.country}）已成功解锁 <span class="text-emeraldGlow-500 font-extrabold underline decoration-dotted decoration-emeraldGlow-400">${reg.package}</span>！`;
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        function showRegistrationToast() {
+            const toast = document.getElementById('reg-toast');
+            const nameEl = document.getElementById('toast-name');
+            const actionEl = document.getElementById('toast-action');
+
+            if (!toast || !nameEl || !actionEl) return;
+
+            const randomReg = liveRegistrations[Math.floor(Math.random() * liveRegistrations.length)];
+
+            nameEl.textContent = `${randomReg.name}（${randomReg.country}）`;
+            actionEl.textContent = `已成功解锁 ${randomReg.package}！`;
+
+            toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => dismissToast(), 4500);
+        }
+
+        function dismissToast() {
+            const toast = document.getElementById('reg-toast');
+            if (!toast) return;
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+        }
+
+        function scheduleNextRegistrationToast() {
+            setTimeout(() => {
+                showRegistrationToast();
+                scheduleNextRegistrationToast();
+            }, Math.floor(Math.random() * (14000 - 8000 + 1)) + 8000);
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load and initialize individual profile setup
+            await initializeCoachProfile();
+
+            // Stats sync initialization
+            renderOfficialMetrics(latestKnownMetrics, false);
+            await syncOfficialEverestMetrics();
+            setInterval(syncOfficialEverestMetrics, 30000);
+
+            // Ticker loop execution
+            updateLiveTicker();
+            setInterval(updateLiveTicker, 4000);
+
+            setTimeout(() => {
+                showRegistrationToast();
+                scheduleNextRegistrationToast();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
